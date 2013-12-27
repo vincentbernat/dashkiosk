@@ -24,27 +24,15 @@ import android.view.WindowManager;
 
 import com.deezer.android.dashkiosk.DashboardWebView;
 
-public class DashboardActivity extends Activity implements View.OnSystemUiVisibilityChangeListener {
+public class DashboardActivity extends Activity {
     private DashboardWebView mWebView;
 
     /**
-     * Hide navigation bar. And try to make it permanent (don't really work).
+     * Hide navigation bar. Not permanent.
      */
     private void hideNavigationBar() {
         View decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(this);
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-    }
-
-    /**
-     * Hide again navigation bar if needed.
-     */
-    @Override
-    public void onSystemUiVisibilityChange(int visibility) {
-        if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
-            View decorView = getWindow().getDecorView();
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
     }
 
     /**
