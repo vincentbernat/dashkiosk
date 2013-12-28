@@ -37,7 +37,6 @@ public class DashboardActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.hideNavigationBar();
-
         this.setContentView(R.layout.main);
     }
 }

@@ -56,6 +56,7 @@ public class DashboardWebView extends WebView {
     protected void onAttachedToWindow() {
         WebSettings ws = this.getSettings();
         ws.setJavaScriptEnabled(true);
+        ws.setMediaPlaybackRequiresUserGesture(false);
 
         this.loadUrl("about:blank");
         this.setWebViewClient(new WebViewClient() {
