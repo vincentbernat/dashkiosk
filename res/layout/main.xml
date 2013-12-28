@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.deezer.android.dashkiosk.DashboardWebView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/webview"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:keepScreenOn="true"
-    android:clickable="false"
-    android:scrollbars="none"
-    android:focusable="false"
-/>
+    xmlns:custom="http://schemas.android.com/apk/res/com.deezer.android.dashkiosk"
+    android:id="@+id/aLayout"                 
+    android:layout_width="fill_parent"                 
+    android:layout_height="fill_parent">
+  <com.deezer.android.dashkiosk.DashboardWebView
+      android:id="@+id/webview1"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:keepScreenOn="true"
+      android:clickable="false"
+      android:scrollbars="none"
+      android:focusable="false"
+      android:visibility="visible"
+      custom:swapWith="@+id/webview2"
+      />
+  <com.deezer.android.dashkiosk.DashboardWebView
+      android:id="@+id/webview2"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:keepScreenOn="true"
+      android:clickable="false"
+      android:scrollbars="none"
+      android:focusable="false"
+      android:visibility="gone"
+      custom:swapWith="@+id/webview1"
+      />
+</RelativeLayout>

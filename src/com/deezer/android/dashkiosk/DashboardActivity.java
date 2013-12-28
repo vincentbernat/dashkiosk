@@ -90,7 +90,10 @@ public class DashboardActivity extends Activity {
                     @Override
                     public void handleMessage(Message msg) {
                         DashboardURL url = (DashboardURL) msg.obj;
-                        DashboardWebView wv = (DashboardWebView) findViewById(R.id.webview);
+                        // Load the invisible webview
+                        DashboardWebView wv1 = (DashboardWebView) findViewById(R.id.webview1);
+                        DashboardWebView wv2 = (DashboardWebView) findViewById(R.id.webview2);
+                        DashboardWebView wv = (wv1.getVisibility() == View.VISIBLE)?wv2:wv1;
                         hideNavigationBar();
                         wv.loadUrl(url != null ? url.getURL() : "about:blank");
                     }

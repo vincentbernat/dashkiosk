@@ -1,0 +1,5 @@
+<resources>
+   <declare-styleable name="DashboardWebView">
+       <attr name="swapWith" format="reference" />
+   </declare-styleable>
+</resources>

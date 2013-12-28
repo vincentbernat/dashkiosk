@@ -17,10 +17,12 @@
 package com.deezer.android.dashkiosk;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings;
@@ -33,15 +35,18 @@ import android.webkit.WebSettings;
 public class DashboardWebView extends WebView {
 
     private static final String TAG = "DashKiosk";
+    private int swapWithId;
 
-    public DashboardWebView(Context context) {
-        super(context);
-    }
     public DashboardWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-    public DashboardWebView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+            attrs, R.styleable.DashboardWebView,
+            0, 0);
+        try {
+            swapWithId = a.getResourceId(R.styleable.DashboardWebView_swapWith, 0);
+        } finally {
+            a.recycle();
+        }
     }
 
     /**
@@ -71,8 +76,21 @@ public class DashboardWebView extends WebView {
                     view.loadUrl(url);
                     return true;
                 }
+                @Override
                 public boolean shouldOverrideKeyEvent(WebView view, KeyEvent event) {
                     return true;
+                }
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    // Swap with the other webview
+                    if (swapWithId != 0) {
+                        View other = getRootView().findViewById(swapWithId);
+                        if (other != null) {
+                            Log.d(TAG, "New page reasdy, swap with old page");
+                            other.setVisibility(View.GONE);
+                            view.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
             });
     }
