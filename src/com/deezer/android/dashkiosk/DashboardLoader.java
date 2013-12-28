@@ -136,6 +136,10 @@ public class DashboardLoader {
                         Message urlMessage = mHandler.obtainMessage(0, url);
                         Log.i(TAG, "Display url=" + url.getURL());
                         urlMessage.sendToTarget();
+                        if (url.getDelay() == 0) {
+                            Log.i(TAG, "URL url=" + url.getURL() + " should be displayed forever");
+                            throw new InterruptedException();
+                        }
                         Log.i(TAG, "And sleep for delay=" + url.getDelay());
                         Thread.sleep(url.getDelay() * 1000);
                     }
