@@ -1,8 +1,8 @@
 [
     { "url": "https://status.github.com",
-      "delay": 10 },
+      "delay": 20 },
     { "url": "http://dashingdemo.herokuapp.com/sample",
       "delay": 30 },
-    { "url": "http://vimeo.com/4749536",
-      "delay": 60 }
+    { "url": "http://ganglia.wikimedia.org/latest/",
+      "delay": 30 }
 ]
