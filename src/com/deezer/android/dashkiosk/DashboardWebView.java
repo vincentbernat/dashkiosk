@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.deezer.dashkiosk;
+package com.deezer.android.dashkiosk;
 
 import android.content.Context;
 import android.view.KeyEvent;
@@ -37,7 +37,7 @@ public class DashboardWebView extends WebView {
     /**
      * When loading an "empty" URL, just display the loading page.
      */
-    public loadUrl() {
+    public void loadUrl() {
         this.loadUrl("file:///android_asset/html/loading.html");
     }
 

@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.deezer.dashkiosk;
+package com.deezer.android.dashkiosk;
 
 import android.app.Activity;
 import android.os.Bundle;
