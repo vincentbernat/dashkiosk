@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Dash Kiosk</string>
+    <string name="preferences">Dash Kiosk preferences</string>
+    <string name="pref_ping_url">Ping URL</string>
+    <string name="pref_ping_url_summary">Grab the list of URL to display from this URL</string>
+    <string name="pref_ping_timeout">Ping timeout</string>
+    <string name="pref_ping_timeout_summary">Timeout in milliseconds when retrieving ping URL</string>
+    <string name="pref_ping_sleep">Ping sleep interval</string>
+    <string name="pref_ping_sleep_summary">Interval in seconds between ping URL retrievals</string>
 </resources>

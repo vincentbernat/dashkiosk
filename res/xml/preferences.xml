@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <EditTextPreference
+      android:key="pref_ping_url"
+      android:title="@string/pref_ping_url"
+      android:summary="@string/pref_ping_url_summary"
+      android:defaultValue="http://192.168.116.1:8000/dashboards.json" />
+  <EditTextPreference
+      android:key="pref_ping_timeout"
+      android:title="@string/pref_ping_timeout"
+      android:summary="@string/pref_ping_timeout_summary"
+      android:numeric="integer"
+      android:maxLength="5"
+      android:defaultValue="2000" />
+  <EditTextPreference
+      android:key="pref_ping_sleep"
+      android:title="@string/pref_ping_sleep"
+      android:summary="@string/pref_ping_sleep_summary"
+      android:numeric="integer"
+      android:maxLength="4"
+      android:defaultValue="30" />
+</PreferenceScreen>

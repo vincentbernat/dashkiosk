@@ -25,5 +25,12 @@
         <category android:name="android.intent.category.HOME" />
       </intent-filter>
     </activity>
+    <activity android:name="DashboardPreferences"
+              android:label="@string/preferences">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
   </application>
 </manifest>

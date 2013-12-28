@@ -18,6 +18,7 @@ package com.deezer.android.dashkiosk;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.webkit.WebView;
@@ -30,6 +31,8 @@ import android.webkit.WebSettings;
  * another URL to load.
  */
 public class DashboardWebView extends WebView {
+
+    private static final String TAG = "DashKiosk";
 
     public DashboardWebView(Context context) {
         super(context);
@@ -45,9 +48,11 @@ public class DashboardWebView extends WebView {
      * When loading an "empty" URL, just display the loading page.
      */
     public void loadUrl(String url) {
-        if (url.equals("about:blank")) {
+        if (url == null || url.equals("about:blank")) {
+            Log.d(TAG, "Display loading page");
             super.loadUrl("file:///android_asset/html/loading.html");
         } else {
+            Log.d(TAG, "Display url=" + url);
             super.loadUrl(url);
         }
     }
@@ -58,7 +63,6 @@ public class DashboardWebView extends WebView {
         ws.setJavaScriptEnabled(true);
         ws.setMediaPlaybackRequiresUserGesture(false);
 
-        this.loadUrl("about:blank");
         this.setWebViewClient(new WebViewClient() {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {

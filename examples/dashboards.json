@@ -1,0 +1,8 @@
+[
+    { "url": "https://status.github.com",
+      "delay": 10 },
+    { "url": "http://dashingdemo.herokuapp.com/sample",
+      "delay": 30 },
+    { "url": "http://vimeo.com/4749536",
+      "delay": 60 }
+]

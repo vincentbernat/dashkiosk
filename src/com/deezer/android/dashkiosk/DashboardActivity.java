@@ -16,15 +16,29 @@
 
 package com.deezer.android.dashkiosk;
 
+import java.util.*;
+
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.deezer.android.dashkiosk.DashboardWebView;
+import com.deezer.android.dashkiosk.DashboardLoader;
+import com.deezer.android.dashkiosk.DashboardURL;
 
 public class DashboardActivity extends Activity {
+
+    private static final String TAG = "DashKiosk";
+    private DashboardLoader mLoader;
+
     /**
      * Hide navigation bar. Not permanent.
      */
@@ -36,7 +50,41 @@ public class DashboardActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.hideNavigationBar();
-        this.setContentView(R.layout.main);
+
+        Log.i(TAG, "Main activity created");
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
+        hideNavigationBar();
+        setContentView(R.layout.main);
     }
+
+    @Override
+    public void onStart() {
+        // React to loader thread
+        super.onStart();
+
+        Handler mHandler;
+        if (mLoader == null) {
+            mHandler = new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        DashboardURL url = (DashboardURL) msg.obj;
+                        DashboardWebView wv = (DashboardWebView) findViewById(R.id.webview);
+                        hideNavigationBar();
+                        wv.loadUrl(url != null ? url.getURL() : "about:blank");
+                    }
+                };
+            mLoader = new DashboardLoader(getApplication(), mHandler);
+            mLoader.start();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mLoader != null) {
+            mLoader.stop();
+            mLoader = null;
+        }
+    }
+
 }
