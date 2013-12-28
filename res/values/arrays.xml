@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_general_orientation_entries">
+        <item>Landscape</item>
+        <item>Portrait</item>
+        <item>Automatic</item>
+    </string-array>
+
+    <string-array name="pref_general_orientation_values">
+        <item>LANDSCAPE</item>
+        <item>PORTRAIT</item>
+        <item>AUTOMATIC</item>
+    </string-array>
+</resources>

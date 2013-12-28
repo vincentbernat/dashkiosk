@@ -21,6 +21,8 @@ import java.util.*;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Loader;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -47,12 +49,33 @@ public class DashboardActivity extends Activity {
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
 
+    /**
+     * Set orientation.
+     */
+    private void setOrientation() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        String orientation = sharedPref.getString("pref_general_orientation", null);
+        if (orientation.equals("LANDSCAPE")) {
+            Log.i(TAG, "Forcing orientation to landscape");
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else if (orientation.equals("PORTRAIT")) {
+            Log.i(TAG, "Forcing orientation to portrait");
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else if (orientation.equals("AUTOMATIC")) {
+            Log.i(TAG, "Automatic orientation");
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        } else {
+            Log.i(TAG, "No orientation change");
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Log.i(TAG, "Main activity created");
         PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
+        setOrientation();
         hideNavigationBar();
         setContentView(R.layout.main);
     }
