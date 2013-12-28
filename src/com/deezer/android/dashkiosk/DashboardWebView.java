@@ -86,7 +86,7 @@ public class DashboardWebView extends WebView {
                     if (swapWithId != 0) {
                         View other = getRootView().findViewById(swapWithId);
                         if (other != null) {
-                            Log.d(TAG, "New page reasdy, swap with old page");
+                            Log.d(TAG, "New page ready, swap with old page");
                             other.setVisibility(View.GONE);
                             view.setVisibility(View.VISIBLE);
                         }
