@@ -77,6 +77,7 @@ public class DashboardLoader {
             mPingURL = null;
 
             Log.i(TAG, "Trying to discover dashboard service");
+            final Object discovered = new Object();
             final NsdManager.ResolveListener mResolveListener = new NsdManager.ResolveListener() {
                     @Override
                     public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
@@ -89,6 +90,9 @@ public class DashboardLoader {
                         mPingURL = "http:/" + serviceInfo.getHost().toString() + ":" +
                             serviceInfo.getPort() + "/dashboards.json";
                         Log.i(TAG, "Ping URL is url=" + mPingURL);
+                        synchronized(discovered) {
+                            discovered.notify();
+                        }
                     }
                 };
             final NsdManager.DiscoveryListener mDiscoveryListener = new NsdManager.DiscoveryListener() {
@@ -100,6 +104,9 @@ public class DashboardLoader {
                     @Override
                     public void onDiscoveryStopped(String serviceType) {
                         Log.i(TAG, "Service discovery stopped");
+                        synchronized(discovered) {
+                            discovered.notify();
+                        }
                     }
 
                     @Override
@@ -128,13 +135,22 @@ public class DashboardLoader {
             mNsdManager.discoverServices("_http._tcp",
                                          NsdManager.PROTOCOL_DNS_SD,
                                          mDiscoveryListener);
-            Thread.sleep(1000); // Don't try to be clever
-            mNsdManager.stopServiceDiscovery(mDiscoveryListener);
+            try {
+                // Wait for at most 10 seconds
+                synchronized(discovered) {
+                    discovered.wait(10000);
+                }
+            } finally {
+                mNsdManager.stopServiceDiscovery(mDiscoveryListener);
+            }
         }
 
         private List<DashboardURL> fetchPingURL() throws InterruptedException {
             discoverURL();
-            if (mPingURL == null) return null;
+            if (mPingURL == null) {
+                Log.e(TAG, "Unknown ping URL, cannot continue");
+                return null;
+            }
 
             try {
                 Log.i(TAG, "Fetching ping URL url=" + mPingURL);
@@ -194,6 +210,7 @@ public class DashboardLoader {
                     while (mURLs == null) {
                         mURLs = fetchPingURL();
                         if (mURLs == null) {
+                            Log.i(TAG, "No URL to display, wait seconds=" + mSleep);
                             Thread.sleep(mSleep * 1000);
                         }
                     }

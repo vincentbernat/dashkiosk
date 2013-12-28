@@ -82,7 +82,6 @@ public class DashboardActivity extends Activity {
 
     @Override
     public void onStart() {
-        // React to loader thread
         super.onStart();
 
         Handler mHandler;
