@@ -62,6 +62,7 @@ public class DashboardWebView extends WebView {
         this.setWebViewClient(new WebViewClient() {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
                     return true;
                 }
                 public boolean shouldOverrideKeyEvent(WebView view, KeyEvent event) {
@@ -69,4 +70,23 @@ public class DashboardWebView extends WebView {
                 }
             });
     }
+
+    // More events disabled
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        return true;
+    }
+    @Override
+    public boolean onHoverEvent(MotionEvent event) {
+        return true;
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return true;
+    }
+    @Override
+    public boolean onTrackballEvent(MotionEvent event) {
+        return true;
+    }
+
 }
