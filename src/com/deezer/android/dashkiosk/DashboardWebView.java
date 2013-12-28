@@ -62,6 +62,8 @@ public class DashboardWebView extends WebView {
         WebSettings ws = this.getSettings();
         ws.setJavaScriptEnabled(true);
         ws.setMediaPlaybackRequiresUserGesture(false);
+        ws.setLoadWithOverviewMode(true);
+        ws.setUseWideViewPort(true);
 
         this.setWebViewClient(new WebViewClient() {
                 @Override
