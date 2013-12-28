@@ -37,8 +37,12 @@ public class DashboardWebView extends WebView {
     /**
      * When loading an "empty" URL, just display the loading page.
      */
-    public void loadUrl() {
-        this.loadUrl("file:///android_asset/html/loading.html");
+    public void loadUrl(String url) {
+        if (url.equals("about:blank")) {
+            super.loadUrl("file:///android_asset/html/loading.html");
+        } else {
+            super.loadUrl(url);
+        }
     }
 
     @Override
@@ -46,7 +50,7 @@ public class DashboardWebView extends WebView {
         WebSettings ws = this.getSettings();
         ws.setJavaScriptEnabled(true);
 
-        this.loadUrl();
+        this.loadUrl("about:blank");
         this.setWebViewClient(new WebViewClient() {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
