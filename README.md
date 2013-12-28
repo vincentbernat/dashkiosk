@@ -30,6 +30,10 @@ example, with `adb`:
     adb shell am start -n \
        com.deezer.android.dashkiosk/com.deezer.android.dashkiosk.DashboardPreferences
 
+By default, the application is locked in landscape mode since most
+dashboards work (and TV) work this way. You can change this in
+`AndroidManifest.xml` (search for `ScreenOrientation`).
+
 Ping URL
 --------
 
