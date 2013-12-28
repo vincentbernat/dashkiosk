@@ -22,16 +22,29 @@ change the loading screen, have a look at `assets/html/loading.html`
 as well as the linked files `assets/stylesheets/loading.css` and
 `assets/images/loading.svg`.
 
-You can change the URL to ping to get the list of URL to display in
-`res/xml/preferences.xml`. Those preferences settings are not
-available at runtime unless you trigger the activity manually. For
-example, with `adb`:
+Some preferences settings are available in `res/xml/preferences`. You
+can modify them at compile time or at runtime. In the later case, you
+need to trigger the activity manually. For example, with `adb`:
 
     adb shell am start -n \
        com.deezer.android.dashkiosk/com.deezer.android.dashkiosk.DashboardPreferences
 
+By default, the URL to ping will be discovered through network service
+discovery. You can advertise the appropriate host with `avahi`:
+
+    avahi-publish -s "dashkiosk" _http._tcp 8000 "Beautiful dashboards"
+
+DashKiosk will detect this service because of the service name
+(`dashkiosk`) and the service type (`_http._tcp`). The requested URL
+will be the one built from the service name and `/dashboards.json`.
+
+Once it is working, you can put an appropriate service file in
+`/etc/avahi/services/` to let this service be advertised at boot. You
+can also specify directly the URL to ping if you don't want to rely on
+network discovery.
+
 By default, the application is locked in landscape mode since most
-dashboards work (and TV) work this way. This can also be changed in
+dashboards (and TV) work this way. This can also be changed in
 `res/xml/preferences.xml`.
 
 Ping URL

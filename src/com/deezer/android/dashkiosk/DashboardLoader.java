@@ -24,6 +24,7 @@ import org.json.*;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.nsd.*;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -38,19 +39,23 @@ import com.deezer.android.dashkiosk.DashboardURL;
 public class DashboardLoader {
 
     private static final String TAG = "DashKiosk";
+    private Boolean mDiscover;
     private String mPingURL;
     private Integer mTimeout;
     private Integer mSleep;
     private BackgroundThread mThread;
+    private NsdManager mNsdManager;
 
     private static Handler mHandler;
 
     public DashboardLoader(Context context, Handler handler) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        mDiscover = !sharedPref.getBoolean("pref_ping_manual_host", false);
         mPingURL = sharedPref.getString("pref_ping_url", null);
         mTimeout = Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
         mSleep = Integer.valueOf(sharedPref.getString("pref_ping_sleep", null));
         mHandler = handler;
+        mNsdManager = (NsdManager) context.getSystemService(Context.NSD_SERVICE);
     }
 
     public void start() {
@@ -67,7 +72,70 @@ public class DashboardLoader {
 
     private class BackgroundThread extends Thread {
 
-        private List<DashboardURL> fetchPingURL() {
+        private void discoverURL() throws InterruptedException {
+            if (!mDiscover) return;
+            mPingURL = null;
+
+            Log.i(TAG, "Trying to discover dashboard service");
+            final NsdManager.ResolveListener mResolveListener = new NsdManager.ResolveListener() {
+                    @Override
+                    public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
+                        Log.e(TAG, "Resolve failed: " + errorCode);
+                    }
+
+                    @Override
+                    public void onServiceResolved(NsdServiceInfo serviceInfo) {
+                        // TODO: unlikely to work with IPv6...
+                        mPingURL = "http:/" + serviceInfo.getHost().toString() + ":" +
+                            serviceInfo.getPort() + "/dashboards.json";
+                        Log.i(TAG, "Ping URL is url=" + mPingURL);
+                    }
+                };
+            final NsdManager.DiscoveryListener mDiscoveryListener = new NsdManager.DiscoveryListener() {
+                    @Override
+                    public void onDiscoveryStarted(String regType) {
+                        Log.i(TAG, "Service discovery started");
+                    }
+
+                    @Override
+                    public void onDiscoveryStopped(String serviceType) {
+                        Log.i(TAG, "Service discovery stopped");
+                    }
+
+                    @Override
+                    public void onServiceFound(NsdServiceInfo service) {
+                        if (service.getServiceName().equals("dashkiosk")) {
+                            mNsdManager.resolveService(service, mResolveListener);
+                        }
+                    }
+
+                    @Override
+                    public void onServiceLost(NsdServiceInfo service) {
+                    }
+
+                    @Override
+                    public void onStartDiscoveryFailed(String serviceType, int errorCode) {
+                        Log.e(TAG, "Discovery failed: " + errorCode);
+                        mNsdManager.stopServiceDiscovery(this);
+                    }
+
+                    @Override
+                    public void onStopDiscoveryFailed(String serviceType, int errorCode) {
+                        Log.e(TAG, "Discovery failed: " + errorCode);
+                        mNsdManager.stopServiceDiscovery(this);
+                    }
+                };
+            mNsdManager.discoverServices("_http._tcp",
+                                         NsdManager.PROTOCOL_DNS_SD,
+                                         mDiscoveryListener);
+            Thread.sleep(1000); // Don't try to be clever
+            mNsdManager.stopServiceDiscovery(mDiscoveryListener);
+        }
+
+        private List<DashboardURL> fetchPingURL() throws InterruptedException {
+            discoverURL();
+            if (mPingURL == null) return null;
+
             try {
                 Log.i(TAG, "Fetching ping URL url=" + mPingURL);
                 URL url = new URL(mPingURL);
@@ -121,7 +189,6 @@ public class DashboardLoader {
                     // Display loading animation
                     Message blankMessage = mHandler.obtainMessage(0, null);
                     blankMessage.sendToTarget();
-                    Thread.sleep(500);
 
                     // Fetch ping URL until we succeed
                     while (mURLs == null) {

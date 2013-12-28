@@ -6,6 +6,8 @@
     <string name="pref_general_orientation">Orientation</string>
     <string name="pref_general_orientation_summary">Device orientation</string>
     <string name="pref_ping_title">Ping URL</string>
+    <string name="pref_ping_manual_host">Don\'t discover ping URL</string>
+    <string name="pref_ping_manual_host_summary">Don\'t rely on network discovery to find the URL to ping</string>
     <string name="pref_ping_url">URL</string>
     <string name="pref_ping_url_summary">Grab the list of URL to display from this URL</string>
     <string name="pref_ping_timeout">Ping timeout</string>
