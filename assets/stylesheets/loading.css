@@ -20,7 +20,7 @@ body, html {
     background-size: contain;
     background-position: center;
 
-    -webkit-animation: loading 4s infinite linear;
+    -webkit-animation: loading 10s infinite linear;
 }
 
 @-webkit-keyframes loading {
