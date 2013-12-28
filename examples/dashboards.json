@@ -4,5 +4,5 @@
     { "url": "http://dashingdemo.herokuapp.com/sample",
       "delay": 10 },
     { "url": "http://ganglia.wikimedia.org/latest/",
-      "delay": 10 }
+      "delay": 20 }
 ]

@@ -41,7 +41,9 @@ will be the one built from the service name and `/dashboards.json`.
 Once it is working, you can put an appropriate service file in
 `/etc/avahi/services/` to let this service be advertised at boot. You
 can also specify directly the URL to ping if you don't want to rely on
-network discovery.
+network discovery. Currently, it seems that network service discovery
+is not the most stable component. I had to reboot my phone a few times
+during tests. Feel free to disable it if you run into trouble.
 
 By default, the application is locked in landscape mode since most
 dashboards (and TV) work this way. This can also be changed in
