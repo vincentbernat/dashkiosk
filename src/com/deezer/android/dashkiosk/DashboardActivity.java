@@ -25,8 +25,6 @@ import android.view.WindowManager;
 import com.deezer.android.dashkiosk.DashboardWebView;
 
 public class DashboardActivity extends Activity {
-    private DashboardWebView mWebView;
-
     /**
      * Hide navigation bar. Not permanent.
      */
@@ -35,20 +33,11 @@ public class DashboardActivity extends Activity {
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
 
-    /**
-     * Never sleeps.
-     */
-    private void keepScreenOn() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.hideNavigationBar();
-        this.keepScreenOn();
 
-        mWebView = new DashboardWebView(this);
-        this.setContentView(mWebView);
+        this.setContentView(R.layout.main);
     }
 }

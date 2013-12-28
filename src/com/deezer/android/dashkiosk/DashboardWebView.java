@@ -46,13 +46,6 @@ public class DashboardWebView extends WebView {
         WebSettings ws = this.getSettings();
         ws.setJavaScriptEnabled(true);
 
-        // Minimize possible interaction with the webview
-        this.setHorizontalScrollBarEnabled(false);
-        this.setVerticalScrollBarEnabled(false);
-        this.setEnabled(false);
-        this.setClickable(false);
-        this.setFocusable(false);
-
         this.loadUrl();
         this.setWebViewClient(new WebViewClient() {
                 @Override
@@ -64,23 +57,4 @@ public class DashboardWebView extends WebView {
                 }
             });
     }
-
-    // More events disabled
-    @Override
-    public boolean onGenericMotionEvent(MotionEvent event) {
-        return true;
-    }
-    @Override
-    public boolean onHoverEvent(MotionEvent event) {
-        return true;
-    }
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return true;
-    }
-    @Override
-    public boolean onTrackballEvent(MotionEvent event) {
-        return true;
-    }
-
 }
