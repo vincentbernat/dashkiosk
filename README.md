@@ -14,6 +14,10 @@ Features
  - Prevent the device to go to sleep.
  - Configuration is load from some remote server.
 
+Here is a [demonstration video][1].
+
+[1]: http://www.dailymotion.com/video/x18z6hs_dash-kiosk-demo_tech
+
 Customization
 -------------
 
