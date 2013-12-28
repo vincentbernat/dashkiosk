@@ -85,9 +85,15 @@ public class DashboardLoader {
                 return;
             }
 
-            // TODO: unlikely to work with IPv6
-            mPingURL = "http:/" + serviceInfo.getHost().toString() + ":" +
-                serviceInfo.getPort() + "/dashboards.json";
+            try {
+                mPingURL = new URL("http",
+                                   serviceInfo.getHost().getHostAddress(),
+                                   serviceInfo.getPort(),
+                                   "/dashboards.json").toString();
+            } catch (MalformedURLException ex) {
+                Log.e(TAG, "Malformed ping URL", ex);
+                return;
+            }
             Log.i(TAG, "Ping URL is url=" + mPingURL);
         }
 
