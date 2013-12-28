@@ -17,6 +17,7 @@
 package com.deezer.android.dashkiosk;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.webkit.WebView;
@@ -32,6 +33,12 @@ public class DashboardWebView extends WebView {
 
     public DashboardWebView(Context context) {
         super(context);
+    }
+    public DashboardWebView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+    public DashboardWebView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 
     /**
