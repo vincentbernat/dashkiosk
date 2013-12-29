@@ -25,6 +25,7 @@ public class DashboardURL {
 
     private String mURL;        // URL to be loaded
     private Integer mDelay = 0; // How long the URL should be loaded (in seconds)
+    private Boolean mScroll = false; // Should we scroll the page?
 
     /**
      * Build an URL from a JSON object.
@@ -34,6 +35,9 @@ public class DashboardURL {
         try {
             mDelay = json.getInt("delay");
         } catch (JSONException ex) {}
+        try {
+            mScroll = json.getBoolean("scroll");
+        } catch (JSONException ex) {}
     }
 
     public String getURL() {
@@ -42,6 +46,10 @@ public class DashboardURL {
 
     public Integer getDelay() {
         return mDelay;
+    }
+
+    public Boolean getScroll() {
+        return mScroll;
     }
 
 }

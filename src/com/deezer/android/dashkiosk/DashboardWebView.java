@@ -16,8 +16,11 @@
 
 package com.deezer.android.dashkiosk;
 
+import java.util.*;
+
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,6 +29,8 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings;
+
+import com.deezer.android.dashkiosk.DashboardURL;
 
 /**
  * Fullscreen web view that is setup for kiosk mode: no interaction
@@ -36,6 +41,8 @@ public class DashboardWebView extends WebView {
 
     private static final String TAG = "DashKiosk";
     private int swapWithId;
+    private DashboardURL currentURL;
+    private Timer mScroll;
 
     public DashboardWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -52,13 +59,95 @@ public class DashboardWebView extends WebView {
     /**
      * When loading an "empty" URL, just display the loading page.
      */
+    @Override
     public void loadUrl(String url) {
+        cancelScrolling();
         if (url == null || url.equals("about:blank")) {
             Log.d(TAG, "Display loading page");
+            currentURL = null;
             super.loadUrl("file:///android_asset/html/loading.html");
         } else {
             Log.d(TAG, "Display url=" + url);
             super.loadUrl(url);
+        }
+    }
+    public void loadUrl(DashboardURL url) {
+        if (url == null) {
+            loadUrl("about:blank");
+            return;
+        }
+        currentURL = url;
+        loadUrl(url.getURL());
+    }
+
+    /**
+     * Cancel current programmed scrolling.
+     */
+    private synchronized void cancelScrolling() {
+        if (mScroll != null) {
+            mScroll.cancel();
+            mScroll = null;
+        }
+    }
+
+    /**
+     * Start to scroll the page.
+     *
+     * This function needs to be called once the page is correctly
+     * rendered. However, this is quite hard to find when. Therefore,
+     * we call it when:
+     *  - the page has finished loading
+     *  - the view is displayed
+     *  - the scale has changed
+     *
+     * The best place to call this function is when the scale is
+     * changing but it is quite possible to get two successive pages
+     * whose scale does not change...
+     */
+    private synchronized void startScrolling() {
+        cancelScrolling();
+        if (currentURL != null &&
+            currentURL.getScroll() &&
+            currentURL.getDelay() > 0) {
+            int page_height = (int) Math.floor(getContentHeight() * getScale());
+            final int view_height = getHeight();
+            final int steps = page_height / view_height -
+                ((page_height % view_height < 100) ? 1 : 0);
+            // When the page height is a multiple of the
+            // view_height, we need to remove one step. We
+            // use a small margin to avoid useless scroll.
+            Log.d(TAG,
+                  "View is height="   + view_height +
+                  "; page is height=" + page_height +
+                  "; we need steps="  + steps);
+            if (steps > 0) {
+                int delay = currentURL.getDelay() * 1000 / (steps+1);
+                mScroll = new Timer();
+                mScroll.scheduleAtFixedRate(new TimerTask() {
+                        private int remainingSteps;
+                            {
+                                remainingSteps = steps;
+                            }
+
+                        @Override
+                        public void run() {
+                            scrollBy(0, view_height);
+                            remainingSteps--;
+                            if (remainingSteps == 0) {
+                                mScroll.cancel();
+                                mScroll = null;
+                            }
+                        }
+                    }, delay + 1, delay + 1);
+            }
+        }
+    }
+
+    @Override
+    protected void onVisibilityChanged(View changedView, int visibility) {
+        if (changedView == this &&
+            visibility == View.VISIBLE) {
+            startScrolling();
         }
     }
 
@@ -71,6 +160,7 @@ public class DashboardWebView extends WebView {
         ws.setUseWideViewPort(true);
 
         this.setWebViewClient(new WebViewClient() {
+
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     view.loadUrl(url);
@@ -81,7 +171,17 @@ public class DashboardWebView extends WebView {
                     return true;
                 }
                 @Override
-                public void onPageFinished(WebView view, String url) {
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    cancelScrolling();
+                }
+                @Override
+                public void onScaleChanged(WebView view, float oldScale, float newScale) {
+                    startScrolling();
+                }
+                @Override
+                public void onPageFinished(final WebView view, String url) {
+                    cancelScrolling(); //  Just in case
+
                     // Swap with the other webview
                     if (swapWithId != 0) {
                         View other = getRootView().findViewById(swapWithId);
@@ -91,6 +191,8 @@ public class DashboardWebView extends WebView {
                             view.setVisibility(View.VISIBLE);
                         }
                     }
+
+                    startScrolling();
                 }
             });
     }
