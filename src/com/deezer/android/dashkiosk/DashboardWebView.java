@@ -96,7 +96,6 @@ public class DashboardWebView extends WebView {
      * This function needs to be called once the page is correctly
      * rendered. However, this is quite hard to find when. Therefore,
      * we call it when:
-     *  - the page has finished loading
      *  - the view is displayed
      *  - the scale has changed
      *
@@ -191,8 +190,6 @@ public class DashboardWebView extends WebView {
                             view.setVisibility(View.VISIBLE);
                         }
                     }
-
-                    startScrolling();
                 }
             });
     }
