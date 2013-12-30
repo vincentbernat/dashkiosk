@@ -178,7 +178,7 @@ public class DashboardWebView extends WebView {
                     startScrolling();
                 }
                 @Override
-                public void onPageFinished(final WebView view, String url) {
+                public void onPageFinished(WebView view, String url) {
                     cancelScrolling(); //  Just in case
 
                     // Swap with the other webview
