@@ -24,7 +24,7 @@ import org.json.*;
 public class DashboardURL {
 
     private String mURL;        // URL to be loaded
-    private Integer mDelay = 0; // How long the URL should be loaded (in seconds)
+    private Integer mDelay = 600; // How long the URL should be loaded (in seconds)
     private Boolean mScroll = false; // Should we scroll the page?
 
     /**
@@ -33,7 +33,10 @@ public class DashboardURL {
     public DashboardURL(JSONObject json) throws JSONException {
         mURL = json.getString("url");
         try {
-            mDelay = json.getInt("delay");
+            Integer d = json.getInt("delay");
+            if (mDelay > 0) {
+                mDelay = d;
+            }
         } catch (JSONException ex) {}
         try {
             mScroll = json.getBoolean("scroll");
