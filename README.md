@@ -51,21 +51,9 @@ If you want to change the loading screen, have a look at
 
 ### Ping URL
 
-By default, the URL to ping will be discovered through network service
-discovery. You can advertise the appropriate host with `avahi`:
-
-    avahi-publish -s "dashkiosk" _http._tcp 8000 "Beautiful dashboards"
-
-DashKiosk will detect this service because of the service name
-(`dashkiosk`) and the service type (`_http._tcp`). The requested URL
-will be the one built from the service name and `/dashboards.json`.
-
-Once it is working, you can put an appropriate service file in
-`/etc/avahi/services/` to let this service be advertised at boot. You
-can also specify directly the URL to ping if you don't want to rely on
-network discovery. Currently, it seems that network service discovery
-is not the most stable component. I had to reboot my phone a few times
-during tests. Feel free to disable it if you run into trouble.
+By default, the URL to ping will be
+`http://dashkiosk/dashboards.json`. This can be changed in the
+preferences.
 
 ### Orientation
 

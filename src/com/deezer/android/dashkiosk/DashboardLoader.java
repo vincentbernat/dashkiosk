@@ -25,7 +25,6 @@ import org.json.*;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.nsd.*;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -35,28 +34,24 @@ import com.deezer.android.dashkiosk.DashboardPreferences;
 import com.deezer.android.dashkiosk.DashboardURL;
 
 /**
- * Load URL from a network service discovery web service.
+ * Load URLs from ping URL
  */
 public class DashboardLoader {
 
     private static final String TAG = "DashKiosk";
-    private Boolean mDiscover;
     private String mPingURL;
     private Integer mTimeout;
     private Integer mSleep;
     private BackgroundThread mThread;
-    private NsdManager mNsdManager;
 
     private static Handler mHandler;
 
     public DashboardLoader(Context context, Handler handler) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        mDiscover = !sharedPref.getBoolean("pref_ping_manual_host", false);
-        mPingURL = mDiscover?null:sharedPref.getString("pref_ping_url", null);
+        mPingURL = sharedPref.getString("pref_ping_url", null);
         mTimeout = Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
         mSleep = Integer.valueOf(sharedPref.getString("pref_ping_sleep", null));
         mHandler = handler;
-        mNsdManager = (NsdManager) context.getSystemService(Context.NSD_SERVICE);
     }
 
     public void start() {
@@ -73,97 +68,7 @@ public class DashboardLoader {
 
     private class BackgroundThread extends Thread {
 
-        private NsdManager.DiscoveryListener mDiscoveryListener;
-        private NsdManager.ResolveListener mResolveListener;
-
-        private synchronized void updatePingURL(NsdServiceInfo serviceInfo,
-                                                Boolean remove) {
-            // Without resolving, we cannot really know if we did
-            // remove the right service. So, let's remove the service.
-            if (remove) {
-                mPingURL = null;
-                Log.i(TAG, "Ping URL is gone");
-                return;
-            }
-
-            try {
-                mPingURL = new URL("http",
-                                   serviceInfo.getHost().getHostAddress(),
-                                   serviceInfo.getPort(),
-                                   "/dashboards.json").toString();
-            } catch (MalformedURLException ex) {
-                Log.e(TAG, "Malformed ping URL", ex);
-                return;
-            }
-            Log.i(TAG, "Ping URL is url=" + mPingURL);
-        }
-
-        private void discoverURL() throws InterruptedException {
-            if (!mDiscover) return;
-
-            Log.i(TAG, "Trying to discover dashboard service");
-            if (mResolveListener == null) {
-                mResolveListener = new NsdManager.ResolveListener() {
-                        @Override
-                        public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
-                            Log.e(TAG, "Resolve failed: " + errorCode);
-                        }
-
-                        @Override
-                        public void onServiceResolved(NsdServiceInfo serviceInfo) {
-                            updatePingURL(serviceInfo, false);
-                        }
-                    };
-            }
-            if (mDiscoveryListener == null) {
-                mDiscoveryListener = new NsdManager.DiscoveryListener() {
-                        @Override
-                        public void onDiscoveryStarted(String regType) {
-                            Log.i(TAG, "Service discovery started");
-                        }
-
-                        @Override
-                        public void onDiscoveryStopped(String serviceType) {
-                            Log.i(TAG, "Service discovery stopped");
-                            mDiscoveryListener = null;
-                            mResolveListener = null;
-                        }
-
-                        @Override
-                        public void onServiceFound(NsdServiceInfo service) {
-                            if (service.getServiceName().equals("dashkiosk")) {
-                                mNsdManager.resolveService(service, mResolveListener);
-                            }
-                        }
-
-                        @Override
-                        public void onServiceLost(NsdServiceInfo service) {
-                            if (service.getServiceName().equals("dashkiosk")) {
-                                updatePingURL(service, true);
-                            }
-                        }
-
-                    @Override
-                    public void onStartDiscoveryFailed(String serviceType, int errorCode) {
-                        Log.e(TAG, "Discovery failed: " + errorCode);
-                        mNsdManager.stopServiceDiscovery(this);
-                    }
-
-                    @Override
-                    public void onStopDiscoveryFailed(String serviceType, int errorCode) {
-                        Log.e(TAG, "Discovery failed: " + errorCode);
-                        mNsdManager.stopServiceDiscovery(this);
-                    }
-                };
-                mNsdManager.discoverServices("_http._tcp",
-                                             NsdManager.PROTOCOL_DNS_SD,
-                                             mDiscoveryListener);
-            }
-            Thread.sleep(500);  // Wait a bit in case we just started the service
-        }
-
         private List<DashboardURL> fetchPingURL() throws InterruptedException {
-            discoverURL();
             if (mPingURL == null) {
                 Log.e(TAG, "Unknown ping URL, cannot continue");
                 return null;
@@ -247,9 +152,6 @@ public class DashboardLoader {
                     Log.i(TAG, "Exit ping thread");
                     running = false;
                 }
-            }
-            if (mDiscoveryListener != null) {
-                mNsdManager.stopServiceDiscovery(mDiscoveryListener);
             }
         }
 

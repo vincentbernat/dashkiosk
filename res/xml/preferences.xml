@@ -15,17 +15,11 @@
   <PreferenceCategory
       android:title="@string/pref_ping_title"
       android:key="pref_ping_settings">
-    <CheckBoxPreference
-        android:key="pref_ping_manual_host"
-        android:title="@string/pref_ping_manual_host"
-        android:summary="@string/pref_ping_manual_host_summary"
-        android:defaultValue="false" />
     <EditTextPreference
-        android:dependency="pref_ping_manual_host"
         android:key="pref_ping_url"
         android:title="@string/pref_ping_url"
         android:summary="@string/pref_ping_url_summary"
-        android:defaultValue="http://192.168.116.1:8000/dashboards.json" />
+        android:defaultValue="http://dashkiosk/dashboards.json" />
     <EditTextPreference
         android:key="pref_ping_timeout"
         android:title="@string/pref_ping_timeout"
