@@ -1,13 +1,11 @@
-DashKiosk
-=========
+# DashKiosk
 
 This is a simple Android application whose purpose is to display
 fullscreen non-interactive dashboards on Android devices. Its main use
 is to be run from an Android stick plug on some TV to display a
 dashboard (hence the name).
 
-Features
---------
+## Features
 
  - Fullscreen webview with no possible interaction.
  - Can be setup as an home screen to be run when the device starts.
@@ -18,20 +16,23 @@ Here is a [demonstration video][1].
 
 [1]: http://www.dailymotion.com/video/x18z6hs_dash-kiosk-demo_tech
 
-Customization
--------------
+## Customization
 
-Some customization needs to be done at compile time. If you want to
-change the loading screen, have a look at `assets/html/loading.html`
-as well as the linked files `assets/stylesheets/loading.css` and
-`assets/images/loading.svg`.
-
-Some preferences settings are available in `res/xml/preferences`. You
-can modify them at compile time or at runtime. In the later case, you
-need to trigger the activity manually. For example, with `adb`:
+Most customization needs to be done at compile time. Some preferences
+settings are available in `res/xml/preferences`. You can modify them
+at compile time or at runtime. In the later case, you need to trigger
+the activity manually. For example, with `adb`:
 
     adb shell am start -n \
        com.deezer.android.dashkiosk/com.deezer.android.dashkiosk.DashboardPreferences
+
+### Loading screen
+
+If you want to change the loading screen, have a look at
+`assets/html/loading.html` as well as the linked files
+`assets/stylesheets/loading.css` and `assets/images/loading.svg`.
+
+### Ping URL
 
 By default, the URL to ping will be discovered through network service
 discovery. You can advertise the appropriate host with `avahi`:
@@ -49,12 +50,13 @@ network discovery. Currently, it seems that network service discovery
 is not the most stable component. I had to reboot my phone a few times
 during tests. Feel free to disable it if you run into trouble.
 
+### Orientation
+
 By default, the application is locked in landscape mode since most
 dashboards (and TV) work this way. This can also be changed in
 `res/xml/preferences.xml`.
 
-Ping URL
---------
+## Ping URL
 
 The ping URL should return a list of URL in a specially crafted JSON
 message. This list is an array of URL objects. An URL objects has one
