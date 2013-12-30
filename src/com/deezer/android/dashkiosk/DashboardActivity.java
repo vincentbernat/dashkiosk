@@ -69,6 +69,17 @@ public class DashboardActivity extends Activity {
         }
     }
 
+    /**
+     * Load an URL
+     */
+    private void loadUrl(DashboardURL url) {
+        // Load in the invisible webview
+        DashboardWebView wv1 = (DashboardWebView) findViewById(R.id.webview1);
+        DashboardWebView wv2 = (DashboardWebView) findViewById(R.id.webview2);
+        DashboardWebView wv = (wv1.getVisibility() == View.VISIBLE)?wv2:wv1;
+        wv.loadUrl(url);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,12 +101,8 @@ public class DashboardActivity extends Activity {
                     @Override
                     public void handleMessage(Message msg) {
                         DashboardURL url = (DashboardURL) msg.obj;
-                        // Load the invisible webview
-                        DashboardWebView wv1 = (DashboardWebView) findViewById(R.id.webview1);
-                        DashboardWebView wv2 = (DashboardWebView) findViewById(R.id.webview2);
-                        DashboardWebView wv = (wv1.getVisibility() == View.VISIBLE)?wv2:wv1;
                         hideNavigationBar();
-                        wv.loadUrl(url);
+                        loadUrl(url);
                     }
                 };
             mLoader = new DashboardLoader(getApplication(), mHandler);
