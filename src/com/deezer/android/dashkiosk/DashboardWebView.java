@@ -17,6 +17,7 @@
 package com.deezer.android.dashkiosk;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -121,7 +122,8 @@ public class DashboardWebView extends WebView {
                   "; page is height=" + page_height +
                   "; we need steps="  + steps);
             if (steps > 0) {
-                int delay = currentURL.getDelay() * 1000 / (steps+1);
+                long delay = TimeUnit.MILLISECONDS.convert(currentURL.getDelay(),
+                                                           TimeUnit.SECONDS) / (steps+1);
                 mScroll = new Timer();
                 mScroll.scheduleAtFixedRate(new TimerTask() {
                         private int remainingSteps;

@@ -19,6 +19,7 @@ package com.deezer.android.dashkiosk;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import org.json.*;
 
 import android.content.AsyncTaskLoader;
@@ -227,7 +228,8 @@ public class DashboardLoader {
                         mURLs = fetchPingURL();
                         if (mURLs == null) {
                             Log.i(TAG, "No URL to display, wait seconds=" + mSleep);
-                            Thread.sleep(mSleep * 1000);
+                            Thread.sleep(TimeUnit.MILLISECONDS.convert(mSleep,
+                                                                       TimeUnit.SECONDS));
                         }
                     }
 
@@ -241,7 +243,8 @@ public class DashboardLoader {
                             throw new InterruptedException();
                         }
                         Log.i(TAG, "And sleep for delay=" + url.getDelay());
-                        Thread.sleep(url.getDelay() * 1000);
+                        Thread.sleep(TimeUnit.MILLISECONDS.convert(url.getDelay(),
+                                                                   TimeUnit.SECONDS));
                     }
 
                 } catch (InterruptedException e) {
