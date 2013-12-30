@@ -10,7 +10,7 @@ dashboard (hence the name).
  - Fullscreen webview with no possible interaction.
  - Can be setup as an home screen to be run when the device starts.
  - Prevent the device to go to sleep.
- - Configuration is load from some remote server.
+ - Configuration is loaded from some remote server.
 
 Here is a [demonstration video][1].
 
