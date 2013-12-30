@@ -27,12 +27,12 @@
         android:entries="@array/pref_ping_timeout_entries"
         android:entryValues="@array/pref_ping_timeout_values"
         android:defaultValue="2000" />
-    <EditTextPreference
+    <ListPreference
         android:key="pref_ping_sleep"
         android:title="@string/pref_ping_sleep"
         android:summary="@string/pref_ping_sleep_summary"
-        android:numeric="integer"
-        android:maxLength="4"
+        android:entries="@array/pref_ping_sleep_entries"
+        android:entryValues="@array/pref_ping_sleep_values"
         android:defaultValue="30" />
   </PreferenceCategory>
 </PreferenceScreen>
