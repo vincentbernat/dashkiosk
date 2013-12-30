@@ -128,6 +128,7 @@ public class DashboardLoader {
         public void run() {
             Log.d(TAG, "Background fetcher thread started");
             boolean running = true;
+            boolean first = true;
             while (running) {
                 try {
                     List<DashboardURL> mURLs = null;
@@ -135,6 +136,10 @@ public class DashboardLoader {
                     // Display loading animation
                     Message blankMessage = mHandler.obtainMessage(0, null);
                     blankMessage.sendToTarget();
+                    if (first) {
+                        Thread.sleep(500);
+                        first = false;
+                    }
 
                     // Fetch ping URL until we succeed
                     while (mURLs == null) {
