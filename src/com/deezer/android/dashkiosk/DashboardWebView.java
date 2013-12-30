@@ -112,6 +112,7 @@ public class DashboardWebView extends WebView {
             currentURL.getDelay() > 0) {
             int page_height = (int) Math.floor(getContentHeight() * mScale);
             final int view_height = getHeight();
+            if (view_height == 0) return;
             final int steps = page_height / view_height -
                 ((page_height % view_height < 100) ? 1 : 0);
             // When the page height is a multiple of the
