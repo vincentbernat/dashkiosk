@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Device orientation -->
     <string-array name="pref_general_orientation_entries">
         <item>Landscape</item>
         <item>Portrait</item>
@@ -10,5 +11,24 @@
         <item>LANDSCAPE</item>
         <item>PORTRAIT</item>
         <item>AUTOMATIC</item>
+    </string-array>
+
+    <!-- Ping URL timeout -->
+    <string-array name="pref_ping_timeout_entries">
+      <item>100 ms</item>
+      <item>500 ms</item>
+      <item>1 second</item>
+      <item>2 seconds</item>
+      <item>5 seconds</item>
+      <item>10 seconds</item>
+    </string-array>
+
+    <string-array name="pref_ping_timeout_values">
+      <item>100</item>
+      <item>500</item>
+      <item>1000</item>
+      <item>2000</item>
+      <item>5000</item>
+      <item>10000</item>
     </string-array>
 </resources>

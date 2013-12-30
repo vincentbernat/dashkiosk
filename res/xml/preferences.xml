@@ -20,12 +20,12 @@
         android:title="@string/pref_ping_url"
         android:summary="@string/pref_ping_url_summary"
         android:defaultValue="http://dashkiosk/dashboards.json" />
-    <EditTextPreference
+    <ListPreference
         android:key="pref_ping_timeout"
         android:title="@string/pref_ping_timeout"
         android:summary="@string/pref_ping_timeout_summary"
-        android:numeric="integer"
-        android:maxLength="5"
+        android:entries="@array/pref_ping_timeout_entries"
+        android:entryValues="@array/pref_ping_timeout_values"
         android:defaultValue="2000" />
     <EditTextPreference
         android:key="pref_ping_sleep"
