@@ -16,6 +16,23 @@ Here is a [demonstration video][1].
 
 [1]: http://www.dailymotion.com/video/x18z6hs_dash-kiosk-demo_tech
 
+## Compilation and installation
+
+Once the Android SDK has been installed, you can use the `android`
+command to "link" the project with the SDK. Then use `ant` to compile
+and `adb` to install the APK file.
+
+    android update project -p .
+    ant debug
+    adb install -r bin/DashKios-debug.apk
+    adb shell am start -n com.deezer.android.dashkiosk/.DashboardActivity
+
+You can get the final APK with `ant release`.
+
+Once the application is running, you can see the logs with:
+
+    adb logcat -s DashKiosk
+
 ## Customization
 
 Most customization needs to be done at compile time. Some preferences

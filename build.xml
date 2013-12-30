@@ -19,7 +19,7 @@
 
     <import file="custom_rules.xml" optional="true" />
 
-    <!-- version-tag: 1 -->
+    <!-- version-tag: custom -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
 
 </project>
