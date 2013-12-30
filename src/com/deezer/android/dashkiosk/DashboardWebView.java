@@ -103,7 +103,7 @@ public class DashboardWebView extends WebView {
      * changing but it is quite possible to get two successive pages
      * whose scale does not change...
      */
-    private synchronized void startScrolling() {
+    private void startScrolling() {
         cancelScrolling();
         if (currentURL != null &&
             currentURL.getScroll() &&
@@ -133,8 +133,7 @@ public class DashboardWebView extends WebView {
                             scrollBy(0, view_height);
                             remainingSteps--;
                             if (remainingSteps == 0) {
-                                mScroll.cancel();
-                                mScroll = null;
+                                cancelScrolling();
                             }
                         }
                     }, delay + 1, delay + 1);
