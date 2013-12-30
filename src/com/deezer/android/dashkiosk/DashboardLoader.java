@@ -43,6 +43,7 @@ public class DashboardLoader {
     private Integer mTimeout;
     private Integer mSleep;
     private BackgroundThread mThread;
+    private volatile long mLastRenderingTime = 0;
 
     private static Handler mHandler;
 
@@ -64,6 +65,13 @@ public class DashboardLoader {
             mThread.interrupt();
             mThread = null;
         }
+    }
+
+    public void setLastRenderingTime(long value) {
+        mLastRenderingTime = value;
+    }
+    public long getLastRenderingTime() {
+        return mLastRenderingTime;
     }
 
     private class BackgroundThread extends Thread {
@@ -140,12 +148,18 @@ public class DashboardLoader {
 
                     // Display each URL
                     for (DashboardURL url : mURLs) {
+                        setLastRenderingTime(0);
                         Message urlMessage = mHandler.obtainMessage(0, url);
                         Log.i(TAG, "Display url=" + url.getURL());
                         urlMessage.sendToTarget();
                         Log.i(TAG, "And sleep for delay=" + url.getDelay());
                         Thread.sleep(TimeUnit.MILLISECONDS.convert(url.getDelay(),
                                                                    TimeUnit.SECONDS));
+                        long additionalDelay = getLastRenderingTime();
+                        if (additionalDelay > 0) {
+                            Log.i(TAG, "Additional sleep delay=" + additionalDelay + " for rendering time");
+                            Thread.sleep(additionalDelay);
+                        }
                     }
 
                 } catch (InterruptedException e) {

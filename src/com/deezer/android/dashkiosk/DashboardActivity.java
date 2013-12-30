@@ -72,12 +72,12 @@ public class DashboardActivity extends Activity {
     /**
      * Load an URL
      */
-    private void loadUrl(DashboardURL url) {
+    private void loadUrl(DashboardURL url, DashboardWebView.PageLoadedCallback cb) {
         // Load in the invisible webview
         DashboardWebView wv1 = (DashboardWebView) findViewById(R.id.webview1);
         DashboardWebView wv2 = (DashboardWebView) findViewById(R.id.webview2);
         DashboardWebView wv = (wv1.getVisibility() == View.VISIBLE)?wv2:wv1;
-        wv.loadUrl(url);
+        wv.loadUrl(url, cb);
     }
 
     @Override
@@ -102,7 +102,12 @@ public class DashboardActivity extends Activity {
                     public void handleMessage(Message msg) {
                         DashboardURL url = (DashboardURL) msg.obj;
                         hideNavigationBar();
-                        loadUrl(url);
+                        loadUrl(url, new DashboardWebView.PageLoadedCallback() {
+                                @Override
+                                public void onPageLoaded(DashboardURL url, long elapsed) {
+                                    mLoader.setLastRenderingTime(elapsed);
+                                }
+                            });
                     }
                 };
             mLoader = new DashboardLoader(getApplication(), mHandler);

@@ -71,9 +71,6 @@ fields for an URL object are:
  - `url`: the URL to be loaded
  - `delay`: the delay in seconds this URL should be displayed. This
    cannot be 0.
- - `scroll`: when set to `true`, the page will be scrolled. The timing
-   is a bit tricky since the time loading and rendering the page is
-   not correctly accounted for. If the page is very large, it is
-   possible that the bottom of the page will never be shown.
+ - `scroll`: when set to `true`, the page will be scrolled.
 
 An example of such a list is provided in `examples/dashboards.json`.

@@ -40,11 +40,19 @@ import com.deezer.android.dashkiosk.DashboardURL;
  */
 public class DashboardWebView extends WebView {
 
+    /**
+     * Callback interface when a page is loaded.
+     */
+    public interface PageLoadedCallback {
+        void onPageLoaded(DashboardURL url, long elapsed);
+    }
+
     private static final String TAG = "DashKiosk";
-    private int swapWithId;
-    private DashboardURL currentURL;
-    private Timer mScroll;
-    private float mScale = 1.0f;
+    private int swapWithId;           // View ID to swap with
+    private Timer mScroll;            // Timer to handle scrolling
+    private float mScale = 1.0f;      // Current scale
+    private DashboardURL mCurrentURL; // Current URL
+    private PageLoadedCallback mPageLoadedCb; // Callback when a page is loaded
 
     public DashboardWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -59,14 +67,20 @@ public class DashboardWebView extends WebView {
     }
 
     /**
-     * When loading an "empty" URL, just display the loading page.
+     * When loading an "empty" URL, just display the loading
+     * page. Also record the current URL when we have one and register
+     * the "on loaded" callback if any.
      */
     @Override
     public void loadUrl(String url) {
+        loadUrl(url, (PageLoadedCallback)null);
+    }
+    public void loadUrl(String url, PageLoadedCallback cb) {
         cancelScrolling();
+        mPageLoadedCb = cb;
         if (url == null || url.equals("about:blank")) {
+            mCurrentURL = null;
             Log.d(TAG, "Display loading page");
-            currentURL = null;
             super.loadUrl("file:///android_asset/html/loading.html");
         } else {
             Log.d(TAG, "Display url=" + url);
@@ -74,12 +88,11 @@ public class DashboardWebView extends WebView {
         }
     }
     public void loadUrl(DashboardURL url) {
-        if (url == null) {
-            loadUrl("about:blank");
-            return;
-        }
-        currentURL = url;
-        loadUrl(url.getURL());
+        loadUrl(url, (PageLoadedCallback)null);
+    }
+    public void loadUrl(DashboardURL url, PageLoadedCallback cb) {
+        mCurrentURL = url;
+        loadUrl((url != null)?url.getURL():(String)null, cb);
     }
 
     /**
@@ -107,9 +120,9 @@ public class DashboardWebView extends WebView {
      */
     private void startScrolling() {
         cancelScrolling();
-        if (currentURL != null &&
-            currentURL.getScroll() &&
-            currentURL.getDelay() > 0) {
+        if (mCurrentURL != null &&
+            mCurrentURL.getScroll() &&
+            mCurrentURL.getDelay() > 0) {
             int page_height = (int) Math.floor(getContentHeight() * mScale);
             final int view_height = getHeight();
             if (view_height == 0) return;
@@ -123,7 +136,7 @@ public class DashboardWebView extends WebView {
                   "; page is height=" + page_height +
                   "; we need steps="  + steps);
             if (steps > 0) {
-                long delay = TimeUnit.MILLISECONDS.convert(currentURL.getDelay(),
+                long delay = TimeUnit.MILLISECONDS.convert(mCurrentURL.getDelay(),
                                                            TimeUnit.SECONDS) / (steps+1);
                 mScroll = new Timer();
                 mScroll.scheduleAtFixedRate(new TimerTask() {
@@ -163,9 +176,12 @@ public class DashboardWebView extends WebView {
 
         this.setWebViewClient(new WebViewClient() {
 
+                private long mStarted;
+
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    view.loadUrl(url);
+                    DashboardWebView v = (DashboardWebView) view;
+                    v.loadUrl(url, mPageLoadedCb);
                     return true;
                 }
                 @Override
@@ -175,6 +191,7 @@ public class DashboardWebView extends WebView {
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     cancelScrolling();
+                    mStarted = System.nanoTime();
                 }
                 @Override
                 public void onScaleChanged(WebView view, float oldScale, float newScale) {
@@ -193,6 +210,14 @@ public class DashboardWebView extends WebView {
                             other.setVisibility(View.GONE);
                             view.setVisibility(View.VISIBLE);
                         }
+                    }
+
+                    if (mPageLoadedCb != null) {
+                        long mElapsed = TimeUnit.MILLISECONDS.convert(
+                            System.nanoTime() - mStarted,
+                            TimeUnit.NANOSECONDS);
+                        mPageLoadedCb.onPageLoaded(mCurrentURL, mElapsed);
+                        mPageLoadedCb = null;
                     }
                 }
             });
