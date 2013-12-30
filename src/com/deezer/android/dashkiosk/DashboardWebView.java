@@ -43,6 +43,7 @@ public class DashboardWebView extends WebView {
     private int swapWithId;
     private DashboardURL currentURL;
     private Timer mScroll;
+    private float mScale = 1.0f;
 
     public DashboardWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -108,7 +109,7 @@ public class DashboardWebView extends WebView {
         if (currentURL != null &&
             currentURL.getScroll() &&
             currentURL.getDelay() > 0) {
-            int page_height = (int) Math.floor(getContentHeight() * getScale());
+            int page_height = (int) Math.floor(getContentHeight() * mScale);
             final int view_height = getHeight();
             final int steps = page_height / view_height -
                 ((page_height % view_height < 100) ? 1 : 0);
@@ -174,6 +175,7 @@ public class DashboardWebView extends WebView {
                 }
                 @Override
                 public void onScaleChanged(WebView view, float oldScale, float newScale) {
+                    mScale = newScale;
                     startScrolling();
                 }
                 @Override
