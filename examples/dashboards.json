@@ -1,4 +1,6 @@
 [
+    { "url": "http://jondot.github.io/graphene/",
+      "delay": 10 },
     { "url": "https://status.github.com",
       "delay": 10,
       "scroll": true },
