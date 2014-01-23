@@ -5,6 +5,11 @@ fullscreen non-interactive dashboards on Android devices. Its main use
 is to be run from an Android stick plug on some TV to display a
 dashboard (hence the name).
 
+It works best with Android 4.4 (Kit Kat) or later since the WebView
+component shipped in those versions come from the Chromium project and
+are pretty up-to-date. Older versions of Android will work but the
+WebView may be unable to display some dashboards.
+
 ## Features
 
  - Fullscreen webview with no possible interaction.
