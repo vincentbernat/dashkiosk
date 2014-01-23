@@ -29,7 +29,7 @@ and `adb` to install the APK file.
 
     android update project -p .
     ant debug
-    adb install -r bin/DashKios-debug.apk
+    adb install -r bin/DashKiosk-debug.apk
     adb shell am start -n com.deezer.android.dashkiosk/.DashboardActivity
 
 You can get the final APK with `ant release`.
