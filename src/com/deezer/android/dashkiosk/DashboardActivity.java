@@ -77,6 +77,10 @@ public class DashboardActivity extends Activity {
         DashboardWebView wv1 = (DashboardWebView) findViewById(R.id.webview1);
         DashboardWebView wv2 = (DashboardWebView) findViewById(R.id.webview2);
         DashboardWebView wv = (wv1.getVisibility() == View.VISIBLE)?wv2:wv1;
+        /* Stop loading anything if we have something to load... */
+        wv1.stopLoading();
+        wv2.stopLoading();
+        /* And load the new URL */
         wv.loadUrl(url, cb);
     }
 
