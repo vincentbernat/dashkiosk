@@ -42,6 +42,7 @@ import android.view.Window;
 import com.deezer.android.dashkiosk.DashboardWebView;
 import com.deezer.android.dashkiosk.DashboardLoader;
 import com.deezer.android.dashkiosk.DashboardURL;
+import com.deezer.android.dashkiosk.FlipTransformer;
 
 public class DashboardActivity extends FragmentActivity {
 
@@ -102,6 +103,7 @@ public class DashboardActivity extends FragmentActivity {
             mAdapter = new WebViewAdapter(getFragmentManager());
             mViewPager = (ViewPager) inflater.inflate(R.layout.pager, container, false);
             mViewPager.setAdapter(mAdapter);
+            mViewPager.setPageTransformer(true, new FlipTransformer());
             mViewPager.setCurrentItem(0);
             return mViewPager;
         }
