@@ -48,7 +48,6 @@ public class DashboardWebView extends WebView {
     }
 
     private static final String TAG = "DashKiosk";
-    private int swapWithId;           // View ID to swap with
     private Timer mScroll;            // Timer to handle scrolling
     private float mScale = 1.0f;      // Current scale
     private DashboardURL mCurrentURL; // Current URL
@@ -56,14 +55,6 @@ public class DashboardWebView extends WebView {
 
     public DashboardWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray a = context.getTheme().obtainStyledAttributes(
-            attrs, R.styleable.DashboardWebView,
-            0, 0);
-        try {
-            swapWithId = a.getResourceId(R.styleable.DashboardWebView_swapWith, 0);
-        } finally {
-            a.recycle();
-        }
     }
 
     /**
@@ -201,16 +192,6 @@ public class DashboardWebView extends WebView {
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     cancelScrolling(); //  Just in case
-
-                    // Swap with the other webview
-                    if (swapWithId != 0) {
-                        View other = getRootView().findViewById(swapWithId);
-                        if (other != null) {
-                            Log.d(TAG, "New page ready, swap with old page");
-                            other.setVisibility(View.GONE);
-                            view.setVisibility(View.VISIBLE);
-                        }
-                    }
 
                     if (mPageLoadedCb != null) {
                         long mElapsed = TimeUnit.MILLISECONDS.convert(
