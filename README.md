@@ -36,7 +36,7 @@ You can get the final APK with `ant release`.
 
 Once the application is running, you can see the logs with:
 
-    adb logcat -s DashKiosk
+    adb logcat -s DashKiosk AndroidRuntime
 
 ## Customization
 
