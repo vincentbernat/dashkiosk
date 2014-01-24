@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -150,9 +151,8 @@ public class DashboardWebView extends WebView {
     }
 
     @Override
-    protected void onVisibilityChanged(View changedView, int visibility) {
-        if (changedView == this &&
-            visibility == View.VISIBLE) {
+    protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
+        if (gainFocus) {
             startScrolling();
         }
     }
