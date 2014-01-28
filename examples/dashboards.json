@@ -10,6 +10,9 @@
       "delay": 10 },
     { "url": "http://dashingdemo.herokuapp.com/sampletv",
       "delay": 10 },
+    { "url": "http://statusdashboard-node.herokuapp.com/",
+      "delay": 20,
+      "scoll": true },
     { "url": "http://ganglia.wikimedia.org/latest/?r=hour&cs=&ce=&tab=v&vn=DNS&hide-hf=false",
       "delay": 20,
       "scroll": true }
