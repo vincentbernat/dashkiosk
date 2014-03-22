@@ -47,6 +47,19 @@ The server provides two features:
  - an administration page to manage all screens, group them, tell them
    which URL to display.
 
+Building the server is done using the following steps:
+
+    ::console
+    $ npm install -g bower grunt coffee
+    $ npm install
+    $ bower install
+    $ grunt
+
+To run the server for development:
+
+    ::console
+    $ grunt serve
+
 ## Android application
 
 This is a simple Android application whose purpose is to display
