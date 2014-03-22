@@ -247,32 +247,6 @@ module.exports = function(grunt) {
             }
         },
 
-        manifest: {
-            dist: {
-                options: {
-                    basePath: 'dist/public',
-                    network: [
-                        'api'
-                    ],
-                    hash: true,
-                    timestamp: false,
-                    master: ['index.html'],
-                    cache: [
-                        'api/offline/internet/plans',
-                        'api/offline/shop/items',
-                        'api/offline/movies'
-                    ]
-                },
-                src: [
-                    'scripts/{,*/}*.js',
-                    'styles/{,*/}*.css',
-                    'images/{,*/,*/*/}*.*',
-                    'fonts/*.ttf',
-                ],
-                dest: 'dist/public/manifest.appcache'
-            },
-        },
-
         concurrent: {
             server: {
                 tasks: [
@@ -417,8 +391,7 @@ module.exports = function(grunt) {
         'cssmin',
         'uglify',
         'rev',
-        'usemin',
-        'manifest'
+        'usemin'
     ]);
 
     grunt.registerTask('default', [
