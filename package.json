@@ -4,7 +4,7 @@
   "dependencies": {
     "express": "^3.5.0",
     "lodash": "~2.4.1",
-    "sockjs": "^0.3.8"
+    "socket.io": "^0.9.16"
   },
   "devDependencies": {
     "connect-livereload": "^0.3.2",
