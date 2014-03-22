@@ -138,7 +138,7 @@ module.exports = function(grunt) {
                 noOverqualifying: false
             },
             all: {
-                src: [ 'app/styles/main.less' ]
+                src: [ 'app/styles/admin.less' ]
             }
         },
 
@@ -149,7 +149,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'app/styles',
-                    src: 'main.less',
+                    src: 'admin.less',
                     dest: 'build/styles',
                     ext: '.css'
                 }]
@@ -189,7 +189,7 @@ module.exports = function(grunt) {
         bowerInstall: {
             target: {
                 ignorePath: '../app/',
-                src: [ 'build/index.html' ]
+                src: [ 'build/admin.html' ]
             }
         },
 
