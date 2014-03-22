@@ -1,3 +1,12 @@
+# Android
 /android/local.properties
 /android/bin/
 /android/gen/
+
+# JS
+/build/
+/dist/
+/node_modules/
+/app/bower_components/
+/.tmp/
+/.rebooted

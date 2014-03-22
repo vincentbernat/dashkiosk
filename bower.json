@@ -1,0 +1,13 @@
+{
+  "name": "dashkiosk",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "~1.2.14",
+    "angular-cookies": "~1.2.14",
+    "angular-resource": "~1.2.14",
+    "angular-route": "~1.2.14",
+    "normalize-css": "~3.0.0",
+    "sockjs-client": "~0.3.4"
+  },
+  "devDependencies": {}
+}
