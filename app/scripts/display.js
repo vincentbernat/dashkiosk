@@ -65,12 +65,12 @@
       /* Display an iframe */
       function show(iframe) {
         if (iframe !== iframes[0]) {
-          console.warn('[Dashkiosk]', 'BUG: request to display a new iframe which is not in our queue',
+          console.warn('[Dashkiosk] BUG: request to display a new iframe which is not in our queue',
                        iframe, iframes);
           remove(iframe);
           return;
         }
-        console.info('[Dashkiosk]', 'iframe ready', iframe.attr('src'));
+        console.info('[Dashkiosk] iframe ready ' + iframe.attr('src'));
         $('#loading').removeClass('show');
         iframe.addClass('show');
         while (iframes.length > 1) {
@@ -96,7 +96,7 @@
     function url(u) {
       // Check URL validity
       if (typeof u.target !== 'string') {
-        console.warn('[Dashkiosk]', 'received an URL without target: ', u);
+        console.warn('[Dashkiosk] received an URL without target: ', u);
         return;
       }
       // Push it
@@ -119,21 +119,21 @@
       var socket = io.connect(window.location.origin + '/display');
 
       socket.on('connect', function() {
-        console.info('[Dashkiosk]', 'connected to socket.io server');
+        console.info('[Dashkiosk] connected to socket.io server');
       });
 
       socket.on('disconnect', function() {
-        console.warn('[Dashkiosk]', 'connection to socket.io lost');
+        console.warn('[Dashkiosk] connection to socket.io lost');
         display.loading();
       });
 
       socket.on('url', function(url) {
-        console.info('[Dashkiosk]', 'should display URL ', url);
+        console.info('[Dashkiosk] should display URL ', url);
         display.url(url);
       });
 
       socket.on('reload', function() {
-        console.info('[Dashkiosk]', 'reload requested');
+        console.info('[Dashkiosk] reload requested');
         window.location.reload();
       });
     }
@@ -154,7 +154,7 @@
       window.JSInterface.ready();
     }
     // OK, ready, connect to socket.io
-    console.log('[Dashkiosk]', 'dashkiosk ready, connect to socket.io server');
+    console.log('[Dashkiosk] dashkiosk ready, connect to socket.io server');
     socketio.connect();
   });
 
