@@ -6,8 +6,6 @@ var PORTS = {
   inspector: 9401
 };
 
-var spawn = require('child_process').spawn;
-
 module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
@@ -29,7 +27,6 @@ module.exports = function(grunt) {
       debug: {
         script: 'server.js',
         options: {
-          stdout: false,
           watch: [
             'server.js', 'lib'
           ],
@@ -47,19 +44,6 @@ module.exports = function(grunt) {
                 require('fs').writeFileSync('.rebooted', 'rebooted');
               }, 1000);
             });
-
-            // Log with bunyan
-            (function(nodemon) {
-              var p = spawn('./node_modules/bunyan/bin/bunyan', {
-                stdio: [ 'pipe', process.stdout, process.stderr ]
-              });
-              nodemon.on('stdout', function(event) {
-                p.stdin.write(event);
-              });
-              nodemon.on('stderr', function(event) {
-                process.stderr.write(event);
-              });
-            })(nodemon);
           }
         }
       }

@@ -50,7 +50,7 @@ The server provides two features:
 Building the server is done using the following steps:
 
     ::console
-    $ npm install -g bower grunt bunyan
+    $ npm install -g bower grunt
     $ npm install
     $ bower install
     $ grunt
@@ -63,7 +63,7 @@ To run the server for development:
 To run the server:
 
     ::console
-    $ npm start | bunyan
+    $ npm start
 
 ### Display API
 

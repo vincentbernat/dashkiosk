@@ -14,8 +14,9 @@
   "dependencies": {
     "lodash": "~2.4.1",
     "socket.io": "^0.9.16",
-    "restify": "^2.6.3",
-    "bunyan": "^0.22.1"
+    "express": "^3.5.0",
+    "winston": "^0.7.2",
+    "express-winston": "^0.2.5"
   },
   "devDependencies": {
     "connect-livereload": "^0.3.2",

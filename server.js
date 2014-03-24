@@ -1,88 +1,83 @@
 'use strict';
 
-var restify  = require('restify'),
+var express  = require('express'),
+    http     = require('http'),
     socketio = require('socket.io'),
-    bunyan   = require('bunyan'),
+    winston  = require('winston'),
+    expressWinston = require('express-winston'),
     path     = require('path'),
+    util     = require('util'),
     config   = require('./lib/config');
 
-var log = new bunyan({
-  name: 'dashkiosk',
-  streams: [
-    {
-      stream: process.stdout,
-      level: 'info'
-    }
-  ],
-  serializers: restify.bunyan.serializers
+process.env.NODE_ENV = process.env.NODE_ENV || config.env;
+
+// Configure logging
+winston.remove(winston.transports.Console);
+winston.add(winston.transports.Console, {
+  colorize: true,
+  timestamp: true,
+  level: config.logLevel
 });
 
-var options = {
-  name: 'Dashkiosk API',
-  version: '1.0.0',
-  log: log
-};
-
-var app = restify.createServer(options),
-    io  = socketio.listen(app, {
+var app = express(),
+    server = http.createServer(app),
+    io = socketio.listen(server, {
       logger: {
-        debug: function(w) { log.debug({source: 'socket.io'}, w); },
-        info:  function(w) { log.info({source: 'socket.io'}, w); },
-        error: function(w) { log.error({source: 'socket.io'}, w); },
-        warn:  function(w) { log.warn({source: 'socket.io'}, w); },
-        trace: function(w) { log.trace({source: 'socket.io'}, w); }
+        debug: winston.debug,
+        info: winston.info,
+        error: winston.error,
+        warn: winston.warn
       }
     });
 
-app.use(restify.acceptParser(app.acceptable));
-app.use(restify.throttle({
-  burst: 30,
-  rate: 5,
-  ip: true
-}));
-
-// Logging
-app.on('after', function(req, res, route) {
-  req.log.info({req: req, res: res}, 'access');
-});
-app.on('uncaughtException', function(req, res, route, err) {
-  req.log.warn({req: req, res: res, err: err}, 'error');
-  res.send(err);
-});
-
-// Default URL
-function redirect(to) {
-  return function(req, res, next) {
-    res.header('Location', to);
-    res.send(302);
-    return next(false);
-  };
-}
-app.get('/', redirect('/display.html'));
-app.get('/admin', redirect('/admin.html'));
-app.get('/display', redirect('/display.html'));
-
-/*
-// See: https://github.com/mcavage/node-restify/issues/565
-if (config.env === 'development') {
-  app.get(/\/\w+\.html/, require('connect-livereload')({
+// Configuration of Express.js
+app.configure('development', function() {
+  app.use(require('connect-livereload')({
     port: process.env.LIVERELOAD_PORT
   }));
-}
-*/
-
-// Static files
-var staticHandler = restify.serveStatic({
-    directory: config.static
 });
-app.get(/\/(bower_components|images|scripts|styles)\/.*/, staticHandler);
-app.get(/\/\w+\.html/, staticHandler);
+app.configure(function() {
+  app.use(express.static(config.static));
+  app.use(express.json());
+  app.use(express.urlencoded());
+  app.use(express.methodOverride());
+
+  app.use(expressWinston.logger({
+    transports: [
+      new winston.transports.Console({
+        timestamp: true,
+        colorize: true
+      })
+    ]
+  }));
+  app.use(app.router);
+  app.use(expressWinston.errorLogger({
+    transports: [
+      new winston.transports.Console({
+        timestamp: true,
+        colorize: true
+      })
+    ]
+  }));
+});
+app.configure('development', function() {
+  app.use(express.errorHandler());
+});
+
+// HTML applications
+app.get('/', function(req, res) { res.redirect('/display'); });
+app.get('/admin', function(req, res) {
+  res.sendfile(path.join(config.static, 'admin.html'));
+});
+app.get('/display', function(req, res) {
+  res.sendfile(path.join(config.static, 'display.html'));
+});
 
 // Websocket for displays
 io
   .of('/display')
   .on('connection', function(socket) {
-    log.info(socket.handshake.address, 'new client');
+    winston.info('new client', socket.handshake.address);
     socket.join('displays');
   });
 
@@ -92,14 +87,14 @@ setInterval((function() {
                'http://socket.io/',
                'http://fr.wikipedia.org/' ];
   return function() {
-    log.info({ url: urls[0] }, 'sending new URL to everyone');
+    winston.info('sending new URL to everyone', { url: urls[0] });
     io.of('/display').in('displays').emit('url', { target: urls[0] });
     urls.push(urls.shift());
   };
 })(), 10000);
 
-app.listen(config.port, function() {
-  log.info('RESTify server listening on port %d in %s mode',
+server.listen(config.port, function() {
+  winston.info('Express server listening on port %d in %s mode',
               config.port, config.env);
 });
 

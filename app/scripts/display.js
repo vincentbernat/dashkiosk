@@ -144,7 +144,7 @@
 
   })();
 
-  $(function() {
+  $(window).on('load', function() {
     // Tell through a message
     if (window.parent && window.parent.postMessage) {
       window.parent.postMessage('ready', '*');
