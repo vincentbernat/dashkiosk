@@ -12,7 +12,7 @@
   <uses-permission android:name="android.permission.INTERNET" />
 
   <application android:label="@string/app_name"
-               android:icon="@drawable/dashkiosk"
+               android:icon="@drawable/ic_launcher"
                android:hardwareAccelerated="true">
     <activity android:name="DashboardActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"

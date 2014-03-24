@@ -19,7 +19,7 @@
         android:key="pref_ping_url"
         android:title="@string/pref_ping_url"
         android:summary="@string/pref_ping_url_summary"
-        android:defaultValue="http://dashkiosk/dashboards.json" />
+        android:defaultValue="http://dashkiosk" />
     <ListPreference
         android:key="pref_ping_timeout"
         android:title="@string/pref_ping_timeout"
@@ -27,12 +27,5 @@
         android:entries="@array/pref_ping_timeout_entries"
         android:entryValues="@array/pref_ping_timeout_values"
         android:defaultValue="2000" />
-    <ListPreference
-        android:key="pref_ping_sleep"
-        android:title="@string/pref_ping_sleep"
-        android:summary="@string/pref_ping_sleep_summary"
-        android:entries="@array/pref_ping_sleep_entries"
-        android:entryValues="@array/pref_ping_sleep_values"
-        android:defaultValue="30" />
   </PreferenceCategory>
 </PreferenceScreen>

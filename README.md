@@ -50,7 +50,7 @@ The server provides two features:
 Building the server is done using the following steps:
 
     ::console
-    $ npm install -g bower grunt
+    $ npm install -g bower grunt-cli
     $ npm install
     $ bower install
     $ grunt

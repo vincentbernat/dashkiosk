@@ -3,5 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:orientation="horizontal"
+    android:keepScreenOn="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent">
+  <ImageView
+      android:id="@+id/image"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="20dp"
+      android:layout_marginLeft="20dp"
+      android:scaleType="centerInside"
+      android:src="@drawable/dashkiosk" />
+  <com.deezer.android.dashkiosk.DashboardWebView
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:visibility="gone"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:clickable="false"
+      android:scrollbars="none"
+      android:focusable="false" />
+</LinearLayout>

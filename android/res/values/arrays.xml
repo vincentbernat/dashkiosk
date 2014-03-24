@@ -15,41 +15,21 @@
 
     <!-- Ping URL timeout -->
     <string-array name="pref_ping_timeout_entries">
-      <item>100 ms</item>
-      <item>500 ms</item>
       <item>1 second</item>
-      <item>2 seconds</item>
       <item>5 seconds</item>
       <item>10 seconds</item>
+      <item>20 seconds</item>
+      <item>30 seconds</item>
+      <item>1 minute</item>
     </string-array>
 
     <string-array name="pref_ping_timeout_values">
-      <item>100</item>
-      <item>500</item>
       <item>1000</item>
-      <item>2000</item>
       <item>5000</item>
       <item>10000</item>
+      <item>20000</item>
+      <item>30000</item>
+      <item>60000</item>
     </string-array>
 
-    <!-- Ping sleep interval -->
-    <string-array name="pref_ping_sleep_entries">
-      <item>1 second</item>
-      <item>5 seconds</item>
-      <item>10 seconds</item>
-      <item>30 seconds</item>
-      <item>1 minute</item>
-      <item>2 minutes</item>
-      <item>5 minutes</item>
-    </string-array>
-
-    <string-array name="pref_ping_sleep_values">
-      <item>1</item>
-      <item>5</item>
-      <item>10</item>
-      <item>30</item>
-      <item>60</item>
-      <item>120</item>
-      <item>300</item>
-    </string-array>
 </resources>
