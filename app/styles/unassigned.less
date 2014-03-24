@@ -12,12 +12,10 @@ body{
 
     animation: slideshow 120s ease-in-out infinite;
 
-    transition: background-image 3s;
-
     &:after, &:before {
         position: absolute;
-        bottom: 1em;
-        left: 1em;
+        bottom: 24px;
+        left: 24px;
         font-family: sans-serif;
         font-size: 24px;
         font-weight: bold;
@@ -26,7 +24,7 @@ body{
         opacity: 0.3;
     }
     &:after {
-        bottom: 2.2em;
+        bottom: 50px;
         content: "Tommie Hansen";
     }
     &:before {
@@ -37,16 +35,16 @@ body{
 }
 
 @keyframes slideshow {
-    from, 12.5%, 87.5%, to {
+    from, 12%, 88%, to {
         background-image: url(../images/unassigned/13369692564_8651356359_k.jpg);
     }
-    12.5%, 37.5% {
+    13%, 37% {
         background-image: url(../images/unassigned/13369441935_bd9bcbb0a0_k.jpg);
     }
-    37.5%, 62.5% {
+    38%, 62% {
         background-image: url(../images/unassigned/13369221745_9eade1616b_k.jpg);
     }
-    62.5%, 87.5% {
+    63%, 87% {
         background-image: url(../images/unassigned/13369146523_f30a111187_k.jpg);
     }
 }
