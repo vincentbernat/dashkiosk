@@ -1,50 +1,63 @@
-body, html {
+body, html, div {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
     overflow: hidden;
 }
-body{
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    animation: slideshow 120s ease-in-out infinite;
-
-    &:after, &:before {
+body {
+    & > div {
         position: absolute;
-        bottom: 24px;
-        left: 24px;
-        font-family: sans-serif;
-        font-size: 24px;
-        font-weight: bold;
-        color: white;
-        text-align: left;
-        opacity: 0.3;
-    }
-    &:after {
-        bottom: 50px;
-        content: "Tommie Hansen";
-    }
-    &:before {
-        font-size: 16px;
-        content: "http://www.flickr.com/photos/tommiehansen/"
-    }
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0;
 
+        animation: slideshow 120s ease-in-out infinite;
+
+        &:after, &:before {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            font-family: sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-align: left;
+            opacity: 0.5;
+        }
+        &:after {
+            bottom: 50px;
+            content: "Tommie Hansen";
+        }
+        &:before {
+            font-size: 16px;
+            content: "http://www.flickr.com/photos/tommiehansen/"
+        }
+
+        &:nth-child(1) {
+            background-image: url(../images/unassigned/13369146523_f30a111187_k.jpg);
+        }
+        &:nth-child(2) {
+            background-image: url(../images/unassigned/13369692564_8651356359_k.jpg);
+            animation-delay: -30s;
+        }
+        &:nth-child(3) {
+            background-image: url(../images/unassigned/13369441935_bd9bcbb0a0_k.jpg);
+            animation-delay: -60s;
+        }
+        &:nth-child(4) {
+            background-image: url(../images/unassigned/13369221745_9eade1616b_k.jpg);
+            animation-delay: -90s;
+        }
+    }
 }
 
 @keyframes slideshow {
     from, 12%, 88%, to {
-        background-image: url(../images/unassigned/13369692564_8651356359_k.jpg);
+        opacity: 1;
     }
-    13%, 37% {
-        background-image: url(../images/unassigned/13369441935_bd9bcbb0a0_k.jpg);
-    }
-    38%, 62% {
-        background-image: url(../images/unassigned/13369221745_9eade1616b_k.jpg);
-    }
-    63%, 87% {
-        background-image: url(../images/unassigned/13369146523_f30a111187_k.jpg);
+    14%, 86% {
+        opacity: 0;
     }
 }
