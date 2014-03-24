@@ -29,7 +29,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.deezer.android.dashkiosk.DashboardWebView;
-import com.deezer.android.dashkiosk.DashboardURL;
 
 public class DashboardActivity extends Activity {
 

@@ -16,6 +16,7 @@
 
 package com.deezer.android.dashkiosk;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -25,14 +26,13 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings;
-
-import com.deezer.android.dashkiosk.DashboardURL;
 
 /**
  * Fullscreen web view that is setup for kiosk mode: no interaction
@@ -76,13 +76,23 @@ public class DashboardWebView extends WebView {
             });
 
         /* Provide an interface for readiness */
+        final Handler handler = new Handler();
+        final Runnable show = new Runnable() {
+                @Override
+                public void run() {
+                    View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
+                    View im = rootView.findViewById(R.id.image);
+                    if (im != null) {
+                        ((ViewGroup)im.getParent()).removeView(im);
+                    }
+                }
+            };
         this.addJavascriptInterface(new Object() {
-
                 @JavascriptInterface
                 public void ready() {
                     Log.i(TAG, "Web page tells it is ready");
                     mReady = true;
-                    setVisibility(View.VISIBLE);
+                    handler.post(show);
                 }
             }, "JSInterface");
 
@@ -96,19 +106,17 @@ public class DashboardWebView extends WebView {
         int timeout = Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
 
         final Handler handler = new Handler();
-        Runnable runable = new Runnable() {
-
+        Runnable reload = new Runnable() {
             @Override
             public void run() {
                 if (!mReady) {
                     Log.i(TAG, "Unable to load " + pingURL + ". Let's retry");
                     stopLoading();
-                    loadUrl(pingURL);
-                    mReady = false;
+                    load();
                 }
             }
         };
-        handler.postDelayed(runable, timeout);
+        handler.postDelayed(reload, timeout);
         this.loadUrl(pingURL);
         mReady = false;
     }
