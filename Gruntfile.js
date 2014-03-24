@@ -137,8 +137,7 @@ module.exports = function(grunt) {
         noOverqualifying: false
       },
       all: {
-        src: [ 'app/styles/admin.less',
-               'app/styles/display.less' ]
+        src: [ 'app/styles/*.less' ]
       }
     },
 
@@ -149,7 +148,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'app/styles',
-          src: [ 'admin.less', 'display.less' ],
+          src: [ '*.less' ],
           dest: 'build/styles',
           ext: '.css'
         }]

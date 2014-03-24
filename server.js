@@ -65,13 +65,15 @@ app.configure('development', function() {
 });
 
 // HTML applications
+function serve(file) {
+  return function(req, res) {
+    res.sendfile(path.join(config.static, file));
+  };
+}
 app.get('/', function(req, res) { res.redirect('/display'); });
-app.get('/admin', function(req, res) {
-  res.sendfile(path.join(config.static, 'admin.html'));
-});
-app.get('/display', function(req, res) {
-  res.sendfile(path.join(config.static, 'display.html'));
-});
+app.get('/admin', serve('admin.html'));
+app.get('/display', serve('display.html'));
+app.get('/unassigned', serve('unassigned.html'));
 
 // Websocket for displays
 io
