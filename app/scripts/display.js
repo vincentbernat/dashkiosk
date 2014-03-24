@@ -54,8 +54,8 @@
           .one('load', function() {
             show(iframe);
           })
-          .attr('seamless', true)
           .attr('scrolling', 'no')
+          .attr('frameborder', '0')
           .attr('src', url.target);
 
         // Put it in the queue
