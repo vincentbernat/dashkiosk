@@ -6,14 +6,31 @@
     android:keepScreenOn="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-  <ImageView
-      android:id="@+id/image"
+
+  <FrameLayout
+      android:id="@+id/imageView"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="20dp"
-      android:layout_marginLeft="20dp"
-      android:scaleType="centerInside"
-      android:src="@drawable/dashkiosk" />
+      android:layout_height="match_parent" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/dashkiosk" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp" />
+  </FrameLayout>
+
   <com.deezer.android.dashkiosk.DashboardWebView
       xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="match_parent"
