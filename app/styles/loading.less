@@ -1,0 +1,47 @@
+.loading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    & > div {
+        width: 80%;
+        height: 100%;
+        margin: 0 8%;
+        @media all and (orientation: landscape) {
+            width: 100%;
+            height: 80%;
+            margin: 8% 0;
+        }
+
+        background-image: url(../images/loading.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    cursor: wait;
+
+    transform: translateX(-200%);
+    transition: transform 0.5s;
+
+    &.show {
+        transform: translateX(0);
+        & > div {
+            animation: loading 10s infinite linear;
+        }
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    };
+}

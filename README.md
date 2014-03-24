@@ -50,7 +50,7 @@ The server provides two features:
 Building the server is done using the following steps:
 
     ::console
-    $ npm install -g bower grunt coffee
+    $ npm install -g bower grunt bunyan
     $ npm install
     $ bower install
     $ grunt
@@ -59,6 +59,32 @@ To run the server for development:
 
     ::console
     $ grunt serve
+    
+To run the server:
+
+    ::console
+    $ npm start | bunyan
+
+### Display API
+
+The display API is used by the displays to get the URL they should
+display. This API is purely on top of [Socket.IO][]. The API is
+contained in the `/display` namespace.
+
+Currently, the API is pretty simple and features only one message,
+sent from the server to the display. The message name is `url` whose
+content is a simple JSON object with `target` containing the URL to
+display:
+
+    ::javascript
+    socket.on('url', function(data) {
+      console.log('I should display ', data.target);
+    }
+
+It is also possible to request the application to reload by sending
+the `reload` message.
+
+[Socket.IO]: http://socket.io/
 
 ## Android application
 

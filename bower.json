@@ -7,7 +7,9 @@
     "angular-resource": "~1.2.14",
     "angular-route": "~1.2.14",
     "normalize-css": "~3.0.0",
-    "socket.io-client": "~0.9.16"
+    "socket.io-client": "~0.9.16",
+    "lodash": "~2.4.1",
+    "zepto": "~1.1.3"
   },
   "devDependencies": {}
 }
