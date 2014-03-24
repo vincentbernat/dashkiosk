@@ -19,7 +19,7 @@ come as three components:
 
 The web application is pretty simple. It connects to the node.js
 server using the WebSocket protocol and waits for the server to tell
-which URL to display. The URL is displayed in a fullscreen seamless
+which URL to display. The URL is displayed in a fullscreen
 iframe. When a new URL is requested, a new iframe is built but hidden
 offscreen. Only when the site has been loaded (and optionnaly told the
 web app that is ready, see below), the iframe is shown and the
@@ -30,8 +30,9 @@ previous iframe is discarded.
 The web application watches for the load event of the iframe that has
 to be displayed before displaying it. However, some dashboards are
 quite dynamic and the `onload` event is triggered while the dashboard
-is not really ready. Therefore, the webapp also accepts to be notified
-through the [postMessage API][] by sending a ready message:
+is not really ready. Therefore, in the future, the webapp will also
+accept to be notified through the [postMessage API][] by sending a
+ready message:
 
     ::javascript
     window.parent.postMessage("ready", "*");
@@ -64,27 +65,6 @@ To run the server:
 
     ::console
     $ npm start
-
-### Display API
-
-The display API is used by the displays to get the URL they should
-display. This API is purely on top of [Socket.IO][]. The API is
-contained in the `/display` namespace.
-
-Currently, the API is pretty simple and features only one message,
-sent from the server to the display. The message name is `url` whose
-content is a simple JSON object with `target` containing the URL to
-display:
-
-    ::javascript
-    socket.on('url', function(data) {
-      console.log('I should display ', data.target);
-    }
-
-It is also possible to request the application to reload by sending
-the `reload` message.
-
-[Socket.IO]: http://socket.io/
 
 ## Android application
 
@@ -137,13 +117,15 @@ the activity manually. For example, with `adb`:
 #### Loading screen
 
 If you want to change the loading screen, have a look at
-`assets/html/loading.html` as well as the linked files
-`assets/stylesheets/loading.css` and `assets/images/loading.svg`.
+`res/drawable-hdpi/dashkiosk.png`. This only concerns the loading
+screen of the application until it contacts the webapp. After that,
+the loading screen will never appear again. The spinning vinyl comes
+from the webapp.
 
 #### Dashboard webapp
 
-By default, the URL to ping will be `http://dashkiosk/`. This can be
-changed in the preferences.
+By default, the URL to ping to get the webapp will be
+`http://dashkiosk/`. This can be changed in the preferences.
 
 #### Orientation
 
