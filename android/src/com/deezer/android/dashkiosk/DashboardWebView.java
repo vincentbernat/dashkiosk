@@ -49,6 +49,14 @@ public class DashboardWebView extends WebView {
         mContext = context;
     }
 
+    @SuppressWarnings("deprecation")
+    private void enableLocalStorage() {
+        WebSettings ws = this.getSettings();
+        ws.setDatabaseEnabled(true);
+        ws.setDatabasePath(mContext.getApplicationContext().getDir("databases", Context.MODE_PRIVATE).getPath());
+        ws.setDomStorageEnabled(true);
+    }
+
     @Override
     protected void onAttachedToWindow() {
         WebSettings ws = this.getSettings();
@@ -56,6 +64,7 @@ public class DashboardWebView extends WebView {
         ws.setMediaPlaybackRequiresUserGesture(false);
         ws.setLoadWithOverviewMode(true);
         ws.setUseWideViewPort(true);
+        enableLocalStorage();
 
         /* No interaction */
         this.setWebViewClient(new WebViewClient() {
