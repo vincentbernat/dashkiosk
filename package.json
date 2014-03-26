@@ -3,7 +3,8 @@
   "description": "Drive a set of screens displaying dashboards",
   "url": "https://github.com/vincentbernat/dashkiosk",
   "license": "ISC",
-  "version": "0.0.1",
+  "version": "2.0.0",
+  "private": true,
   "bin": {
     "dashkiosk": "./server.js"
   },

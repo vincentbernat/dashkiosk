@@ -1,6 +1,7 @@
 {
   "name": "dashkiosk",
-  "version": "0.0.0",
+  "version": "2.0.0",
+  "private": true,
   "dependencies": {
     "angular": "~1.2.14",
     "angular-cookies": "~1.2.14",
