@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         script: 'server.js',
         options: {
           watch: [
-            'server.js', 'lib'
+            'server.js', 'lib/*'
           ],
           nodeArgs: ['--debug'],
           env: {

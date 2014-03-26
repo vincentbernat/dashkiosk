@@ -75,25 +75,8 @@ app.get('/admin', serve('admin.html'));
 app.get('/display', serve('display.html'));
 app.get('/unassigned', serve('unassigned.html'));
 
-// Websocket for displays
-io
-  .of('/display')
-  .on('connection', function(socket) {
-    winston.info('new client', socket.handshake.address);
-    socket.join('displays');
-  });
-
-// Use a fixed list of URL for now
-setInterval((function() {
-  var urls = [ 'http://dashingdemo.herokuapp.com/sampletv',
-               'http://socket.io/',
-               'http://fr.wikipedia.org/' ];
-  return function() {
-    winston.info('sending new URL to everyone', { url: urls[0] });
-    io.of('/display').in('displays').emit('url', { target: urls[0] });
-    urls.push(urls.shift());
-  };
-})(), 10000);
+// API
+require('./lib/api/display')(io.of('/display'));
 
 server.listen(config.port, function() {
   winston.info('Express server listening on port %d in %s mode',
