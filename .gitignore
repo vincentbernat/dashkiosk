@@ -10,3 +10,6 @@
 /app/bower_components/
 /.tmp/
 /.rebooted
+
+# Run stuff
+/databases
