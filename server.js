@@ -2,31 +2,17 @@
 
 var http     = require('http'),
     socketio = require('socket.io'),
-    winston  = require('winston'),
     path     = require('path'),
     util     = require('util'),
+    logger   = require('./lib/logger'),
     config   = require('./lib/config');
 
 process.env.NODE_ENV = process.env.NODE_ENV || config.env;
 
-// Configure logging
-winston.remove(winston.transports.Console);
-winston.add(winston.transports.Console, {
-  colorize: true,
-  timestamp: true,
-  // handleExceptions: true,
-  level: config.logLevel
-});
-
 var app = require('./lib/express'),
     server = http.createServer(app),
     io = socketio.listen(server, {
-      logger: {
-        debug: winston.debug,
-        info: winston.info,
-        error: winston.error,
-        warn: winston.warn
-      }
+      logger: logger
     });
 
 // Static files
@@ -54,7 +40,7 @@ db
       throw err;
     } else {
       server.listen(config.port, function() {
-        winston.info('Express server listening on port %d in %s mode',
+        logger.info('Express server listening on port %d in %s mode',
                      config.port, config.env);
       });
     }
