@@ -66,6 +66,27 @@ To run the server:
     ::console
     $ npm start
 
+By default, it uses an SQLite database in the current directory. You
+can use a PostgreSQL database instead or any
+[dialect supported by Sequelize][]. Then, put this in a `config.json`
+file:
+
+    ::json
+    {
+        "db": {
+            "username": "dashkiosk",
+            "password": "dashkiosk",
+            "database": "dashkiosk",
+            "options": {
+                "dialect": "postgres"
+            }
+        }
+    }
+
+Also install PostgreSQL bindings with `npm install pg`.
+
+[dialect supported by Sequelize]: http://sequelizejs.com/docs/latest/usage#dialects
+
 ## Android application
 
 This is a simple Android application whose purpose is to display
