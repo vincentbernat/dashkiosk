@@ -26,12 +26,13 @@ app.get('/admin', serve('admin.html'));
 app.get('/display', serve('display.html'));
 app.get('/unassigned', serve('unassigned.html'));
 
-// API and DB
-var api = require('./lib/api'),
-    db = require('./lib/db');
+// API
+var api = require('./lib/api');
+api.socketio(io);
+api.rest(app);
 
-api
-  .display(io.of('/display'));
+// DB
+var db = require('./lib/db');
 db
   .sequelize
   .sync()
