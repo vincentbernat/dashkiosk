@@ -16,9 +16,10 @@
     "express": "^3.5.0",
     "express-winston": "^0.2.5",
     "lodash": "~2.4.1",
-    "nedb": "^0.10.4",
     "q": "^1.0.1",
+    "sequelize": "^1.7.0",
     "socket.io": "^0.9.16",
+    "sqlite3": "^2.2.0",
     "winston": "^0.7.2"
   },
   "devDependencies": {

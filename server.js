@@ -14,6 +14,7 @@ winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, {
   colorize: true,
   timestamp: true,
+  // handleExceptions: true,
   level: config.logLevel
 });
 
@@ -31,7 +32,7 @@ var app = require('./lib/express'),
 // Static files
 function serve(file) {
   return function(req, res) {
-    res.sendfile(path.join(config.static, file));
+    res.sendfile(path.join(config.path.static, file));
   };
 }
 app.get('/', function(req, res) { res.redirect('/display'); });
@@ -39,15 +40,24 @@ app.get('/admin', serve('admin.html'));
 app.get('/display', serve('display.html'));
 app.get('/unassigned', serve('unassigned.html'));
 
-// Database
-var models = require('./lib/models');
+// API and DB
+var api = require('./lib/api'),
+    db = require('./lib/models');
 
-// API
-require('./lib/api/display')(io.of('/display'));
+api
+  .display(io.of('/display'));
+db
+  .sequelize
+  .sync()
+  .complete(function(err) {
+    if (!!err) {
+      throw err;
+    } else {
+      server.listen(config.port, function() {
+        winston.info('Express server listening on port %d in %s mode',
+                     config.port, config.env);
+      });
+    }
+  });
 
-server.listen(config.port, function() {
-  winston.info('Express server listening on port %d in %s mode',
-              config.port, config.env);
-});
-
-exports = module.exports = app;
+module.exports = app;

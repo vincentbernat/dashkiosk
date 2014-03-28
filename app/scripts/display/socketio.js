@@ -17,17 +17,15 @@ define('socketio', (function(window, io, undefined) {
       var blob = localStorage.getItem('register') || null;
       socket.emit('register', {
         blob: blob
+      }, function(data) {
+        console.info('[Dashkiosk] registered to server');
+        localStorage.setItem('register', data);
       });
     });
 
     socket.on('disconnect', function() {
       console.warn('[Dashkiosk] connection to socket.io lost');
       screen.loading();
-    });
-
-    socket.on('register', function(blob) {
-      console.info('[Dashkiosk] registered to server');
-      localStorage.setItem('register', blob);
     });
 
     socket.on('url', function(url) {
