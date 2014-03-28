@@ -36,7 +36,8 @@ db
   .sync()
   .complete(function(err) {
     if (!!err) {
-      throw err;
+      // Throw only the first one
+      throw err[0];
     } else {
       server.listen(config.get('port'), function() {
         logger.info('Express server listening on port %d in %s mode',
