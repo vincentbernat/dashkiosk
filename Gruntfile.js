@@ -26,13 +26,14 @@ module.exports = function(grunt) {
     nodemon: {
       debug: {
         script: 'server.js',
+        args: [ '--environment', 'development',
+                '--port', PORTS.express ],
         options: {
           watch: [
             'server.js', 'lib/*'
           ],
           nodeArgs: ['--debug'],
           env: {
-            PORT: PORTS.express,
             LIVERELOAD_PORT: PORTS.livereload
           },
           callback: function (nodemon) {

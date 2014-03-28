@@ -7,8 +7,6 @@ var http     = require('http'),
     logger   = require('./lib/logger'),
     config   = require('./lib/config');
 
-process.env.NODE_ENV = process.env.NODE_ENV || config.env;
-
 var app = require('./lib/express'),
     server = http.createServer(app),
     io = socketio.listen(server, {
@@ -18,7 +16,7 @@ var app = require('./lib/express'),
 // Static files
 function serve(file) {
   return function(req, res) {
-    res.sendfile(path.join(config.path.static, file));
+    res.sendfile(path.join(config.get('path:static'), file));
   };
 }
 app.get('/', function(req, res) { res.redirect('/display'); });
@@ -40,9 +38,10 @@ db
     if (!!err) {
       throw err;
     } else {
-      server.listen(config.port, function() {
+      server.listen(config.get('port'), function() {
         logger.info('Express server listening on port %d in %s mode',
-                     config.port, config.env);
+                    config.get('port'),
+                    config.get('environment'));
       });
     }
   });
