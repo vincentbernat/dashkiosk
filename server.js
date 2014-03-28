@@ -28,7 +28,7 @@ app.get('/unassigned', serve('unassigned.html'));
 
 // API and DB
 var api = require('./lib/api'),
-    db = require('./lib/models');
+    db = require('./lib/db');
 
 api
   .display(io.of('/display'));
