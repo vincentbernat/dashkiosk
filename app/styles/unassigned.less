@@ -13,51 +13,43 @@ body {
         background-size: cover;
         opacity: 0;
 
-        animation: slideshow 120s ease-in-out infinite;
-
-        &:after, &:before {
-            position: absolute;
-            bottom: 24px;
-            left: 24px;
-            font-family: sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            text-align: left;
-            opacity: 0.5;
-        }
-        &:after {
-            bottom: 50px;
-            content: "Tommie Hansen";
-        }
-        &:before {
-            font-size: 16px;
-            content: "http://www.flickr.com/photos/tommiehansen/"
+        @duration: 30s;
+        @fade: 1s;
+        @total: 8;
+        .add(@counter, @image) {
+            &:nth-child(@{counter}) {
+                @url: "../images/unassigned/@{image}";
+                background-image: url(@url);
+                animation-delay: (@duration * (@counter - 1) * -1);
+            }
         }
 
-        &:nth-child(1) {
-            background-image: url(../images/unassigned/13369146523_f30a111187_k.jpg);
-        }
-        &:nth-child(2) {
-            background-image: url(../images/unassigned/13369692564_8651356359_k.jpg);
-            animation-delay: -30s;
-        }
-        &:nth-child(3) {
-            background-image: url(../images/unassigned/13369441935_bd9bcbb0a0_k.jpg);
-            animation-delay: -60s;
-        }
-        &:nth-child(4) {
-            background-image: url(../images/unassigned/13369221745_9eade1616b_k.jpg);
-            animation-delay: -90s;
-        }
-    }
-}
+        .add(1, "crab-298346_1920.jpg");
+        .add(2, "forest-272595_1920.jpg");
+        .add(3, "grapes-276070_1920.jpg");
+        .add(4, "otter-163956.jpg");
+        .add(5, "seagull-293699_1920.jpg");
+        .add(6, "solda-293200_1920.jpg");
+        .add(7, "water-drop-275938_1920.jpg");
+        .add(8, "wheat-8762_1920.jpg");
 
-@keyframes slideshow {
-    from, 12%, 88%, to {
-        opacity: 1;
-    }
-    14%, 86% {
-        opacity: 0;
+        animation: slideshow (@duration * @total) ease-in-out infinite;
+
+        @fadep: (100% / @total) * (@fade / @duration);
+        @p1: @fadep / 2;
+        @p2: (100% / @total - @fadep / 2);
+        @p3: (100% / @total + @fadep / 2);
+        @keyframes slideshow {
+            from {
+                opacity: 0;
+            }
+            @{p1}, @{p2} {
+                opacity: 1;
+            }
+            @{p3}, to {
+                opacity: 0;
+            }
+        }
+        
     }
 }
