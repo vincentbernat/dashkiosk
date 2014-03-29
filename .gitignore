@@ -12,5 +12,5 @@
 /.rebooted
 
 # Run stuff
-/dashkiosk.sqlite
+/dashkiosk-*.sqlite
 /config.json
