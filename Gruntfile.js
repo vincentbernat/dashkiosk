@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         tasks: [ 'build:templates' ]
       },
       styles: {
-        files: [ 'app/styles/*.less' ],
+        files: [ 'app/styles/{,*/}*.less' ],
         tasks: [ 'build:styles' ]
       },
       images: {
