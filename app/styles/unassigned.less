@@ -6,8 +6,21 @@ body, html, div {
     overflow: hidden;
 }
 body {
-    & > div {
+    .logo {
         position: absolute;
+        top: 2%;
+        left: 2%;
+        width: 20%;
+        height: 20%;
+        background-image: url("../images/stamp.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        opacity: 0.6;
+    }
+    .photo {
+        position: absolute;
+        background-color: #777;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -41,12 +54,14 @@ body {
         @p3: (100% / @total + @fadep / 2);
         @keyframes slideshow {
             from {
+                display: none;
                 opacity: 0;
             }
             @{p1}, @{p2} {
                 opacity: 1;
             }
             @{p3}, to {
+                display: none;
                 opacity: 0;
             }
         }
