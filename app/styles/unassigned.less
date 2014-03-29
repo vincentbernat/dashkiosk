@@ -19,52 +19,18 @@ body {
         opacity: 0.6;
     }
     .photo {
+        display: none;
+    }
+    .background > div {
         position: absolute;
         background-color: #777;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         opacity: 0;
-
-        @duration: 30s;
-        @fade: 1s;
-        @total: 8;
-        .add(@counter, @image) {
-            &:nth-child(@{counter}) {
-                @url: "../images/unassigned/@{image}";
-                background-image: url(@url);
-                animation-delay: (@duration * (@counter - 1) * -1);
-            }
+        transition: opacity 1s linear;
+        &:first-child {
+            opacity: 1;
         }
-
-        .add(1, "crab-298346_1920.jpg");
-        .add(2, "forest-272595_1920.jpg");
-        .add(3, "grapes-276070_1920.jpg");
-        .add(4, "otter-163956.jpg");
-        .add(5, "seagull-293699_1920.jpg");
-        .add(6, "solda-293200_1920.jpg");
-        .add(7, "water-drop-275938_1920.jpg");
-        .add(8, "wheat-8762_1920.jpg");
-
-        animation: slideshow (@duration * @total) linear infinite;
-
-        @fadep: (100% / @total) * (@fade / @duration);
-        @p1: @fadep / 2;
-        @p2: (100% / @total - @fadep / 2);
-        @p3: (100% / @total + @fadep / 2);
-        @keyframes slideshow {
-            from {
-                display: none;
-                opacity: 0;
-            }
-            @{p1}, @{p2} {
-                opacity: 1;
-            }
-            @{p3}, to {
-                display: none;
-                opacity: 0;
-            }
-        }
-        
     }
 }
