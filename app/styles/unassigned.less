@@ -46,7 +46,7 @@ body {
         .add(7, "water-drop-275938_1920.jpg");
         .add(8, "wheat-8762_1920.jpg");
 
-        animation: slideshow (@duration * @total) ease-in-out infinite;
+        animation: slideshow (@duration * @total) linear infinite;
 
         @fadep: (100% / @total) * (@fade / @duration);
         @p1: @fadep / 2;
