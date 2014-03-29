@@ -3,41 +3,64 @@
 DashKiosk is a solution to manage dashboards on multiple screens. It
 come as three components:
 
- 1. A web application that run in a browser attached to each screen
-    and will display the requested dashboards. The web application is
-    quite dumb, it contacts the server and wait for it to tell which
-    URL to display.
+ 1. A _receiver_ that run in a browser attached to each screen and will
+    display the requested dashboards. The receiver is quite dumb, it
+    contacts the server and wait for it to tell which URL to display.
 
- 2. A node.js server which will manage the screens by sending them
+ 2. A node.js _server_ which will manage the screens by sending them
     what they should display. An administration interface allows the
     user to manage those screens individually or in a group.
     
- 3. An Android app that will run the web application. This is mainly a
+ 3. An _Android app_ that will run the receiver. This is mainly a
     fullscreen webview.
 
-## Web application
+## Receiver
 
-The web application is pretty simple. It connects to the node.js
-server using the WebSocket protocol and waits for the server to tell
-which URL to display. The URL is displayed in a fullscreen
-iframe. When a new URL is requested, a new iframe is built but hidden
-offscreen. Only when the site has been loaded (and optionnaly told the
-web app that is ready, see below), the iframe is shown and the
-previous iframe is discarded.
+The receiver is pretty simple. It connects to the node.js server using
+the WebSocket protocol and waits for the server to tell which URL to
+display. The URL is displayed in a fullscreen iframe. When a new URL
+is requested, a new iframe is built but hidden offscreen. Only when
+the site has been loaded (and optionnaly told the receiver that is
+ready, see below), the iframe is shown and the previous iframe is
+discarded.
 
 ### Ready protocol
 
-The web application watches for the load event of the iframe that has
-to be displayed before displaying it. However, some dashboards are
-quite dynamic and the `onload` event is triggered while the dashboard
-is not really ready. Therefore, in the future, the webapp will also
-accept to be notified through the [postMessage API][] by sending a
-ready message:
+The receiver waits for the load event of the iframe that has to be
+displayed before displaying it. However, some dashboards are quite
+dynamic and the `onload` event is triggered while the dashboard is not
+really ready. Therefore, in the future, the receiver will also accept
+to be notified through the [postMessage API][] by sending a ready
+message:
 
     ::javascript
     window.parent.postMessage("ready", "*");
 
 [postMessage API]: https://developer.mozilla.org/en-US/docs/Web/API/Window.postMessage
+
+### Limitations
+
+Because of the use of iframes, some website may refuse to render due
+to the use of `X-Frame-Options` header. Fortunately, the receiver is
+not intended to be a general purpose browser and dashboard-related
+contents don't usually have this limitation. However, here are some
+work-arounds:
+
+ 1. Find an embeddable version. Youtube, Google Maps and many other
+    sites propose a version specifically designed to be embedded into
+    an iframe.
+
+ 2. Use a web proxy that will strip out the offending header. A good
+    base for such a proxy is [Node Unblocker][]. It should be easy to
+    modify it to remove the `X-Frame-Options` header.
+
+ 3. Use a screenshot service. Instead of displaying the real website,
+    just display a screenshot. There are many solutions to implement
+    such a service with headless browsers like Phantom.JS. For example
+    [this one][2].
+
+[Node Unblocker]: http://nodeunblocker.com/proxy
+[2]: https://github.com/fzaninotto/screenshot-as-a-service
 
 ## Server
 
