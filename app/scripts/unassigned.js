@@ -7,13 +7,13 @@
   'use strict';
 
   var transitionEnd = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
-      duration = 10;
+      duration = 60;
 
   // Preload the next image and insert it in place of the current one.
   function rotate() {
 
-    if (window.document.hasFocus &&
-        !window.document.hasFocus() &&
+    if ('hidden' in window.document &&
+        window.document.hidden &&
         $('.background').children().length) {
       // In the background, don't need to load anything
       return;
