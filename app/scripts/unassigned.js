@@ -16,6 +16,7 @@
         window.document.hidden &&
         $('.background').children().length) {
       // In the background, don't need to load anything
+      window.setTimeout(rotate, duration * 1000);
       return;
     }
 
@@ -47,11 +48,25 @@
       .attr('src', photo);
 
     $('.photo').last().after($('.photo').first());
+    window.setTimeout(rotate, duration * 1000);
+  }
+
+  function clock() {
+    var interval = 60 * 1000,
+        now = new Date(),
+        delay = interval - now % interval,
+        hours = now.getHours(),
+        minutes = now.getMinutes();
+
+    $('.clock').text(hours + ((minutes >= 10)?':':':0') + minutes);
+
+    // reschedule
+    window.setTimeout(clock, delay);
   }
 
   $(window).on('load', function() {
-    rotate();
-    window.setInterval(rotate, duration * 1000);
+    rotate(); // Rotate photos
+    clock(); // Display clock
   });
 
 })(window, Zepto);
