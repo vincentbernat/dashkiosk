@@ -82,11 +82,11 @@ module.exports = function(grunt) {
           livereload: PORTS.livereload
         },
         files: [
-          'build/public/*.html',
-          'build/public/styles/*.css',
-          'build/public/images/{,*/,*/*/}*.*',
-          'build/public/fonts/*.ttf',
-          'build/public/scripts/{,*/}*.js' // Including templates
+          'build/*.html',
+          'build/styles/*.css',
+          'build/images/{,*/,*/*/}*.*',
+          'build/fonts/*.ttf',
+          'build/scripts/{,*/}*.js' // Including templates
         ]
       },
       server: {           // nodemon will write this file
