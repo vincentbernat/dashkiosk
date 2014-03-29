@@ -16,15 +16,9 @@ come as three components:
 
 The Android app is quite optional. Any device able to display a
 fullscreen webview will do the trick. For example, it is possible to
-use a Chromecast:
+use a Chromecast by leveraging [Chromecast dashboard][].
 
- 1. Add the Chromecast to your [developer account][]
- 2. Get the IP address of your Chromecast (available through the Chromecast application)
- 3. Point a browser to `http://192.168.1.X:9222`
- 4. Open the console in the developer tools.
- 5. Type `window.location.replace('http://192.168.1.Y:9400/')` to load the URL in the browser.
-
-[developer account]: https://cast.google.com/publish/
+[Chromecast dashboard]: http://boombatower.github.io/chromecast-dashboard/sender/
 
 ## Receiver
 
