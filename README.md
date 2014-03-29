@@ -14,6 +14,18 @@ come as three components:
  3. An _Android app_ that will run the receiver. This is mainly a
     fullscreen webview.
 
+The Android app is quite optional. Any device able to display a
+fullscreen webview will do the trick. For example, it is possible to
+use a Chromecast:
+
+ 1. Add the Chromecast to your [developer account][]
+ 2. Get the IP address of your Chromecast (available through the Chromecast application)
+ 3. Point a browser to `http://192.168.1.X:9222`
+ 4. Open the console in the developer tools.
+ 5. Type `window.location.replace('http://192.168.1.Y:9400/')` to load the URL in the browser.
+
+[developer account]: https://cast.google.com/publish/
+
 ## Receiver
 
 The receiver is pretty simple. It connects to the node.js server using
