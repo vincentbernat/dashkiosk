@@ -23,7 +23,8 @@
     "socket.io": "^0.9.16",
     "sqlite3": "^2.2.0",
     "winston": "^0.7.2",
-    "postal": "^0.9.0-rc1"
+    "postal": "^0.9.0-rc1",
+    "postal.diagnostics": "^0.7.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.3.2",

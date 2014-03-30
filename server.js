@@ -24,13 +24,10 @@ app.get('/admin', serve('admin.html'));
 app.get('/display', serve('display.html'));
 app.get('/unassigned', serve('unassigned.html'));
 
-// Bus for interprocess communication
-var bus = require('postal').channel();
-
 // API
 var api = require('./lib/api');
-api.socketio(bus, io);
-api.rest(bus, app);
+api.socketio(io);
+api.rest(app);
 
 // DB
 var db = require('./lib/db');
