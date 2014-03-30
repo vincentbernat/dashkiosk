@@ -4,9 +4,9 @@ define('iframe-queue', (function($, undefined) {
   // Shortcut for all the names for transitionend
   var transitionEnd = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
 
-  function Iframe(url, options) {
+  function Iframe(dashboard, options) {
     var _this = this;
-    this.url = url;
+    this.dashboard = dashboard;
     this.ready = options.ready;
     this.el = $('<iframe>')
       .appendTo('body')
@@ -15,7 +15,7 @@ define('iframe-queue', (function($, undefined) {
       })
       .attr('scrolling', 'no')
       .attr('frameborder', '0')
-      .attr('src', url.target);
+      .attr('src', dashboard.url);
   }
 
   Iframe.prototype.displayed = function() {
@@ -55,7 +55,7 @@ define('iframe-queue', (function($, undefined) {
     }
   };
 
-  Queue.prototype.push = function(url) {
+  Queue.prototype.push = function(dashboard) {
     // Remove the first iframe if it is not loaded
     var _this = this,
         iframe = this.queue.shift();
@@ -70,7 +70,7 @@ define('iframe-queue', (function($, undefined) {
     }
 
     // Build a new frame
-    iframe = new Iframe(url, {
+    iframe = new Iframe(dashboard, {
       ready: function() {
         // Sanity check: are we the first iframe?
         if (iframe !== _this.queue[0]) {

@@ -14,22 +14,20 @@ define('screen', (function($, undefined) {
     $('#loading').addClass('show');
   }
 
-  /* Display the given URL */
-  function url(u) {
+  /* Display the given dashboard */
+  function dashboard(d) {
     // Check URL validity
-    if (typeof u.target !== 'string') {
-      console.warn('[Dashkiosk] received an URL without target: ', u);
+    if (typeof d.url !== 'string') {
+      console.warn('[Dashkiosk] received an URL without target: ', d.url);
       return;
     }
     // Push it
-    queue.push({
-      target: u.target
-    });
+    queue.push(d);
   }
 
   return {
     loading: loading,
-    url: url
+    dashboard: dashboard
   };
 
 })(Zepto));

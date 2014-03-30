@@ -28,9 +28,9 @@ define('socketio', (function(window, io, undefined) {
       screen.loading();
     });
 
-    socket.on('url', function(url) {
-      console.info('[Dashkiosk] should display URL ', url);
-      screen.url(url);
+    socket.on('dashboard', function(dashboard) {
+      console.info('[Dashkiosk] should display dashboard ', dashboard);
+      screen.dashboard(dashboard);
     });
 
     socket.on('reload', function() {
