@@ -5,13 +5,13 @@ define('iframe-queue', (function($, undefined) {
   var transitionEnd = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
 
   function Iframe(dashboard, options) {
-    var _this = this;
+    var self = this;
     this.dashboard = dashboard;
     this.ready = options.ready;
     this.el = $('<iframe>')
       .appendTo('body')
       .one('load', function() {
-        _this.show();
+        self.show();
       })
       .attr('scrolling', 'no')
       .attr('frameborder', '0')
@@ -23,12 +23,12 @@ define('iframe-queue', (function($, undefined) {
   };
 
   Iframe.prototype.remove = function() {
-    var _this = this;
+    var self = this;
     if (this.el.hasClass('show')) {
       this.el
         .removeClass('show')
         .one(transitionEnd, function() {
-          _this.el.remove();
+          self.el.remove();
         });
     } else {
       this.el.remove();
@@ -57,7 +57,7 @@ define('iframe-queue', (function($, undefined) {
 
   Queue.prototype.push = function(dashboard) {
     // Remove the first iframe if it is not loaded
-    var _this = this,
+    var self = this,
         iframe = this.queue.shift();
     if (iframe !== undefined) {
       if (iframe.displayed()) {
@@ -73,19 +73,19 @@ define('iframe-queue', (function($, undefined) {
     iframe = new Iframe(dashboard, {
       ready: function() {
         // Sanity check: are we the first iframe?
-        if (iframe !== _this.queue[0]) {
+        if (iframe !== self.queue[0]) {
           console.warn('[Dashkiosk] BUG: request to display a new iframe which is not in our queue',
-                       iframe, _this.queue);
+                       iframe, self.queue);
           iframe.remove();
           return;
         }
 
         // Remove all other frames from the queue
-        while (_this.queue.length > 1) {
-          var oldIframe = _this.queue.pop();
+        while (self.queue.length > 1) {
+          var oldIframe = self.queue.pop();
           oldIframe.remove();
         }
-        _this.ready();
+        self.ready();
       }
     });
 
