@@ -85,6 +85,8 @@ Building the server is done using the following steps:
     $ bower install
     $ grunt
 
+### Development
+
 To run the server for development:
 
     ::console
@@ -94,6 +96,19 @@ To run the server:
 
     ::console
     $ npm start
+
+The server uses an internal bus. Currently, the following events are
+emitted:
+
+ - `display.NAME.connected` when a new display is connected
+ - `display.NAME.disconnected` when a new display is disconnected
+ - `display.NAME.dashboard` when a new dashboard should be displayed
+   by the given display.
+ - `display.NAME.reload` when a display should reload itself
+ - `display.NAME.group` when a display should change to a new group
+ - `group.ID.dashboard` when a whole group should switch to a new dashboard
+
+### Database
 
 By default, it uses an SQLite database in the current directory. You
 can use a PostgreSQL database instead or any
