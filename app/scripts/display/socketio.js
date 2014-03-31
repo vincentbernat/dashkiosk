@@ -6,7 +6,7 @@ define('socketio', (function(window, io, undefined) {
       localStorage = require('localstorage');
 
   function connect() {
-    var socket = io.connect(window.location.origin + '/display');
+    var socket = io.connect(window.location.origin + '/displays');
 
     socket.on('connect', function() {
       console.info('[Dashkiosk] connected to socket.io server');
