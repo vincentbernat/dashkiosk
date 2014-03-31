@@ -30,21 +30,25 @@ api.socketio(io);
 api.rest(app);
 
 // DB
-var db = require('./lib/db');
+var db = require('./lib/db'),
+    models = require('./lib/models');
 db
   .sequelize
   .sync()
-  .complete(function(err) {
-    if (!!err) {
-      // Throw only the first one
+  .then(function() { return undefined; })    // transform into a bluebird promise
+  .then(function() { return models.Group.run(); })
+  .catch(function(err) {
+    if (err instanceof Array) {
       throw err[0];
-    } else {
-      server.listen(config.get('port'), function() {
-        logger.info('Express server listening on port %d in %s mode',
-                    config.get('port'),
-                    config.get('environment'));
-      });
     }
+    throw err;
+  })
+  .then(function() {
+    server.listen(config.get('port'), function() {
+      logger.info('Express server listening on port %d in %s mode',
+                  config.get('port'),
+                  config.get('environment'));
+    });
   });
 
 module.exports = app;

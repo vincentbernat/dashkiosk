@@ -107,6 +107,9 @@ emitted:
  - `display.NAME.reload` when a display should reload itself
  - `display.NAME.group` when a display should change to a new group
  - `group.ID.dashboard` when a whole group should switch to a new dashboard
+ - `group.ID.dashboard.ID.added` when a new dashboard has been added
+ - `group.ID.dashboard.ID.removed` when a dashboard has been removed
+ - `group.ID.dashboard.ID.updated` when a dashboard has been updated
 
 ### Database
 
