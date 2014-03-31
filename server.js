@@ -20,6 +20,7 @@ function serve(file) {
   };
 }
 app.get('/', function(req, res) { res.redirect('/display'); });
+app.get('/favicon.ico', serve('images/favicon.ico'));
 app.get('/admin', serve('admin.html'));
 app.get('/display', serve('display.html'));
 app.get('/unassigned', serve('unassigned.html'));
