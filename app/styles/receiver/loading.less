@@ -26,11 +26,13 @@
 
     cursor: wait;
 
-    transform: translateX(-200%);
+    transform: translateX(-150%);
+    transform: translate3d(-150%, 0, 0);
     transition: transform 0.5s;
 
     &.show {
         transform: translateX(0);
+        transform: translate3d(0, 0, 0);
         .spinning {
             animation: loading 10s infinite linear;
         }
@@ -40,9 +42,11 @@
 @keyframes loading {
     0% {
         transform: rotate(0deg);
+        transform: rotate3d(1, 1, 0, 0deg);
     }
 
     100% {
         transform: rotate(360deg);
+        transform: rotate3d(1, 1, 0, 360deg);
     };
 }
