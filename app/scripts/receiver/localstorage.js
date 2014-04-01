@@ -2,7 +2,10 @@ define('localstorage', (function(window, undefined) {
   'use strict';
 
   if ('localStorage' in window && window.localStorage !== null) {
-    return window.localStorage;
+    return {
+      getItem: function(key) { return window.localStorage.getItem(key); },
+      setItem: function(key, value) { window.localStorage.setItem(key, value); }
+    };
   }
 
   console.warn('[Dashkiosk] local storage support is not available, fallback to cookies');
