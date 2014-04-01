@@ -70,7 +70,7 @@ module.exports = function(grunt) {
         tasks: [ 'build:images' ]
       },
       fonts: {
-        files: [ 'app/fonts/*.ttf' ],
+        files: [ 'app/fonts/*.{ttf,otf}' ],
         tasks: [ 'build:fonts' ]
       },
       scripts: {
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
           'build/*.html',
           'build/styles/*.css',
           'build/images/{,*/,*/*/}*.*',
-          'build/fonts/*.ttf',
+          'build/fonts/*.{ttf,otf}',
           'build/scripts/{,*/}*.js' // Including templates
         ]
       },
@@ -178,7 +178,7 @@ module.exports = function(grunt) {
           src: [
             'dist/public/scripts/{,*/}*.js',
             'dist/public/styles/*.css',
-            'dist/public/fonts/*.ttf',
+            'dist/public/fonts/*.{ttf,otf}',
             'dist/public/images/{,*/,*/*/}*.*'
           ]
         }
@@ -300,7 +300,7 @@ module.exports = function(grunt) {
           cwd: 'app',
           dest: 'build',
           src: [
-            'fonts/*.ttf'
+            'fonts/*.{ttf,otf}'
           ]
         }]
       },
@@ -321,7 +321,7 @@ module.exports = function(grunt) {
           dest: 'dist/public',
           src: [
             '*.html',
-            'fonts/*.ttf'
+            'fonts/*.{ttf,otf}'
           ]
         }, {
           expand: true,
