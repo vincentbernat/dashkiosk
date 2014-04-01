@@ -3,6 +3,7 @@ define('socketio', (function(window, io, undefined) {
   /* Socket.io related functions */
 
   var screen = require('screen'),
+      osd = require('osd'),
       localStorage = require('localstorage');
 
   function connect() {
@@ -29,13 +30,23 @@ define('socketio', (function(window, io, undefined) {
     });
 
     socket.on('dashboard', function(dashboard) {
-      console.info('[Dashkiosk] should display dashboard ', dashboard);
+      console.info('[Dashkiosk] should display dashboard ' + dashboard.url);
       screen.dashboard(dashboard);
     });
 
     socket.on('reload', function() {
       console.info('[Dashkiosk] reload requested');
       window.location.reload();
+    });
+
+    socket.on('osd', function(text) {
+      if (text === undefined || text === null) {
+        console.info('[Dashkiosk] hide OSD');
+        osd.hide();
+      } else {
+        console.info('[Dashkiosk] display OSD');
+        osd.show(text);
+      }
     });
   }
 

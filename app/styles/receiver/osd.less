@@ -1,0 +1,23 @@
+.osd {
+    position: absolute;
+    bottom: 4%;
+    left: 4%;
+    z-index: 10;
+    height: 1em;
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 96px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    opacity: 0.9;
+
+    transform: translateX(-150%);
+    transform: translate3d(-150%, 0, 0);
+    transition: transform 0.5s;
+
+    &.show {
+        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
+    }
+
+}

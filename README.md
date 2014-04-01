@@ -105,6 +105,7 @@ emitted:
  - `display.NAME.dashboard` when a new dashboard should be displayed
    by the given display.
  - `display.NAME.reload` when a display should reload itself
+ - `display.NAME.osd` when we need to display something on the OSD
  - `display.NAME.group` when a display should change to a new group
  - `group.ID.dashboard` when a whole group should switch to a new dashboard
  - `group.ID.dashboard.ID.added` when a new dashboard has been added
