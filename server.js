@@ -19,10 +19,10 @@ function serve(file) {
     res.sendfile(path.join(config.get('path:static'), file));
   };
 }
-app.get('/', function(req, res) { res.redirect('/display'); });
+app.get('/', function(req, res) { res.redirect('/receiver'); });
 app.get('/favicon.ico', serve('images/favicon.ico'));
 app.get('/admin', serve('admin.html'));
-app.get('/display', serve('display.html'));
+app.get('/receiver', serve('receiver.html'));
 app.get('/unassigned', serve('unassigned.html'));
 
 // API
@@ -36,7 +36,6 @@ var db = require('./lib/db'),
 db
   .sequelize
   .sync()
-  .then(function() { return undefined; })    // transform into a bluebird promise
   .then(function() { return models.Group.run(); })
   .catch(function(err) {
     if (err instanceof Array) {

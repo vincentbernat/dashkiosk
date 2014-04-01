@@ -3,7 +3,7 @@
 DashKiosk is a solution to manage dashboards on multiple screens. It
 come as three components:
 
- 1. A _receiver_ that run in a browser attached to each screen and will
+ 1. A _receiver_ runs in a browser attached to each screen and will
     display the requested dashboards. The receiver is quite dumb, it
     contacts the server and wait for it to tell which URL to display.
 
