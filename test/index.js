@@ -11,7 +11,8 @@ config.set('db:options', {
 var logger = require('../lib/logger');
 logger.clear();
 
-var db = require('../lib/db');
+var db = require('../lib/db'),
+    postal = require('postal');
 
 module.exports = {
   db: function() {
@@ -24,5 +25,8 @@ module.exports = {
       .then(function() {
         return s.query("PRAGMA foreign_keys = ON");
       });
+  },
+  bus: function() {
+    postal.reset();
   }
 };
