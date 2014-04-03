@@ -95,6 +95,10 @@ module.exports = function(grunt) {
         options: {
           livereload: true
         }
+      },
+      test: {
+        files: [ 'test/**/*.js' ],
+        tasks: [ 'test' ]
       }
     },
 
@@ -124,7 +128,13 @@ module.exports = function(grunt) {
         options: {
           jshintrc: 'lib/.jshintrc'
         },
-        src: [ 'lib/{,*/}*.js' ]
+        src: [ 'lib/**/*.js' ]
+      },
+      test: {
+        options: {
+          jshintrc: 'test/.jshintrc'
+        },
+        src: [ 'test/**/*.js' ]
       },
       all: [
         'Gruntfile.js',
@@ -260,7 +270,17 @@ module.exports = function(grunt) {
           limit: 3,
           logConcurrentOutput: true
         }
-      },
+      }
+    },
+
+    // Server side tests with mocha
+    mochaTest: {
+      server: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/**/*.js']
+      }
     },
 
 
@@ -386,6 +406,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dist', [
     'clean:dist',
     'build',
+    'test',
     'useminPrepare',
     'imagemin',
     'svgmin',
@@ -395,6 +416,11 @@ module.exports = function(grunt) {
     'uglify',
     'rev',
     'usemin'
+  ]);
+
+  grunt.registerTask('test', [
+    'jshint:test',
+    'mochaTest:server'
   ]);
 
   grunt.registerTask('default', [
