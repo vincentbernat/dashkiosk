@@ -9,6 +9,7 @@ config.set('db:options', {
 
 // Disable any logging
 var logger = require('../lib/logger');
+logger.unhandleExceptions();
 logger.clear();
 
 var db = require('../lib/db'),
