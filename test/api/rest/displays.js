@@ -18,7 +18,7 @@ function fail(err) {
 
 api.rest(app);
 
-describe('/display', function() {
+describe('/api/display', function() {
 
   beforeEach(function(done) {
     // Setup the database
@@ -26,7 +26,7 @@ describe('/display', function() {
       .then(function() { done(); }, fail);
   });
 
-  describe('GET /display', function() {
+  describe('GET /api/display', function() {
     it('should return an empty list', function(done) {
       request(app)
         .get('/api/display')
@@ -55,7 +55,7 @@ describe('/display', function() {
     });
   });
 
-  describe('PUT /display/ID', function() {
+  describe('PUT /api/display/ID', function() {
     it('should modify an existing display', function(done) {
       models.Display.register()
         .then(function(display) {
@@ -82,7 +82,7 @@ describe('/display', function() {
     });
   });
 
-  describe('PUT /display/ID/group/ID', function() {
+  describe('PUT /api/display/ID/group/ID', function() {
 
     it('should change the group of a display', function(done) {
       var g = new models.Group('Oops');
@@ -137,7 +137,7 @@ describe('/display', function() {
 
   });
 
-  describe('DELETE /display', function() {
+  describe('DELETE /api/display', function() {
 
     it('should delete an existing display', function(done) {
       models.Display.register()
