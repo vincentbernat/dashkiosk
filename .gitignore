@@ -14,3 +14,4 @@
 # Run stuff
 /dashkiosk-*.sqlite
 /config.json
+/coverage.html

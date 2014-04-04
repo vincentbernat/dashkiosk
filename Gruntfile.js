@@ -277,7 +277,16 @@ module.exports = function(grunt) {
     mochaTest: {
       server: {
         options: {
-          reporter: 'spec'
+          reporter: 'spec',
+          require: 'test/blanket'
+        },
+        src: ['test/**/*.js']
+      },
+      coverage: {
+        options: {
+          reporter: 'html-cov',
+          quiet: true,
+          captureFile: 'coverage.html'
         },
         src: ['test/**/*.js']
       }
@@ -420,7 +429,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'jshint:test',
-    'mochaTest:server'
+    'mochaTest'
   ]);
 
   grunt.registerTask('default', [

@@ -57,7 +57,8 @@
     "should": "^3.2.0",
     "sinon": "^1.9.1",
     "supertest": "^0.10.0",
-    "time-grunt": "^0.3.1"
+    "time-grunt": "^0.3.1",
+    "blanket": "^1.1.6"
   },
   "engines": {
     "node": ">=0.10.0"
