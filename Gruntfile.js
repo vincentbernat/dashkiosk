@@ -142,16 +142,14 @@ module.exports = function(grunt) {
       ]
     },
 
-    // recess
-    recess: {
-      options: {
-        noOverqualifying: false
-      },
-      all: {
-        src: [ 'app/styles/*.less' ]
+    csslint: {
+      build: {
+        options: {
+          csslintrc: 'app/styles/.csslintrc'
+        },
+        src: [ 'build/styles/*.css' ]
       }
     },
-
 
     // Transform less files
     less: {
@@ -380,7 +378,7 @@ module.exports = function(grunt) {
       grunt.task.run('ngtemplates:build');
       break;
     case 'styles':
-      grunt.task.run('recess', 'less:build', 'autoprefixer:build');
+      grunt.task.run('less:build', 'csslint:build', 'autoprefixer:build');
       break;
     case 'scripts':
       grunt.task.run('jshint', 'copy:scripts', 'ngmin:build');
