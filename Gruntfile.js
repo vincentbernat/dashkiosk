@@ -145,7 +145,9 @@ module.exports = function(grunt) {
     csslint: {
       build: {
         options: {
-          csslintrc: 'app/styles/.csslintrc'
+          csslintrc: 'app/styles/.csslintrc',
+          'zero-units': false,   // Used by bootstrap in percentages
+          'bulletproof-font-face': false // Don't care about IE
         },
         src: [ 'build/styles/*.css' ]
       }
