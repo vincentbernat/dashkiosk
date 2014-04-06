@@ -3,7 +3,6 @@
 var setup = require('../../.');
 
 var should = require('should'),
-    assert = require('assert'),
     express = require('express'),
     request = require('supertest'),
     _ = require('lodash'),
@@ -12,10 +11,6 @@ var should = require('should'),
     api = require('../../../lib/api'),
     app = express();
 
-function fail(err) {
-  assert.fail(err);
-}
-
 api.rest(app);
 
 describe('/api/display', function() {
@@ -23,7 +18,7 @@ describe('/api/display', function() {
   beforeEach(function(done) {
     // Setup the database
     setup.db()
-      .then(function() { done(); }, fail);
+      .then(function() { done(); }, function(err) { done(err); });
   });
 
   describe('GET /api/display', function() {
@@ -51,7 +46,8 @@ describe('/api/display', function() {
               res.body[name].should.have.property('group');
             })
             .end(done);
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -71,7 +67,8 @@ describe('/api/display', function() {
               res.body.should.not.have.property('invalid');
             })
             .end(done);
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 on inexistant display', function(done) {
@@ -105,12 +102,14 @@ describe('/api/display', function() {
                           .then(function(display) {
                             display.toJSON().group.should.equal(group.toJSON().id);
                             done();
-                          }, function(err) { done(err); });
+                          })
+                          .catch(function(err) { done(err); });
                       }
                     });
-                }, fail);
-            }, fail);
-        }, fail);
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 on inexistant display', function(done) {
@@ -121,7 +120,8 @@ describe('/api/display', function() {
             .put('/api/display/1234/group/' + group.toJSON().id)
             .set('Accept', 'application/json')
             .expect(404, done);
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 on inexistant group', function(done) {
@@ -132,7 +132,8 @@ describe('/api/display', function() {
             .put('/api/display/' + name + '/group/42')
             .set('Accept', 'application/json')
             .expect(404, done);
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
   });
@@ -157,7 +158,8 @@ describe('/api/display', function() {
                   }, function() { done(); });
               }
             });
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 on inexistant display', function(done) {

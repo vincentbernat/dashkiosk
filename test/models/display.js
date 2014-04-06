@@ -3,19 +3,14 @@
 var setup = require('../.');
 
 var should = require('should'),
-    assert = require('assert'),
     models = require('../../lib/models');
-
-function fail(err) {
-  assert.fail(err);
-}
 
 describe('Display', function() {
 
   beforeEach(function(done) {
     // Setup the database
     setup.db()
-      .then(function() { done(); }, fail);
+      .then(function() { done(); }, function(err) { done(err); });
   });
 
   describe('#register()', function() {
@@ -28,8 +23,9 @@ describe('Display', function() {
             .then(function(display) {
               display.toJSON().name.should.equal(name);
               done();
-            }, fail);
-        }, fail);
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should create a new display on unknown name', function(done) {
@@ -53,20 +49,22 @@ describe('Display', function() {
                 .then(function(displays) {
                   displays[name].should.not.equal(undefined);
                   done();
-                }, fail);
-            }, fail);
-        }, fail);
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should be associated to the unassigned group', function(done) {
       models.Display.register()
         .then(function(display) {
           return models.Group.get(display.toJSON().group);
-        }, fail)
+        })
         .then(function(group) {
           group.toJSON().name.should.equal('unassigned');
           done();
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
   });
@@ -82,14 +80,15 @@ describe('Display', function() {
               return display.setGroup(group)
                 .then(function() {
                   return models.Display.register(name);
-                }, fail)
+                })
                 .then(function(display) {
                   display.toJSON().name.should.equal(name);
                   display.toJSON().group.should.equal(group.toJSON().id);
                   done();
-                }, fail);
-            }, fail);
-        }, fail);
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
   });
 

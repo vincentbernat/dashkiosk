@@ -3,7 +3,6 @@
 var setup = require('../../.');
 
 var should = require('should'),
-    assert = require('assert'),
     express = require('express'),
     request = require('supertest'),
     _ = require('lodash'),
@@ -12,10 +11,6 @@ var should = require('should'),
     api = require('../../../lib/api'),
     app = express();
 
-function fail(err) {
-  assert.fail(err);
-}
-
 api.rest(app);
 
 describe('/api/dashboard', function() {
@@ -23,7 +18,7 @@ describe('/api/dashboard', function() {
   beforeEach(function(done) {
     // Setup the database
     setup.db()
-      .then(function() { done(); }, fail);
+      .then(function() { done(); }, function(err) { done(err); });
   });
 
   describe('GET /api/group/ID/dashboard', function() {
@@ -35,7 +30,7 @@ describe('/api/dashboard', function() {
           return group.addDashboard('http://www.example.com')
             .then(function() {
               return group.addDashboard('http://www.example2.com', { timeout: 10 });
-            }, fail)
+            })
             .then(function() {
               request(app)
                 .get('/api/group/' + id + '/dashboard')
@@ -48,8 +43,9 @@ describe('/api/dashboard', function() {
                   res.body[1].should.have.property('timeout', 10);
                 })
                 .end(done);
-            }, fail);
-        }, fail);
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 when the group doesn\'t exist', function(done) {
@@ -80,12 +76,14 @@ describe('/api/dashboard', function() {
                   dashboards[0].toJSON().should.have.property('url', 'http://www.example.com');
                   dashboards[0].toJSON().should.have.property('timeout', 10);
                   done();
-                }, fail);
+                })
+                .catch(function(err) { done(err); });
             })
             .end(function(err) {
               if (err) done(err);
             });
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 when the group doesn\'t exist', function(done) {
@@ -106,7 +104,7 @@ describe('/api/dashboard', function() {
           return group.addDashboard('http://www.example.com')
             .then(function() {
               return group.addDashboard('http://www.example2.com', { timeout: 10 });
-            }, fail)
+            })
             .then(function(dashboard) {
               request(app)
                 .put('/api/group/' + id + '/dashboard/' + dashboard.toJSON().id)
@@ -125,11 +123,13 @@ describe('/api/dashboard', function() {
                         dashboards[0].toJSON().should.have.property('description', 'my url');
                         dashboards[1].toJSON().should.have.property('url', 'http://www.example.com');
                         done();
-                      }, fail);
+                      })
+                      .catch(function(err) { done(err); });
                   }
                 });
-            }, fail);
-        }, fail);
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 when the group doesn\'t exist', function(done) {
@@ -150,7 +150,8 @@ describe('/api/dashboard', function() {
             .send({ timeout: 33 })
             .set('Accept', 'application/json')
             .expect(404, done);
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -163,7 +164,7 @@ describe('/api/dashboard', function() {
           return group.addDashboard('http://www.example.com')
             .then(function() {
               return group.addDashboard('http://www.example2.com', { timeout: 10 });
-            }, fail)
+            })
             .then(function(dashboard) {
               request(app)
                 .del('/api/group/' + id + '/dashboard/' + dashboard.toJSON().id)
@@ -178,11 +179,13 @@ describe('/api/dashboard', function() {
                         dashboards.length.should.equal(1);
                         dashboards[0].toJSON().should.have.property('url', 'http://www.example.com');
                         done();
-                      }, fail);
+                      })
+                      .catch(function(err) { done(err); });
                   }
                 });
-            }, fail);
-        }, fail);
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 when the group doesn\'t exist', function(done) {
@@ -201,7 +204,8 @@ describe('/api/dashboard', function() {
             .del('/api/group/' + id + '/dashboard/1224')
             .set('Accept', 'application/json')
             .expect(404, done);
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
   });
 

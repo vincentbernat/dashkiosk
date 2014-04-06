@@ -3,19 +3,14 @@
 var setup = require('../.');
 
 var should = require('should'),
-    assert = require('assert'),
     models = require('../../lib/models');
-
-function fail(err) {
-  assert.fail(err);
-}
 
 describe('Group', function() {
 
   beforeEach(function(done) {
     // Setup the database
     setup.db()
-      .then(function() { done(); }, fail);
+      .then(function() { done(); }, function(err) { done(err); });
   });
 
   describe('#unassigned()', function() {
@@ -25,7 +20,8 @@ describe('Group', function() {
           group.toJSON().name.should.equal('unassigned');
           group.toJSON().description.should.equal('Default group for unassigned displays');
           done();
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should not recreate it', function(done) {
@@ -35,8 +31,9 @@ describe('Group', function() {
             .then(function(group) {
               group.toJSON().id.should.equal(unassigned.toJSON().id);
               done();
-            }, fail);
-        }, fail);
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should be present in database', function(done) {
@@ -46,8 +43,9 @@ describe('Group', function() {
             .then(function(group) {
               group.toJSON().id.should.equal(unassigned.toJSON().id);
               done();
-            }, fail);
-        }, fail);
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should contain one dashboard', function(done) {
@@ -58,8 +56,9 @@ describe('Group', function() {
               dashboards.length.should.equal(1);
               dashboards[0].toJSON().url.should.equal('/unassigned');
               done();
-            }, fail);
-        }, fail);
+            });
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -74,8 +73,9 @@ describe('Group', function() {
               ogroup.toJSON().id.should.equal(group.toJSON().id);
               ogroup.toJSON().name.should.equal('test group');
               done();
-            }, fail);
-        }, fail);
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should not accept a group with the same name', function(done) {
@@ -84,11 +84,13 @@ describe('Group', function() {
         .then(function() {
           var g2 = new models.Group('test group');
           return g2.create()
-            .then(fail, function(err) {
-              err.should.be.an.instanceOf(models.ConflictError);
-              done();
-            });
-        }, fail);
+            .then(function() { done(new Error('group created despite conflict')); },
+                  function(err) {
+                    err.should.be.an.instanceOf(models.ConflictError);
+                    done();
+                  });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should create a group with a given description', function(done) {
@@ -99,7 +101,8 @@ describe('Group', function() {
           group.toJSON().name.should.equal('second group');
           group.toJSON().description.should.equal('my group');
           done();
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -116,9 +119,10 @@ describe('Group', function() {
                   groups[group1.toJSON().id].should.not.equal(undefined);
                   groups[group2.toJSON().id].should.not.equal(undefined);
                   done();
-                }, fail);
-            }, fail);
-        }, fail);
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -134,20 +138,21 @@ describe('Group', function() {
                 .then(function(group) {
                   group.toJSON().name.should.equal('test group 1');
                   return models.Group.get(group2.toJSON().id);
-                }, fail)
+                })
                 .then(function(group) {
                   group.toJSON().name.should.equal('test group 2');
                   done();
-                }, fail);
-            }, fail);
-        }, fail);
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should fail when a group doesn\'t exist', function(done) {
       models.Group.get(1342)
-        .then(fail, function(err) {
-          done();
-        });
+        .then(function() { done(new Error('group should not exist')); },
+              function(err) { done(); })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -159,12 +164,11 @@ describe('Group', function() {
           return group.delete()
             .then(function() {
               return models.Group.get(group.toJSON().id)
-                .then(fail,
-                      function(err) {
-                        done();
-                      });
+                .then(function() { done(new Error('group still exists')); },
+                      function(err) { done(); });
             });
-        });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should not delete a group with displays', function(done) {
@@ -176,13 +180,15 @@ describe('Group', function() {
               return display.setGroup(group)
                 .then(function() {
                   return group.delete()
-                    .then(fail, function(err) {
-                      err.should.be.an.instanceOf(models.ConflictError);
-                      done();
-                    });
-                }, fail);
-            }, fail);
-        }, fail);
+                    .then(function() { done(new Error('group should not be deleted')); },
+                          function(err) {
+                            err.should.be.an.instanceOf(models.ConflictError);
+                            done();
+                          });
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -203,9 +209,10 @@ describe('Group', function() {
                   dashboards.length.should.equal(1);
                   dashboards[0].toJSON().url.should.equal('http://www.example.com');
                   done();
-                }, fail);
-            }, fail);
-        }, fail);
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should add several dashboards', function(done) {
@@ -220,8 +227,8 @@ describe('Group', function() {
                 .then(function(dashboard2) {
                   dashboard1.toJSON().url.should.equal('http://www.example.com');
                   dashboard2.toJSON().url.should.equal('http://www.example2.com');
-                }, fail);
-            }, fail)
+                });
+            })
           .then(function() {
             return group.getDashboards()
               .then(function(dashboards) {
@@ -229,9 +236,10 @@ describe('Group', function() {
                 dashboards[0].toJSON().url.should.equal('http://www.example.com');
                 dashboards[1].toJSON().url.should.equal('http://www.example2.com');
                 done();
-              }, fail);
-          }, fail);
-        }, fail);
+              });
+          });
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -250,10 +258,11 @@ describe('Group', function() {
                     .then(function(dashboards) {
                       dashboards.length.should.equal(0);
                       done();
-                    }, fail);
-                }, fail);
-            }, fail);
-        }, fail);
+                    });
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -266,7 +275,7 @@ describe('Group', function() {
             .then(function(dashboard) {
               return group.updateDashboard(dashboard, { url: 'http://www.example2.com',
                                                         description: 'Example' });
-            }, fail)
+            })
             .then(function() {
               return group.getDashboards()
                 .then(function(dashboards) {
@@ -275,9 +284,10 @@ describe('Group', function() {
                   dashboards[0].toJSON().description.should.equal('Example');
                   dashboards[0].toJSON().timeout.should.equal(34);
                   done();
-                }, fail);
-            }, fail);
-        }, fail);
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -292,9 +302,10 @@ describe('Group', function() {
                 .then(function(dashboard) {
                   dashboard.toJSON().url.should.equal('http://www.example1.com');
                   done();
-                }, fail);
-            }, fail);
-        }, fail);
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should fail when a dashboard doesn\'t exist', function(done) {
@@ -302,10 +313,10 @@ describe('Group', function() {
       g.create()
         .then(function(group) {
           return group.getDashboard(1434)
-            .then(fail, function(err) {
-              done();
-            });
-        }, fail);
+            .then(function() { done(new Error('group should not exist')); },
+                  function(err) { done(); });
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -319,50 +330,51 @@ describe('Group', function() {
             .then(function(dashboard) {
               d1 = dashboard;
               return group.addDashboard('http://www.example2.com');
-            }, fail)
+            })
             .then(function(dashboard) {
               d2 = dashboard;
               return group.addDashboard('http://www.example3.com');
-            }, fail)
+            })
             .then(function(dashboard) {
               d3 = dashboard;
               return group.getDashboards();
-            }, fail)
+            })
             .then(function(dashboards) {
               dashboards.length.should.equal(3);
               return group.moveDashboard(d3, 0);
-            }, fail)
+            })
             .then(function() {
               return group.getDashboards();
-            }, fail)
+            })
             .then(function(dashboards) {
               dashboards.length.should.equal(3);
               dashboards[0].toJSON().url.should.equal('http://www.example3.com');
               dashboards[1].toJSON().url.should.equal('http://www.example1.com');
               dashboards[2].toJSON().url.should.equal('http://www.example2.com');
               return group.moveDashboard(d3, 1);
-            }, fail)
+            })
             .then(function() {
               return group.getDashboards();
-            }, fail)
+            })
             .then(function(dashboards) {
               dashboards.length.should.equal(3);
               dashboards[0].toJSON().url.should.equal('http://www.example1.com');
               dashboards[1].toJSON().url.should.equal('http://www.example3.com');
               dashboards[2].toJSON().url.should.equal('http://www.example2.com');
               return group.moveDashboard(d3, 2);
-            }, fail)
+            })
             .then(function() {
               return group.getDashboards();
-            }, fail)
+            })
             .then(function(dashboards) {
               dashboards.length.should.equal(3);
               dashboards[0].toJSON().url.should.equal('http://www.example1.com');
               dashboards[1].toJSON().url.should.equal('http://www.example2.com');
               dashboards[2].toJSON().url.should.equal('http://www.example3.com');
               done();
-            }, fail);
-        }, fail);
+            });
+        })
+        .catch(function(err) { done(err); });
     });
   });
 

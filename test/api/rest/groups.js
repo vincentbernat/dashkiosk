@@ -3,7 +3,6 @@
 var setup = require('../../.');
 
 var should = require('should'),
-    assert = require('assert'),
     express = require('express'),
     request = require('supertest'),
     _ = require('lodash'),
@@ -12,10 +11,6 @@ var should = require('should'),
     api = require('../../../lib/api'),
     app = express();
 
-function fail(err) {
-  assert.fail(err);
-}
-
 api.rest(app);
 
 describe('/api/group', function() {
@@ -23,7 +18,7 @@ describe('/api/group', function() {
   beforeEach(function(done) {
     // Setup the database
     setup.db()
-      .then(function() { done(); }, fail);
+      .then(function() { done(); }, function(err) { done(err); });
   });
 
   describe('GET /api/group', function() {
@@ -52,7 +47,8 @@ describe('/api/group', function() {
               res.body[id].should.have.property('description', 'my new group');
             })
             .end(done);
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
   });
 
@@ -80,7 +76,8 @@ describe('/api/group', function() {
                 group.toJSON().description.should.equal('my new group');
                 group.toJSON().should.not.have.property('invalid');
                 done();
-              }, function(err) { done(err); });
+              })
+              .catch(function(err) { done(err); });
           }
         });
     });
@@ -94,7 +91,8 @@ describe('/api/group', function() {
             .send({ name: 'test group' })
             .set('Accept', 'application/json')
             .expect(409, done);
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should require a name', function(done) {
@@ -126,10 +124,12 @@ describe('/api/group', function() {
                     group.toJSON().description.should.equal('my test group');
                     group.toJSON().name.should.equal('test group');
                     done();
-                  }, fail);
+                  })
+                  .catch(function(err) { done(err); });
               }
             });
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 when the group doesn\'t exist', function(done) {
@@ -158,10 +158,11 @@ describe('/api/group', function() {
                 models.Group.get(id)
                   .then(function() {
                     done(new Error('should not exist anymore'));
-                  }, function(err) { done(); });
+                  }, function() { done(); });
               }
             });
-        }, fail);
+        })
+        .catch(function(err) { done(err); });
     });
 
     it('should 404 when the group doesn\'t exist', function(done) {
