@@ -102,11 +102,16 @@ emitted:
 
  - `display.NAME.connected` when a new display is connected
  - `display.NAME.disconnected` when a new display is disconnected
+ - `display.NAME.group` when a display should change to a new group
+ - `display.NAME.deleted` when a display is deleted
+ - `display.NAME.updated` when another change happens on a display
  - `display.NAME.dashboard` when a new dashboard should be displayed
    by the given display.
  - `display.NAME.reload` when a display should reload itself
  - `display.NAME.osd` when we need to display something on the OSD
- - `display.NAME.group` when a display should change to a new group
+ - `group.ID.created` when a new group is created
+ - `group.ID.updated` when a group is updated (but not something dashboard related)
+ - `group.ID.deleted` when a group is deleted
  - `group.ID.dashboard` when a whole group should switch to a new dashboard
  - `group.ID.dashboard.ID.added` when a new dashboard has been added
  - `group.ID.dashboard.ID.removed` when a dashboard has been removed
