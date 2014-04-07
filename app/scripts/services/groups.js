@@ -101,7 +101,8 @@ angular.module('dashkiosk.services')
       return $http
         .post('api/group', params)
         .catch(function(err) {
-          alertService.danger('Unable to create new group', err.message);
+          alertService.danger('Unable to create new group!',
+                              ((err || {}).data || {}).message);
         });
     };
 
@@ -117,7 +118,8 @@ angular.module('dashkiosk.services')
       return $http
         .put('api/group/' + this.id, params)
         .catch(function(err) {
-          alertService.danger('Unable to update group', err.message);
+          alertService.danger('Unable to update group!',
+                              ((err || {}).data || {}).message);
         });
     };
     // Delete a group
@@ -125,7 +127,8 @@ angular.module('dashkiosk.services')
       return $http
         .delete('api/group/' + this.id)
         .catch(function(err) {
-          alertService.danger('Unable to delete group', err.message);
+          alertService.danger('Unable to delete group!',
+                              ((err || {}).data || {}).message);
         });
     };
     // Attach a display
@@ -133,7 +136,8 @@ angular.module('dashkiosk.services')
       return $http
         .put('api/display/' + name + '/group/' + this.id)
         .catch(function(err) {
-          alertService.danger('Unable to attach display', err.message);
+          alertService.danger('Unable to attach display!',
+                              ((err || {}).data || {}).message);
         });
     };
 
@@ -146,21 +150,24 @@ angular.module('dashkiosk.services')
       return $http
         .put('api/display/' + this.name, params)
         .catch(function(err) {
-          alertService.danger('Unable to update display', err.message);
+          alertService.danger('Unable to update display!',
+                              ((err || {}).data || {}).message);
         });
     };
     Display.prototype.$delete = function() {
       return $http
         .delete('api/display/' + this.name)
         .catch(function(err) {
-          alertService.danger('Unable to delete display', err.message);
+          alertService.danger('Unable to delete display!',
+                              ((err || {}).data || {}).message);
         });
     };
     Display.prototype.$action = function(params) {
       return $http
         .post('api/display/' + this.name + '/action', params)
         .catch(function(err) {
-          alertService.danger('Unable to trigger display action', err.message);
+          alertService.danger('Unable to trigger display action!',
+                              ((err || {}).data || {}).message);
         });
     };
 
@@ -193,7 +200,8 @@ angular.module('dashkiosk.services')
       return $http
         .post('api/group/' + this.group.id + '/dashboard', params)
         .catch(function(err) {
-          alertService.danger('Unable to create new dashboard', err.message);
+          alertService.danger('Unable to create new dashboard',
+                              ((err || {}).data || {}).message);
         });
     };
 
@@ -211,14 +219,16 @@ angular.module('dashkiosk.services')
       return $http
         .delete('api/group/' + this.group.id + '/dashboard/' + this.id)
         .catch(function(err) {
-          alertService.danger('Unable to delete dashboard', err.message);
+          alertService.danger('Unable to delete dashboard',
+                              ((err || {}).data || {}).message);
         });
     };
     Dashboard.prototype.$update = function() {
       return $http
         .put('api/group/' + this.group.id + '/dashboard/' + this.id)
         .catch(function(err) {
-          alertService.danger('Unable to update dashboard', err.message);
+          alertService.danger('Unable to update dashboard',
+                              ((err || {}).data || {}).message);
         });
     };
 
