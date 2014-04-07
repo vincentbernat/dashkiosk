@@ -1,0 +1,21 @@
+<div data-ui-element="dk-group"
+     class="panel panel-default">
+  <div class="panel-heading">
+    <strong>{{ group.name }}</strong>
+    <span ng-show="group.description">{{ group.description }}</span>
+  </div>
+  <div class="panel-body">
+    <div class="displays">
+      <dk-display
+        ng-repeat="display in group.displays | orderBy:['-connected','name']"
+        display="display">
+      </dk-display>
+    </div>
+  </div>
+  <div class="dashboards">
+    <dk-dashboard
+      ng-repeat="dashboard in group.dashboards"
+      dashboard="dashboard">
+    </dk-dashboard>
+  </div>
+</div>

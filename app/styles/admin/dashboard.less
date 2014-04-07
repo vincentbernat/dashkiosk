@@ -1,0 +1,25 @@
+*[data-ui-element=dk-dashboard] {
+    padding: .3em;
+    border-top: 1px solid @gray-lighter;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .property {
+        float: right;
+        display: block;
+        white-space: nowrap;
+        &:after {
+            content: " ";
+            white-space: normal;
+        }
+
+        color: @gray;
+        em {
+            color: black;
+            font-style: normal;
+        }
+    }
+
+    .clearfix();
+
+}

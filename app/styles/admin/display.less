@@ -1,0 +1,38 @@
+*[data-ui-element=dk-display] {
+
+    display: inline-block;
+    padding: .2em .6em .3em;
+    margin: .2em .4em;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+    color: white;
+    background-color: @gray-light;
+    white-space: nowrap;
+
+    &:after {
+        content: " ";
+        white-space: normal;
+    }
+    
+    .on, .off {
+        display: inline-block;
+        position: relative;
+        bottom: -1px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: .6em;
+    }
+    .on {
+        background-color: #7E0;
+        box-shadow: #000 0 -1px 7px 1px, inset #490 0 -1px 9px, #7F0 0 2px 12px;
+    }
+    .off {
+        background-color: @gray-light;
+        box-shadow: @gray-dark 0 -1px 2px 1px;
+    }
+
+    .name {
+        .font-source-code-pro(1.1em);
+    }
+}

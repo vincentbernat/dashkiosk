@@ -1,0 +1,52 @@
+.loading-indicator(@dimension) {
+    [data-ui-element=dk-loading-indicator] {
+        width: @dimension;
+        height: @dimension;
+
+        .inner {
+            position: relative;
+            border-radius: @dimension;
+            width: 0;
+            height: 0;
+            top: @dimension/2;
+            left: @dimension/2;
+            background-color: white;
+
+            &:after, &:before {
+                content: "";
+                position: absolute;
+                background-color: white;
+                background-color: fade(white, 20%);
+                width: @dimension/2;
+                height: @dimension/2;
+            }
+            &:before {
+                top: -@dimension/2;
+                border-top: 2px solid white;
+	        border-right: 2px solid white;
+                border-radius: 0 @dimension 0 0;
+                transform-origin: 0% 100%;
+            }
+            &:after {
+                top: 0;
+                right: 0;
+                border-bottom: 2px solid white;
+	        border-left: 2px solid white;
+                border-radius: 0 0 0 @dimension;
+                transform-origin: 100% 0%;
+            }                
+
+        }
+
+        &.show {
+            .inner:after, .inner:before {
+                animation: spinning 5s linear infinite;
+            }
+        }
+
+        @keyframes spinning {
+            0% { transform:rotate(0deg); }
+            100% { transform:rotate(360deg); }
+        }
+    }
+}

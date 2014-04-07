@@ -1,26 +1,52 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>DashKiosk</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <!-- build:css styles/admin-final.css -->
-  <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
-  <link rel="stylesheet" href="styles/admin.css">
-  <!-- endbuild -->
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>DashKiosk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <!-- build:css styles/admin-final.css -->
+    <link rel="stylesheet" href="styles/admin.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="dashkiosk">
+    <dk-alerts></dk-alerts>
 
-  <!-- build:js scripts/admin-vendor.js -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-  <!-- endbuild -->
-  <!-- build:js scripts/admin-final.js -->
-  <!-- endbuild -->
+    <header>
+      <img class="logo" src="images/dashkiosk.svg">Dashkiosk
+      <img class="branding" src="images/stamp.svg">
+      <dk-loading-indicator></dk-loading-indicator>
+    </header>
+
+    <div class="container" ng-view>
+    </div>
+
+    <!-- build:js scripts/admin-vendor.js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
+    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="bower_components/deep-diff/index.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/admin-final.js -->
+    <script src="scripts/admin.js"></script>
+    <script src="scripts/views.js"></script>
+    <script src="scripts/services/admin.js"></script>
+    <script src="scripts/services/groups.js"></script>
+    <script src="scripts/services/loading.js"></script>
+    <script src="scripts/services/alerts.js"></script>
+    <script src="scripts/directives/admin.js"></script>
+    <script src="scripts/directives/loading.js"></script>
+    <script src="scripts/directives/alerts.js"></script>
+    <script src="scripts/directives/group.js"></script>
+    <script src="scripts/directives/display.js"></script>
+    <script src="scripts/directives/dashboard.js"></script>
+    <script src="scripts/controllers/admin.js"></script>
+    <script src="scripts/controllers/groups.js"></script>
+    <script src="scripts/controllers/group.js"></script>
+    <script src="scripts/controllers/display.js"></script>
+    <script src="scripts/controllers/dashboard.js"></script>
+    <!-- endbuild -->
 
 </body>
 </html>

@@ -1,0 +1,40 @@
+header {
+    width: 100%;
+    height: @navbar-height;
+    background-color: @gray-light;
+    background-color: fade(@gray-light, 90%);
+    color: white;
+    line-height: @navbar-height - 8px;
+    .font-source-sans-pro(24px);
+
+    .logo, .branding {
+        height: @navbar-height - 8px;
+        width: auto;
+        margin: 4px 10px;
+    }
+    .branding {
+        float: right;
+    }
+    .branding {
+        display: none;
+        @media (min-width: @screen-sm-min) {
+            display: inline;
+        }
+    }
+
+    /* Some pure CSS spinner */
+    .loading-indicator(@navbar-height - 8px);
+    [data-ui-element=dk-loading-indicator] {
+        float: right;
+        margin: 4px 10px;
+
+        /* Animate when display */
+        transform: translateY(-150%);
+        transition: transform 0.5s;
+        &.show {
+            transform: translateY(0);
+        }
+
+    }
+        
+}

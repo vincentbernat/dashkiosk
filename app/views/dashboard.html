@@ -1,0 +1,7 @@
+<div data-ui-element="dk-dashboard">
+  <a href="{{ dashboard.url }}">{{ dashboard.description || dashboard.url }}</a>
+  <span class="property timeout" ng-show="dashboard.timeout">
+    <span class="glyphicon glyphicon-time"></span>
+    <em>{{ dashboard.timeout }}</em>s
+  </span>
+</div>

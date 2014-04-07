@@ -1,0 +1,12 @@
+<ul data-ui-element="dk-alerts">
+  <li ng-repeat="alert in alerts"
+      class="alert alert-{{ alert.level }} alert-dismissable">
+    <button type="button"
+            class="close"
+            ng-click="close($index)"
+            data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+    <strong ng-show="alert.title">{{ alert.title }}</strong>
+    {{ alert.message }}
+  </li>
+</li>

@@ -1,9 +1,4 @@
-@font-face {
-    font-family: "Source Sans Pro";
-    src: url("../fonts/SourceSansPro-Light.otf");
-    font-weight: light;
-    font-style: normal;
-}
+@import "common/fonts";
 
 body, html, div {
     width: 100%;
@@ -31,9 +26,7 @@ body {
         right: 4%;
         bottom: 4%;
         height: 1em;
-        font-family: 'Source Sans Pro', 'Open Sans', 'Droid Sans', sans-serif;
-        font-size: 96px;
-        font-weight: light;
+        .font-source-sans-pro(96px);
         color: white;
         text-align: right;
         text-shadow: -1px -1px 0 #000;

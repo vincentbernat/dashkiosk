@@ -19,11 +19,12 @@
   "trailing": true,
   "smarttabs": true,
   "globals": {
-    "angular": false,
-    "io": false,
-    "_": false,
+    "DeepDiff": false,
     "Zepto": false,
-    "require": false,
-    "define": false
+    "_": false,
+    "angular": false,
+    "define": false,
+    "io": false,
+    "require": false
   }
 }

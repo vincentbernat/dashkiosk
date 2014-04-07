@@ -1,0 +1,9 @@
+// Ensure the element has the given ratio
+.ratio(@ratio) {
+    position: relative;
+    &:before {
+        content: "";
+        display: block;
+        padding-top: percentage(@ratio);
+    }
+}

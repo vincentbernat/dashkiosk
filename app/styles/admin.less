@@ -1,0 +1,31 @@
+@import "../bower_components/bootstrap/less/bootstrap";
+
+html {
+    background-image: url(../images/dark-wood.jpg);
+}
+body {
+    background-color: transparent;
+}
+
+@import "common/fonts";
+@import "admin/mixins";
+
+@import "admin/loading";
+@import "admin/alerts";
+    
+@import "admin/header";
+@import "admin/groups";
+@import "admin/group";
+@import "admin/display";
+@import "admin/dashboard";
+
+.container {
+    @media (min-width: @screen-sm-min) {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border: @gray-light 1px solid;
+    }
+    padding-top: @line-height-computed;
+    background-color: white;
+    background-color: fade(white, 80%);
+}

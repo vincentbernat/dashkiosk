@@ -331,6 +331,13 @@ module.exports = function(grunt) {
           src: [
             'fonts/*.{ttf,otf}'
           ]
+        }, {
+          expand: true,
+          cwd: 'app/bower_components/bootstrap',
+          dest: 'build',
+          src: [
+            'fonts/*.{eot,svg,ttf,woff}'
+          ]
         }]
       },
       bower: {
