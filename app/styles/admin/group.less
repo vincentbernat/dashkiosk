@@ -1,9 +1,14 @@
 [data-ui-element=dk-group] {
     .panel-heading {
-        span {
+        & > span {
             display: block;
             color: @gray;
             font-style: italic;
+        }
+        .actions {
+            float: right;
+            cursor: pointer;
+            color: @gray;
         }
     }
 

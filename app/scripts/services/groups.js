@@ -140,6 +140,10 @@ angular.module('dashkiosk.services')
                               ((err || {}).data || {}).message);
         });
     };
+    // Check if the group is empty (not any display attached)
+    Group.prototype.$empty = function() {
+      return _.keys(this.displays).length === 0;
+    };
 
     // One display
     function Display(data) {

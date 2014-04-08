@@ -1,4 +1,5 @@
 angular.module('dashkiosk', ['ngRoute',
+                             'ui.bootstrap',
                              'dashkiosk.services',
                              'dashkiosk.directives',
                              'dashkiosk.controllers']);

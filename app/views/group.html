@@ -1,6 +1,12 @@
 <div data-ui-element="dk-group"
      class="panel panel-default">
   <div class="panel-heading">
+    <div class="actions">
+      <span class="glyphicon glyphicon-trash"
+            tooltip="Delete"
+            ng-show="group.$empty()"
+            ng-click="group.$delete()"></span>
+    </div>
     <strong>{{ group.name }}</strong>
     <span ng-show="group.description">{{ group.description }}</span>
   </div>

@@ -10,7 +10,8 @@
     "zepto": "~1.1.3",
     "bootstrap": "~3.1.1",
     "angular-route": "~1.2.16",
-    "deep-diff": "~0.1.6"
+    "deep-diff": "~0.1.6",
+    "angular-bootstrap": "~0.10.0"
   },
   "devDependencies": {}
 }
