@@ -13,7 +13,8 @@
     "deep-diff": "~0.1.6",
     "angular-xeditable": "~0.1.8",
     "angular-strap": "~2.0.0",
-    "angular-animate": "~1.2.16"
+    "angular-animate": "~1.2.16",
+    "angular-motion": "~0.3.2"
   },
   "devDependencies": {}
 }
