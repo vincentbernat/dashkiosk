@@ -28,8 +28,8 @@ angular.module('dashkiosk')
 angular.module('dashkiosk')
   .run(function(editableOptions, editableThemes) {
     'use strict';
-    editableThemes.bs3.inputClass = 'input-sm';
-    editableThemes.bs3.buttonsClass = 'btn-sm';
+    editableThemes.bs3.inputClass = 'input-xs';
+    editableThemes.bs3.buttonsClass = 'btn-xs';
     editableOptions.theme = 'bs3';
   });
 
