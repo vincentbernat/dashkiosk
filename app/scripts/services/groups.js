@@ -100,9 +100,11 @@ angular.module('dashkiosk.services')
     GroupCollection.prototype.$add = function(params) {
       return $http
         .post('api/group', params)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to create new group!',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
 
@@ -117,27 +119,33 @@ angular.module('dashkiosk.services')
     Group.prototype.$update = function(params) {
       return $http
         .put('api/group/' + this.id, params)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to update group!',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
     // Delete a group
     Group.prototype.$delete = function() {
       return $http
         .delete('api/group/' + this.id)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to delete group!',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
     // Attach a display
     Group.prototype.$attach = function(name) {
       return $http
         .put('api/display/' + name + '/group/' + this.id)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to attach display!',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
     // Check if the group is empty (not any display attached)
@@ -153,25 +161,31 @@ angular.module('dashkiosk.services')
     Display.prototype.$update = function(params) {
       return $http
         .put('api/display/' + this.name, params)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to update display!',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
     Display.prototype.$delete = function() {
       return $http
         .delete('api/display/' + this.name)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to delete display!',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
     Display.prototype.$action = function(params) {
       return $http
         .post('api/display/' + this.name + '/action', params)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to trigger display action!',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
 
@@ -203,9 +217,11 @@ angular.module('dashkiosk.services')
     DashboardCollection.prototype.$add = function(params) {
       return $http
         .post('api/group/' + this.group.id + '/dashboard', params)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to create new dashboard',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
 
@@ -222,17 +238,21 @@ angular.module('dashkiosk.services')
     Dashboard.prototype.$delete = function() {
       return $http
         .delete('api/group/' + this.group.id + '/dashboard/' + this.id)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to delete dashboard',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
     Dashboard.prototype.$update = function() {
       return $http
         .put('api/group/' + this.group.id + '/dashboard/' + this.id)
+        .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to update dashboard',
                               ((err || {}).data || {}).message);
+          return false;
         });
     };
 

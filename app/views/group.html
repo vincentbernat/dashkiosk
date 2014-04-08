@@ -7,8 +7,14 @@
             ng-show="group.$empty()"
             ng-click="group.$delete()"></span>
     </div>
-    <strong>{{ group.name }}</strong>
-    <span ng-show="group.description">{{ group.description }}</span>
+    <div class="name"
+         editable-text="group.name"
+         onbeforesave="group.$update({name: $data})"
+         e-placeholder="Group name">{{ group.name }}</div>
+    <div class="description"
+         editable-text="group.description"
+         onbeforesave="group.$update({description: $data})"
+         e-placeholder="Group description">{{ group.description || "..." }}</div>
   </div>
   <div class="panel-body">
     <div class="displays">

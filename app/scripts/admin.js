@@ -1,5 +1,6 @@
 angular.module('dashkiosk', ['ngRoute',
                              'ui.bootstrap',
+                             'xeditable',
                              'dashkiosk.services',
                              'dashkiosk.directives',
                              'dashkiosk.controllers']);
@@ -21,6 +22,15 @@ angular.module('dashkiosk')
       .otherwise({
         redirectTo: '/groups'
       });
+  });
+
+/* Set theme for xeditable */
+angular.module('dashkiosk')
+  .run(function(editableOptions, editableThemes) {
+    'use strict';
+    editableThemes.bs3.inputClass = 'input-sm';
+    editableThemes.bs3.buttonsClass = 'btn-sm';
+    editableOptions.theme = 'bs3';
   });
 
 /* HTTP provider that is able to tell us if we have an HTTP request
