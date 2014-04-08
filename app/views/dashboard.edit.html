@@ -1,8 +1,8 @@
 <div class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content" ng-controller="EditDashboardCtrl">
-      <div class="modal-body">
-        <form novalidate name="dashboardForm" class="form" role="form">
+      <form novalidate name="dashboardForm" class="form" role="form" ng-submit="submit()">
+        <div class="modal-body">
           <div class="input-group" ng-class="{'has-error': dashboardForm.url.$invalid}"">
             <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
             <input type="url" class="form-control"
@@ -22,18 +22,17 @@
                ng-model="dashboard.timeout">
             <span class="input-group-addon">s</span>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-danger pull-left"
-                ng-click="delete()">
-          <span class="glyphicon glyphicon-trash"> Delete</span>
-        </button>
-        <button class="btn" ng-click="$hide()">Cancel</button>
-        <button type="submit" class="btn btn-primary"
-                ng-click="submit()"
-                ng-disabled="!dashboardForm.$valid">Save</button>
-      </div>
-    </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger pull-left"
+                  ng-click="delete()">
+            <span class="glyphicon glyphicon-trash"> Delete</span>
+          </button>
+          <button type="button" class="btn" ng-click="$hide()">Cancel</button>
+          <button type="submit" class="btn btn-primary"
+                  ng-disabled="!dashboardForm.$valid">Save</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
