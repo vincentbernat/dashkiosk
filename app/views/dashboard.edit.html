@@ -25,6 +25,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger pull-left"
+                  ng-show="!isNew()"
                   ng-click="delete()">
             <span class="glyphicon glyphicon-trash"> Delete</span>
           </button>
