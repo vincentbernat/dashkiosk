@@ -1,0 +1,17 @@
+<div class="popover">
+  <div class="arrow"></div>
+  <div class="popover-content">
+    <div class="actions">
+      <span class="glyphicon glyphicon-trash"
+            bs-tooltip="'Delete'"
+            ng-show="!display.connected"
+            ng-click="display.$delete()"></span>
+    </div>
+    <div class="name"
+         editable-text="display.name">{{ display.name }}</div>
+    <div class="description"
+         editable-text="display.description"
+         onbeforesave="display.$update({description: $data})"
+         e-placeholder="Display description">{{ display.description || "..." }}</div>
+  </div>
+</div>

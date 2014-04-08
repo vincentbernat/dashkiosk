@@ -1,4 +1,8 @@
 <span data-ui-element="dk-display">
   <i ng-class="{on: display.connected, off: !display.connected}"></i>
-  <span class="name">{{ display.name }}</span>
+  <span class="name"
+        bs-popover
+        data-template="display.edit.html"
+        data-placement="bottom"
+        title="{{ display.name }}">{{ display.name }}</span>
 </span>
