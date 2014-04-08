@@ -245,9 +245,9 @@ angular.module('dashkiosk.services')
           return false;
         });
     };
-    Dashboard.prototype.$update = function() {
+    Dashboard.prototype.$update = function(params) {
       return $http
-        .put('api/group/' + this.group.id + '/dashboard/' + this.id)
+        .put('api/group/' + this.group.id + '/dashboard/' + this.id, params)
         .then(function() { return false; })
         .catch(function(err) {
           alertService.danger('Unable to update dashboard',

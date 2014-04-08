@@ -1,9 +1,24 @@
 <div data-ui-element="dk-dashboard">
   <a href="{{ dashboard.url }}">{{ dashboard.description || dashboard.url }}</a>
+  <span class="property">
+    <span class="move"
+          ng-class="{available: !$parent.$last}"
+          ng-click="dashboard.$update({rank: $parent.$index + 1})">
+      <span class="glyphicon glyphicon-chevron-down"></span>
+    </span>
+    <span class="move"
+          ng-class="{available: !$parent.$first}"
+          ng-click="dashboard.$update({rank: $parent.$index - 1})">
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </span>
+  </span>
   <span class="property timeout"
         bs-tooltip="'Timeout'"
         ng-show="dashboard.timeout">
     <span class="glyphicon glyphicon-time"></span>
-    <em>{{ dashboard.timeout }}</em>s
+    <em editable-text="dashboard.timeout"
+        buttons="no"
+        onbeforesave="dashboard.$update({timeout: $data || null})"
+        e-size="3")>{{ dashboard.timeout }}</em>s
   </span>
 </div>
