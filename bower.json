@@ -11,8 +11,9 @@
     "bootstrap": "~3.1.1",
     "angular-route": "~1.2.16",
     "deep-diff": "~0.1.6",
-    "angular-bootstrap": "~0.10.0",
-    "angular-xeditable": "~0.1.8"
+    "angular-xeditable": "~0.1.8",
+    "angular-strap": "~2.0.0",
+    "angular-animate": "~1.2.16"
   },
   "devDependencies": {}
 }

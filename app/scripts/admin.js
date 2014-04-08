@@ -1,5 +1,5 @@
 angular.module('dashkiosk', ['ngRoute',
-                             'ui.bootstrap',
+                             'mgcrea.ngStrap',
                              'xeditable',
                              'dashkiosk.services',
                              'dashkiosk.directives',
