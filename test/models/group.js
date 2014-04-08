@@ -115,6 +115,45 @@ describe('Group', function() {
     });
   });
 
+  describe('#update()', function() {
+    it('should update a group', function(done) {
+      var g = new models.Group('test group');
+      g.create()
+        .then(function(group) {
+          return group.update({name: 'new name',
+                               description: 'new description'})
+            .then(function() {
+              return models.Group.get(group.toJSON().id);
+            })
+            .then(function(group) {
+              group.toJSON().name.should.equal('new name');
+              group.toJSON().description.should.equal('new description');
+              done();
+            });
+        })
+        .catch(function(err) { done(err); });
+    });
+
+    it('should not change group name to an existing name', function(done) {
+      var g1 = new models.Group('test group 1'),
+          g2 = new models.Group('test group 2');
+      g1.create()
+        .then(function(group1) {
+          return g2.create()
+            .then(function(group2) {
+              return group1.update({name: 'test group 2',
+                                    description: 'new description'})
+                .then(function() {
+                  throw new Error('should not be able to rename group');
+                }, function(err) {
+                  done();
+                });
+            });
+        })
+        .catch(function(err) { done(err); });
+    });
+  });
+
   describe('#all()', function() {
     it('should return all groups', function(done) {
       var g1 = new models.Group('test group 1'),
