@@ -4,6 +4,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
+    transition: background-color 1s;
+    background-color: white;
+    &.active {
+        background-color: @state-info-bg;
+    }
+
     .property {
         float: right;
         display: block;
