@@ -19,7 +19,7 @@ angular.module('dashkiosk.directives')
             // else than the drop event. That's quite
             // convenient. Therefore, we encode the value into the
             // attribute name...
-            event.dataTransfer.setData(element.attr('data-drag-type') + '//' + attrs.dkDraggable,
+            event.dataTransfer.setData(element.attr('data-drag-type'),
                                        attrs.dkDraggable);
           })
           .on('dragend', function() {
@@ -38,9 +38,7 @@ angular.module('dashkiosk.directives')
         var accept = function(event) {
           var acceptable = element.attr('data-drag-accept');
           return (!acceptable ||
-                  _.any(event.dataTransfer.types, function(t) {
-                    return t.split('//')[0] === acceptable;
-                  }));
+                  _.contains(event.dataTransfer.types, acceptable));
         };
 
         var first = false, second = false;
@@ -94,11 +92,8 @@ angular.module('dashkiosk.directives')
             element.removeClass('droppable');
             var fn = scope.$eval(attrs.dkDroppable);
             if ('undefined' !== typeof fn) {
-              var acceptable = element.attr('data-drag-accept'),
-                  value = _.find(event.dataTransfer.types, function(t) {
-                    return t.split('//')[0] === acceptable;
-                  }) || undefined;
-              fn(event.dataTransfer.getData(value));
+              var value = event.dataTransfer.getData(element.attr('data-drag-accept'));
+              fn(value || undefined);
             }
             return false;
           });
