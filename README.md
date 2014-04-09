@@ -1,6 +1,6 @@
-# DashKiosk
+# Dashkiosk
 
-DashKiosk is a solution to manage dashboards on multiple screens. It
+Dashkiosk is a solution to manage dashboards on multiple screens. It
 come as three components:
 
  1. A _receiver_ runs in a browser attached to each screen and will
