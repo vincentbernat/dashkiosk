@@ -3,10 +3,23 @@
 var setup = require('../.'),
     should = require('should'),
     path = require('path'),
+    _ = require('lodash'),
     Sequelize = require('sequelize'),
     db = require('../../lib/db'),
     config = require('../../lib/config'),
     logger = require('../../lib/logger');
+
+// Normalize a bit the database schema for equality comparison
+function norm(result) {
+  var re = /^(CREATE .*?)\((.*)\)$/;
+  return _.map(_.pluck(result, 'sql').sort(), function(sql) {
+    var mo = re.exec(sql);
+    if (!mo) {
+      return sql;
+    }
+    return _.flatten([mo[1], mo[2].split(', ').sort()]);
+  });
+}
 
 describe('Sequelize migration', function() {
 
@@ -61,7 +74,7 @@ describe('Sequelize migration', function() {
                                    null, {raw: true});
                   })
                   .then(function(db2) {
-                    db1.should.eql(db2);
+                    norm(db1).should.eql(norm(db2));
                     done();
                   });
               });
