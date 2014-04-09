@@ -30,7 +30,7 @@ module.exports = function(grunt) {
                 '--port', PORTS.express ],
         options: {
           watch: [
-            'server.js', 'lib/*'
+            'server.js', 'lib/*', 'migration/*.js'
           ],
           nodeArgs: ['--debug'],
           env: {
