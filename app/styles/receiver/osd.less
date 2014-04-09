@@ -1,20 +1,36 @@
 .osd {
     position: absolute;
-    bottom: 4%;
-    left: 4%;
+
+    &.text {
+        bottom: 4%;
+        left: 4%;
+        height: 1em;
+        text-align: left;
+        .font-source-code-pro(96px);
+
+        transform: translateX(-150%);
+        transform: translate3d(-150%, 0, 0);
+    }
+    &.technical {
+        top: 4%;
+        right: 4%;
+        text-align: right;
+        .font-source-code-pro(32px);
+
+        p { margin: 0; }
+
+        transform: translateX(150%);
+        transform: translate3d(150%, 0, 0);
+    }
+
     z-index: 10;
-    height: 1em;
-    .font-source-code-pro(96px);
     color: white;
-    text-align: left;
     text-shadow: -1px -1px 2px #000,
                  1px -1px 2px #000,
                  -1px 1px 2px #000,
                  1px 1px 2px #000;
     opacity: 0.9;
 
-    transform: translateX(-150%);
-    transform: translate3d(-150%, 0, 0);
     transition: transform 0.5s;
 
     &.show {
