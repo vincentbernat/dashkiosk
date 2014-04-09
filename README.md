@@ -162,6 +162,10 @@ The application is quite minimalist with the following features:
 The application is expected to be "dumb". Most of the work should be
 done by the web application that is loaded.
 
+The previous version was able to fetch dashboards from a JSON file
+hosted on some web server. It is still available in the v1 branch if
+you are interested.
+
 ### Compilation and installation
 
 Once the Android SDK has been installed, you can use the `android`
