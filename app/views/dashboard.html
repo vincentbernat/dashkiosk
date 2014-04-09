@@ -1,5 +1,7 @@
 <div data-ui-element="dk-dashboard" ng-class="{active: dashboard.active}">
-  <a href="{{ dashboard.url }}">{{ dashboard.description || dashboard.url }}</a>
+  <a href="{{ dashboard.url }}"
+     target="_blank"
+     title="{{ dashboard.url }}">{{ dashboard.description || dashboard.url }}</a>
   <span class="property">
     <span class="move"
           ng-class="{available: !$parent.$last}"
