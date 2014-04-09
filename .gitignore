@@ -12,6 +12,6 @@
 /.rebooted
 
 # Run stuff
-/dashkiosk-*.sqlite
+/db/dashkiosk-*.sqlite
 /config.json
 /coverage.html

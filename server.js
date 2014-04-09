@@ -35,7 +35,11 @@ var db = require('./lib/db'),
     models = require('./lib/models');
 db
   .sequelize
-  .sync()
+  .getMigrator({
+    path: path.join(config.get('path:root'), 'db', 'migrations'),
+    filesFilter: /^\d.*\.js$/
+  })
+  .migrate()
   .then(function() { return models.Group.run(); })
   .catch(function(err) {
     if (err instanceof Array) {
