@@ -65,7 +65,6 @@ The server provides two features:
 
 Building the server is done using the following steps:
 
-    ::console
     $ npm install -g bower grunt-cli
     $ npm install
     $ bower install
@@ -75,12 +74,10 @@ Building the server is done using the following steps:
 
 To run the server for development:
 
-    ::console
     $ grunt serve
     
 To run the server:
 
-    ::console
     $ npm start
 
 The server uses an internal bus. Currently, the following events are
@@ -111,7 +108,6 @@ can use a PostgreSQL database instead or any
 [dialect supported by Sequelize][]. Then, put this in a `config.json`
 file:
 
-    ::json
     {
         "db": {
             "username": "dashkiosk",
