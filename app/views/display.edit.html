@@ -6,6 +6,10 @@
             bs-tooltip="'Delete'"
             ng-show="!display.connected"
             ng-click="display.$delete()"></span>
+      <span class="glyphicon glyphicon-refresh"
+            bs-tooltip="'Reload'"
+            ng-show="display.connected"
+            ng-click="display.$reload()"></span>
     </div>
     <div class="name"
          editable-text="display.name">{{ display.name }}</div>

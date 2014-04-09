@@ -188,6 +188,9 @@ angular.module('dashkiosk.services')
           return false;
         });
     };
+    Display.prototype.$reload = function() {
+      return this.$action({action: 'reload'});
+    };
 
     // Collection of dashboards. This should be mostly
     // indistinguishable from an array.
