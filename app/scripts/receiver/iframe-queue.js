@@ -1,8 +1,5 @@
-define('iframe-queue', (function($, undefined) {
+define('iframe-queue', (function(window, $, undefined) {
   'use strict';
-
-  // Shortcut for all the names for transitionend
-  var transitionEnd = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd';
 
   function Iframe(dashboard, options) {
     var self = this;
@@ -26,10 +23,10 @@ define('iframe-queue', (function($, undefined) {
     var self = this;
     if (this.el.hasClass('show')) {
       this.el
-        .removeClass('show')
-        .one(transitionEnd, function() {
-          self.el.remove();
-        });
+        .removeClass('show');
+      window.setTimeout(function() {
+        self.el.remove();
+      }, 1001);
     } else {
       this.el.remove();
     }
@@ -95,4 +92,4 @@ define('iframe-queue', (function($, undefined) {
 
   return Queue;
 
-})(Zepto));
+})(window, Zepto));

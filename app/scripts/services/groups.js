@@ -59,7 +59,6 @@ angular.module('dashkiosk.services')
       if (group) {
         group.displays[display.name] = display;
       }
-      console.log(groups.server);
       fromServer();
     });
     socket.on('display.deleted', function(display) {
