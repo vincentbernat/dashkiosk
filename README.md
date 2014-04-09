@@ -30,20 +30,6 @@ the site has been loaded (and optionnaly told the receiver that is
 ready, see below), the iframe is shown and the previous iframe is
 discarded.
 
-### Ready protocol
-
-The receiver waits for the load event of the iframe that has to be
-displayed before displaying it. However, some dashboards are quite
-dynamic and the `onload` event is triggered while the dashboard is not
-really ready. Therefore, in the future, the receiver will also accept
-to be notified through the [postMessage API][] by sending a ready
-message:
-
-    ::javascript
-    window.parent.postMessage("ready", "*");
-
-[postMessage API]: https://developer.mozilla.org/en-US/docs/Web/API/Window.postMessage
-
 ### Limitations
 
 Because of the use of iframes, some website may refuse to render due
