@@ -47,13 +47,20 @@ describe('Sequelize migration', function() {
         return db.sequelize
           .sync({force: true})
           .then(function() {
-            return db.sequelize.query('SELECT sql FROM sqlite_master WHERE name != \'SequelizeMeta\' ORDER BY sql',
+            return db.sequelize.query('CREATE TEMP VIEW sqlm AS SELECT * FROM sqlite_master',
+                                      null, {raw: true});
+          })
+          .then(function() {
+            return db.sequelize.query('SELECT sql FROM sqlm WHERE name != \'SequelizeMeta\' ORDER BY sql',
                                       null, {raw: true})
               .then(function(db1) {
-                return s.query('SELECT sql FROM sqlite_master WHERE name != \'SequelizeMeta\' ORDER BY sql',
+                return s.query('CREATE TEMP VIEW sqlm AS SELECT * FROM sqlite_master',
                                null, {raw: true})
+                  .then(function() {
+                    return s.query('SELECT sql FROM sqlm WHERE name != \'SequelizeMeta\' ORDER BY sql',
+                                   null, {raw: true});
+                  })
                   .then(function(db2) {
-                    /* Well, this doesn't work as it returns undefined... */
                     db1.should.eql(db2);
                     done();
                   });

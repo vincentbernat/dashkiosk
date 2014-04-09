@@ -18,10 +18,12 @@ module.exports = {
         allowNull: true
       },
       createdAt: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull: false
       },
       updatedAt: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull: false
       }
     });
 
@@ -48,10 +50,12 @@ module.exports = {
         allowNull: true
       },
       createdAt: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull: false
       },
       updatedAt: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull: false
       },
       GroupId: {
         type: DataTypes.INTEGER,
@@ -77,10 +81,12 @@ module.exports = {
         allowNull: true
       },
       createdAt: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull: false
       },
       updatedAt: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull: false
       },
       GroupId: {
         type: DataTypes.INTEGER,
