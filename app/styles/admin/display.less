@@ -13,6 +13,12 @@
         content: " ";
         white-space: normal;
     }
+
+    transition: opacity 0.3s, transform 0.3s;
+    &.dragged {
+        opacity: 0.8;
+        transform: scale(.8, .8);
+    }
     
     .on, .off {
         display: inline-block;
