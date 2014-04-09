@@ -3,8 +3,7 @@
       data-drag-type="text/vnd.dashkiosk.display">
   <i ng-class="{on: display.connected, off: !display.connected}"></i>
   <span class="name"
-        bs-popover
+        bs-modal
         data-template="display.edit.html"
-        data-placement="bottom"
-        title="{{ display.name }}">{{ display.name }}</span>
+        title="{{ display.description }}">{{ display.name }}</span>
 </span>

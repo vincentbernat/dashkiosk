@@ -1,25 +1,47 @@
-<div class="popover">
-  <div class="arrow"></div>
-  <div class="popover-content">
-    <div class="actions">
-      <span class="glyphicon glyphicon-trash"
-            bs-tooltip="'Delete'"
-            ng-show="!display.connected"
-            ng-click="display.$delete()"></span>
-      <span class="glyphicon glyphicon-screenshot"
-            bs-tooltip="display.osd?'Hide name':'Show name'"
-            ng-show="display.connected"
-            ng-click="display.$osd()"></span>
-      <span class="glyphicon glyphicon-refresh"
-            bs-tooltip="'Reload'"
-            ng-show="display.connected"
-            ng-click="display.$reload()"></span>
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="actions">
+          <span class="glyphicon glyphicon-screenshot"
+                bs-tooltip="display.osd?'Hide name':'Show name'"
+                ng-show="display.connected"
+                ng-click="display.$osd()"></span>
+          <span class="glyphicon glyphicon-refresh"
+                bs-tooltip="'Reload'"
+                ng-show="display.connected"
+                ng-click="display.$reload()"></span>
+        </div>
+        <h4 class="modal-title" ng-bind="display.name"></h4>
+      </div>
+      <form novalidate name="displayForm" class="form" role="form"
+            ng-controller="EditDisplayCtrl" ng-submit="submit()">
+        <div class="modal-body">
+          <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+            <input type="text" class="form-control"
+                   placeholder="Description" name="description"
+                   ng-model="display.description">
+          </div>
+          <div class="input-group"  ng-class="{'has-error': displayForm.viewport.$invalid}">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-fullscreen"></span></span>
+            <input type="text" class="form-control" viewport
+                   autocapitalize="off" autocorrect="off"
+                   placeholder="Viewport size (height x width)" name="viewport"
+                   ng-model="display.viewport">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger pull-left"
+                  ng-show="!display.connected"
+                  ng-click="delete()">
+            <span class="glyphicon glyphicon-trash"> Delete</span>
+          </button>
+          <button type="button" class="btn" ng-click="$hide()">Cancel</button>
+          <button type="submit" class="btn btn-primary"
+                  ng-disabled="!displayForm.$valid">Save</button>
+        </div>
+      </form>
     </div>
-    <div class="name"
-         editable-text="display.name">{{ display.name }}</div>
-    <div class="description"
-         editable-text="display.description"
-         onbeforesave="display.$update({description: $data})"
-         e-placeholder="Display description">{{ display.description || "..." }}</div>
   </div>
 </div>

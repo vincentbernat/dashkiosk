@@ -42,21 +42,17 @@
         .font-source-code-pro(1.1em);
     }
 
-    /* Edit */
-    .popover {
-        min-width: 15em;
-        .name {
-            color: black;
-        }
+    .modal {
+        color: black;
         .actions {
             float: right;
+            color: @gray;
             cursor: pointer;
-            color: @gray;
         }
-        .description {
-            color: @gray;
-            font-style: italic;
-            font-weight: normal;
+        form {
+            .input-group {
+                margin-top: 1em;
+            }
         }
     }
 }
