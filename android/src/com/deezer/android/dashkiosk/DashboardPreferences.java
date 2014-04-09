@@ -23,7 +23,8 @@ import android.preference.PreferenceFragment;
 
 public class DashboardPreferences extends PreferenceActivity {
 
-    private static class DashboardSettingsFragment extends PreferenceFragment {
+    public static class DashboardSettingsFragment extends PreferenceFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
