@@ -2,8 +2,7 @@
 
 var PORTS = {
   express: 9400 || process.env.PORT,
-  livereload: 31452,
-  inspector: 9401
+  livereload: 31452
 };
 
 module.exports = function(grunt) {
@@ -12,16 +11,6 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   grunt.initConfig({
-
-    // Debugging with node inspector
-    'node-inspector': {
-      custom: {
-        options: {
-          'web-host': 'localhost',
-          'web-port': PORTS.inspector
-        }
-      }
-    },
 
     nodemon: {
       debug: {
@@ -262,12 +251,11 @@ module.exports = function(grunt) {
     concurrent: {
       server: {
         tasks: [
-          'node-inspector',
           'nodemon',
           'watch'
         ],
         options: {
-          limit: 3,
+          limit: 2,
           logConcurrentOutput: true
         }
       }
