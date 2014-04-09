@@ -18,7 +18,7 @@ describe('Group', function() {
     it('should create unassigned group', function(done) {
       models.Group.unassigned()
         .then(function(group) {
-          group.toJSON().name.should.equal('unassigned');
+          group.toJSON().name.should.equal('Unassigned');
           group.toJSON().description.should.equal('Default group for unassigned displays');
           done();
         })

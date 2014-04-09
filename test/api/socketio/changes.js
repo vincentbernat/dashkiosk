@@ -57,7 +57,7 @@ describe('socket.io changes API', function() {
                 try {
                   // We should have three groups
                   _.pluck(data, 'name').sort()
-                    .should.eql(['test group 1', 'test group 2', 'unassigned'].sort());
+                    .should.eql(['test group 1', 'test group 2', 'Unassigned'].sort());
 
                   // Let's check test group 1
                   var group1 = _.find(data, function(g) { return g.name === 'test group 1'; });
@@ -81,7 +81,7 @@ describe('socket.io changes API', function() {
                   group2.dashboards[1].should.have.property('url', 'http://www.example4.com');
 
                   // Let's check unassigned
-                  var unassigned = _.find(data, function(g) { return g.name === 'unassigned'; });
+                  var unassigned = _.find(data, function(g) { return g.name === 'Unassigned'; });
                   unassigned.should.have.property('description', 'Default group for unassigned displays');
                   unassigned.should.have.property('displays');
                   _.keys(unassigned.displays).length.should.equal(2); // Two clients

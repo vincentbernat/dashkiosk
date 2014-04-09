@@ -61,7 +61,7 @@ describe('Display', function() {
           return models.Group.get(display.toJSON().group);
         })
         .then(function(group) {
-          group.toJSON().name.should.equal('unassigned');
+          group.toJSON().name.should.equal('Unassigned');
           done();
         })
         .catch(function(err) { done(err); });
