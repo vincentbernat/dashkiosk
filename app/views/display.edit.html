@@ -6,6 +6,10 @@
             bs-tooltip="'Delete'"
             ng-show="!display.connected"
             ng-click="display.$delete()"></span>
+      <span class="glyphicon glyphicon-screenshot"
+            bs-tooltip="display.osd?'Hide name':'Show name'"
+            ng-show="display.connected"
+            ng-click="display.$osd()"></span>
       <span class="glyphicon glyphicon-refresh"
             bs-tooltip="'Reload'"
             ng-show="display.connected"

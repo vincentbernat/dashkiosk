@@ -191,6 +191,10 @@ angular.module('dashkiosk.services')
     Display.prototype.$reload = function() {
       return this.$action({action: 'reload'});
     };
+    Display.prototype.$osd = function() {
+      return this.$action({action: 'osd',
+                           text: (this.osd?null:this.name)});
+    };
 
     // Collection of dashboards. This should be mostly
     // indistinguishable from an array.
