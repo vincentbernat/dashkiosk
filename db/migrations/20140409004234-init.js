@@ -102,7 +102,4 @@ module.exports = {
     migration.dropTable('Groups');
     done();
   }
-}
-
-
-// select sql from sqlite_master where name != 'SequelizeMeta';
+};

@@ -109,6 +109,7 @@ emitted:
    by the given display.
  - `display.NAME.reload` when a display should reload itself
  - `display.NAME.osd` when we need to display something on the OSD
+ - `display.NAME.viewport` when the display viewport should be updated
  - `group.ID.created` when a new group is created
  - `group.ID.updated` when a group is updated (but not something dashboard related)
  - `group.ID.deleted` when a group is deleted
