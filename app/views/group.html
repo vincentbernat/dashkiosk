@@ -8,6 +8,10 @@
             bs-tooltip="'Delete'"
             ng-show="group.$empty()"
             ng-click="group.$delete()"></span>
+      <span class="glyphicon glyphicon-refresh"
+            bs-tooltip="'Reload all'"
+            ng-show="anyConnected()"
+            ng-click="reloadAll()"></span>
     </div>
     <div class="name"
          editable-text="group.name"
