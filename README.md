@@ -70,16 +70,26 @@ Building the server is done using the following steps:
     $ bower install
     $ grunt
 
+Running the server can then be done with:
+
+    $ node server.js --environment production
+
+The following arguments are available:
+
+ - `--environment ENV`: choose environment (`development` is a special value)
+ - `--port PORT`: listen on the given port
+ - `--log-level LEVEL`: enable more logs (debug, info, warning)
+ - `--configuration PATH`: a JSON configuration file
+
+A configuration file can be used instead an it would contain the same
+options. See below for an example.
+
 ### Development
 
 To run the server for development:
 
     $ grunt serve
     
-To run the server:
-
-    $ npm start
-
 The server uses an internal bus. Currently, the following events are
 emitted:
 
@@ -105,8 +115,14 @@ emitted:
 
 By default, it uses an SQLite database in the current directory. You
 can use a PostgreSQL database instead or any
-[dialect supported by Sequelize][]. Then, put this in a `config.json`
-file:
+[dialect supported by Sequelize][] by using the following options:
+
+ - `--db.options.dialect DIALECT`: which kind of database to use (sqlite, postgres, mysql, ...)
+ - `--db.database DB`: name of the database
+ - `--db.username USER`: user name
+ - `--db.password PASSWORD`: password
+
+You can also use a configuration file with the following content:
 
     {
         "db": {
