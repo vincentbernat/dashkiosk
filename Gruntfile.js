@@ -59,7 +59,7 @@ module.exports = function(grunt) {
         tasks: [ 'build:images' ]
       },
       fonts: {
-        files: [ 'app/fonts/*.{ttf,otf}' ],
+        files: [ 'app/fonts/*.{ttf,otf,woff,eot,svg}' ],
         tasks: [ 'build:fonts' ]
       },
       scripts: {
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
           'build/*.html',
           'build/styles/*.css',
           'build/images/{,*/,*/*/}*.*',
-          'build/fonts/*.{ttf,otf}',
+          'build/fonts/*.{ttf,otf,woff,eot,svg}',
           'build/scripts/{,*/}*.js' // Including templates
         ]
       },
@@ -177,7 +177,7 @@ module.exports = function(grunt) {
           src: [
             'dist/public/scripts/{,*/}*.js',
             'dist/public/styles/*.css',
-            'dist/public/fonts/*.{ttf,otf}',
+            'dist/public/fonts/*.{ttf,otf,woff,eot,svg}',
             'dist/public/images/{,*/,*/*/}*.*'
           ]
         }
@@ -208,7 +208,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'build/images',
-          src: '{,*/,*/*/}*.(png|jpg|gif)',
+          src: '{,*/,*/*/}*.{png,jpg,gif}',
           dest: 'dist/public/images'
         }]
       }
@@ -317,14 +317,14 @@ module.exports = function(grunt) {
           cwd: 'app',
           dest: 'build',
           src: [
-            'fonts/*.{ttf,otf}'
+            'fonts/*.{ttf,otf,woff,eot,svg}'
           ]
         }, {
           expand: true,
           cwd: 'app/bower_components/bootstrap',
           dest: 'build',
           src: [
-            'fonts/*.{eot,svg,ttf,woff}'
+            'fonts/*.{ttf,otf,woff,eot,svg}'
           ]
         }]
       },
@@ -345,7 +345,7 @@ module.exports = function(grunt) {
           dest: 'dist/public',
           src: [
             '*.html',
-            'fonts/*.{ttf,otf}'
+            'fonts/*.{ttf,otf,woff,eot,svg}'
           ]
         }, {
           expand: true,
@@ -353,7 +353,8 @@ module.exports = function(grunt) {
           src: [
             'package.json',
             'server.js',
-            'lib/**/*'
+            'lib/**/*',
+            'db/migrations/*.js'
           ]
         }]
       }

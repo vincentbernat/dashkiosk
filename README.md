@@ -72,7 +72,7 @@ Building the server is done using the following steps:
 
 Running the server can then be done with:
 
-    $ node server.js --environment production
+    $ node dist/server.js --environment production
 
 The following arguments are available:
 
