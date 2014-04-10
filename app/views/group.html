@@ -22,7 +22,7 @@
     <div class="displays">
       <dk-display
         ng-repeat="display in group.displays | orderBy:['-connected','name']"
-        display="display">
+        display="display" groups="groups">
       </dk-display>
     </div>
   </div>

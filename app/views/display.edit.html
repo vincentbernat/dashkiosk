@@ -23,12 +23,26 @@
                    placeholder="Description" name="description"
                    ng-model="display.description">
           </div>
-          <div class="input-group"  ng-class="{'has-error': displayForm.viewport.$invalid}">
-            <span class="input-group-addon"><span title="Viewport" class="glyphicon glyphicon-fullscreen"></span></span>
-            <input type="text" class="form-control" viewport
-                   autocapitalize="off" autocorrect="off"
-                   placeholder="Viewport size (height × width)" name="viewport"
-                   ng-model="display.viewport">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input-group" ng-class="{'has-error': displayForm.viewport.$invalid}">
+                <span class="input-group-addon"><span title="Viewport" class="glyphicon glyphicon-tag"></span></span>
+                <select class="form-control"
+                        name="group" required
+                        ng-options="g.id as g.name for (k, g) in groups"
+                        ng-model="display.group">
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group" ng-class="{'has-error': displayForm.viewport.$invalid}">
+                <span class="input-group-addon"><span title="Viewport" class="glyphicon glyphicon-fullscreen"></span></span>
+                <input type="text" class="form-control" viewport
+                       autocapitalize="off" autocorrect="off"
+                       placeholder="Viewport size (height × width)" name="viewport"
+                       ng-model="display.viewport">
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

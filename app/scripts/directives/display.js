@@ -6,7 +6,8 @@ angular.module('dashkiosk.directives')
       restrict: 'E',
       replace: true,
       scope: {
-        display: '='
+        display: '=',
+        groups: '='
       },
       templateUrl: 'display.html',
       controller: 'DisplayCtrl'

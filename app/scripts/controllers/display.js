@@ -3,7 +3,7 @@ angular.module('dashkiosk.controllers')
     'use strict';
 
   })
-  .controller('EditDisplayCtrl', function($scope) {
+  .controller('EditDisplayCtrl', function($scope, $q) {
     'use strict';
 
     var realDisplay = $scope.$parent.display,
@@ -18,17 +18,33 @@ angular.module('dashkiosk.controllers')
         }
         return false;
       });
-      realDisplay
-        .$update(modified)
-        .then(function() {
-          $scope.$hide();
+
+      var deferred = $q.defer(),
+          promise = deferred.promise;
+      if (!_.isEmpty(_.omit(modified, 'group'))) {
+        promise.then(function() {
+          return realDisplay.$update(_.omit(modified, 'group'));
         });
+      }
+      if (_.has(modified, 'group')) {
+        promise.then(function() {
+          return $scope.groups[modified.group].$attach(realDisplay.name);
+        });
+      }
+      promise.then(function() {
+        $scope.$hide();
+      });
+      deferred.resolve(true);
+      return promise;
     };
 
     // Destroy the display
     $scope.delete = function() {
-      realDisplay.$delete();
-      $scope.$hide();
+      realDisplay
+        .$delete()
+        .then(function() {
+          $scope.$hide();
+        });
     };
 
   });
