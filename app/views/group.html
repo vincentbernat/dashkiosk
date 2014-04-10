@@ -21,14 +21,14 @@
   <div class="panel-body">
     <div class="displays">
       <dk-display
-        ng-repeat="display in group.displays | orderBy:['-connected','name']"
+        ng-repeat="display in group.displays track by display.id | orderBy:['-connected','name']"
         display="display" groups="groups">
       </dk-display>
     </div>
   </div>
   <div class="dashboards">
     <dk-dashboard
-      ng-repeat="dashboard in group.dashboards"
+      ng-repeat="dashboard in group.dashboards track by dashboard.id"
       dashboard="dashboard">
     </dk-dashboard>
     <div data-ui-element="dk-dashboard">
