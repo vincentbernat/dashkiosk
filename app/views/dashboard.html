@@ -19,6 +19,7 @@
         data-template="dashboard.edit.html">
     <span class="glyphicon glyphicon-pencil"></span>
   </span>
+
   <span class="property timeout"
         bs-tooltip="'Timeout'"
         ng-show="dashboard.timeout">
@@ -27,5 +28,14 @@
         buttons="no"
         onbeforesave="dashboard.$update({timeout: $data || null})"
         e-size="3")>{{ dashboard.timeout }}</em>s
+  </span>
+  <span class="property viewport"
+        bs-tooltip="'Viewport'"
+        ng-show="dashboard.viewport">
+    <span class="glyphicon glyphicon-fullscreen"></span>
+    <em editable-text="dashboard.viewport"
+        buttons="no"
+        onbeforesave="dashboard.$update({viewport: $data || null})"
+        e-size="6")>{{ dashboard.viewport }}</em>
   </span>
 </div>
