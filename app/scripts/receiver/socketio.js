@@ -5,7 +5,7 @@ define('socketio', (function(window, io, undefined) {
   var screen = require('screen'),
       osd = require('osd'),
       localStorage = require('localstorage'),
-      viewport = require('viewport');
+      Viewport = require('viewport');
 
   function connect() {
     var socket = io.connect(window.location.origin + '/displays');
@@ -52,7 +52,7 @@ define('socketio', (function(window, io, undefined) {
 
     socket.on('viewport', function(vp) {
       console.info('[Dashkiosk] viewport change to ' + (vp || 'default') + ' requested');
-      viewport.update(vp);
+      new Viewport(vp).update();
     });
   }
 

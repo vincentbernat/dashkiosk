@@ -1,8 +1,11 @@
 define('iframe-queue', (function(window, $, undefined) {
   'use strict';
 
+  var Viewport = require('viewport');
+
   function Iframe(dashboard, options) {
-    var self = this;
+    var self = this,
+        vp = new Viewport(dashboard.viewport);
     this.dashboard = dashboard;
     this.ready = options.ready;
     this.el = $('<iframe>')
@@ -11,8 +14,13 @@ define('iframe-queue', (function(window, $, undefined) {
         self.show();
       })
       .attr('scrolling', 'no')
-      .attr('frameborder', '0')
-      .attr('src', dashboard.url);
+      .attr('frameborder', '0');
+
+    // Adapt iframe to match desired viewport
+    vp.adapt(this.el);
+
+    // Load the URL
+    this.el.attr('src', dashboard.url);
   }
 
   Iframe.prototype.displayed = function() {

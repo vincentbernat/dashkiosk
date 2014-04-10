@@ -15,12 +15,25 @@
                    placeholder="Description" name="description"
                    ng-model="dashboard.description">
           </div>
-          <div class="input-group">
-            <span class="input-group-addon"><span title="Timeout" class="glyphicon glyphicon-time"></span></span>
-            <input type="number" class="form-control"
-                   placeholder="Timeout" name="timeout"
-               ng-model="dashboard.timeout">
-            <span class="input-group-addon">s</span>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-addon"><span title="Timeout" class="glyphicon glyphicon-time"></span></span>
+                <input type="number" class="form-control"
+                       placeholder="Timeout" name="timeout"
+                       ng-model="dashboard.timeout">
+                <span class="input-group-addon">s</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-addon"><span title="Viewport" class="glyphicon glyphicon-fullscreen"></span></span>
+                <input type="text" class="form-control" viewport
+                       autocapitalize="off" autocorrect="off"
+                       placeholder="Viewport size (height × width)" name="viewport"
+                       ng-model="dashboard.viewport">
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
