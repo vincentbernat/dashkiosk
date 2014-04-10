@@ -11,7 +11,11 @@
       <span class="glyphicon glyphicon-refresh"
             bs-tooltip="'Reload all'"
             ng-show="anyConnected()"
-            ng-click="reloadAll()"></span>
+            ng-click="reload()"></span>
+      <span class="glyphicon glyphicon-screenshot"
+            bs-tooltip="allOsd()?'Hide names':'Show names'"
+            ng-show="anyConnected()"
+            ng-click="toggleOsd()"></span>
     </div>
     <div class="name"
          editable-text="group.name"

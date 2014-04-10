@@ -219,9 +219,12 @@ angular.module('dashkiosk.services')
     Display.prototype.$reload = function() {
       return this.$action({action: 'reload'});
     };
-    Display.prototype.$osd = function() {
+    Display.prototype.$osd = function(enable) {
       return this.$action({action: 'osd',
-                           text: (this.osd?null:this.name)});
+                           text: ((enable === true)?this.name:
+                                  (enable === false)?null:
+                                  this.osd?null:
+                                  this.name)});
     };
 
     // Collection of dashboards. This should be mostly

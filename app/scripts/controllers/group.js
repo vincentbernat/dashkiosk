@@ -14,10 +14,27 @@ angular.module('dashkiosk.controllers')
     };
 
     // Reload any connected display in the group
-    $scope.reloadAll = function() {
+    $scope.reload = function() {
       _.each($scope.group.displays, function(d) {
         if (d.connected) {
           d.$reload();
+        }
+      });
+    };
+
+    // Return true if all connected displays have the OSD enabled
+    $scope.allOsd = function() {
+      return _.all($scope.group.displays, function(d) {
+        return !d.connected || d.osd;
+      });
+    };
+
+    // Toggle OSD on any connected displayin the group
+    $scope.toggleOsd = function() {
+      var off = $scope.allOsd();
+      _.each($scope.group.displays, function(d) {
+        if (d.connected) {
+          d.$osd(!off);
         }
       });
     };
