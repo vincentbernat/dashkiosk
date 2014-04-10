@@ -11,7 +11,7 @@ angular.module('dashkiosk.services')
         deferred = null,        // Will resolve once we get data for the first time
         ready = false;
 
-    var groups = { server: {}, client: {} };
+    var groups = { server: {} };
 
     loadingIndicatorService.increment();
     socket.on('connect', function() {
@@ -74,9 +74,7 @@ angular.module('dashkiosk.services')
     function fromServer() {
       // Start a digest cycle.
       $rootScope.$apply(function() {
-        // This is a convenient way to only apply changes.
-        DeepDiff.applyDiff(groups.client, groups.server);
-        groups.client = new GroupCollection(groups.client);
+        groups.client.applyDiff(groups.server);
         console.debug('[Dashkiosk] current view', groups.client);
       });
       if (deferred !== null) {
@@ -87,14 +85,27 @@ angular.module('dashkiosk.services')
       }
     }
 
-    // Collection of groups
-    function GroupCollection(data) {
-      var self = (data instanceof GroupCollection)?data:_.extend(this, data);
-      _.forOwn(self, function(v, k) {
-        self[k] = new Group(v);
-      }, self);
-      return self;
+    function diff(a, b, fnOnlyA, fnOnlyB, fnBoth, thisArg) {
+      var kA = _.keys(a),
+          kB = _.keys(b),
+          onlyA = _.difference(kA, kB),
+          onlyB = _.difference(kB, kA),
+          both = _.intersection(kA, kB);
+      _.each(onlyA, fnOnlyA, thisArg);
+      _.each(onlyB, fnOnlyB, thisArg);
+      _.each(both, fnBoth, thisArg);
     }
+
+    // Collection of groups
+    function GroupCollection() {
+    }
+    GroupCollection.prototype.applyDiff = function(data) {
+      var self = this;
+      diff(self, data,
+           function(k) { delete self[k]; },
+           function(k) { self[k] = new Group(data[k]); },
+           function(k) { self[k].applyDiff(data[k]); });
+    };
     // Add a new group
     GroupCollection.prototype.$add = function(params) {
       return $http
@@ -109,11 +120,23 @@ angular.module('dashkiosk.services')
 
     // One group
     function Group(data) {
-      var self = (data instanceof Group)?data:_.extend(this, data);
-      self.displays = _.mapValues(self.displays, function(d) { return new Display(d); });
-      self.dashboards = new DashboardCollection(self.dashboards, self);
-      return self;
+      _.extend(this, data);
+      this.displays = _.mapValues(this.displays, function(d) { return new Display(d); });
+      this.dashboards = new DashboardCollection(this.dashboards, this);
     }
+    Group.prototype.applyDiff = function(data) {
+      var self = this;
+      diff(_.omit(self, ['displays', 'dashboards']),
+           _.omit(data, ['displays', 'dashboards']),
+           function(k) { delete self[k]; },
+           function(k) { self[k] = data[k]; },
+           function(k) { self[k] = data[k]; });
+      self.dashboards.applyDiff(data.dashboards);
+      diff(self.displays, data.displays,
+           function(k) { delete self.displays[k]; },
+           function(k) { self.displays[k] = new Display(data.displays[k]); },
+           function(k) { self.displays[k].applyDiff(data.displays[k]); });
+    };
     // Update a group parameters
     Group.prototype.$update = function(params) {
       return $http
@@ -154,9 +177,15 @@ angular.module('dashkiosk.services')
 
     // One display
     function Display(data) {
-      var self = (data instanceof Display)?data:_.extend(this, data);
-      return self;
+      _.extend(this, data);
     }
+    Display.prototype.applyDiff = function(data) {
+      var self = this;
+      diff(self, data,
+           function(k) { delete self[k]; },
+           function(k) { self[k] = data[k]; },
+           function(k) { self[k] = data[k]; });
+    };
     Display.prototype.$update = function(params) {
       return $http
         .put('api/display/' + this.name, params)
@@ -198,28 +227,42 @@ angular.module('dashkiosk.services')
     // Collection of dashboards. This should be mostly
     // indistinguishable from an array.
     function DashboardCollection(data, group) {
-      var self;
-      if (data.$add) {
-        self = data;
-      } else {
-        self = [];
-        self.push.apply(self, data);
-        self.$add = DashboardCollection.prototype.$add;
-        Object.defineProperty(self, '$add', {
-          enumerable: false,
-          writable: false
-        });
-      }
+      var self = [];
+      self.$add = DashboardCollection.prototype.$add;
+      Object.defineProperty(self, '$add', {
+        enumerable: false,
+        writable: false
+      });
+      self.applyDiff = DashboardCollection.prototype.applyDiff;
+      Object.defineProperty(self, 'applydiff', {
+        enumerable: false,
+        writable: false
+      });
       self.group = group;
       Object.defineProperty(self, 'group', {
         enumerable: false,
         writable: true
       });
-      _.forOwn(self, function(v, k) {
-        self[k] = new Dashboard(v, group);
-      }, self);
+      self.push.apply(self, _.map(data, function(d) {
+        return new Dashboard(d, group);
+      }));
       return self;
     }
+    DashboardCollection.prototype.applyDiff = function(data) {
+      var self = this;
+      _.each(data, function(d, i) {
+        var idx = _.findIndex(self, { 'id': d.id });
+        if (idx === -1) {
+          self.splice(i, 0, new Dashboard(d, self.group));
+        } else {
+          if (idx !== i) {
+            self.splice(i, 0, self.splice(idx, 1)[0]);
+          }
+          self[i].applyDiff(d);
+        }
+      });
+      self.splice(data.length); // remove extra elements
+    };
     DashboardCollection.prototype.$add = function(params) {
       return $http
         .post('api/group/' + this.group.id + '/dashboard', params)
@@ -233,7 +276,7 @@ angular.module('dashkiosk.services')
 
     // One dashboard
     function Dashboard(data, group) {
-      var self = (data instanceof Dashboard)?data:_.extend(this, data);
+      var self = _.extend(this, data);
       self.group = group;
       Object.defineProperty(self, 'group', {
         enumerable: false,
@@ -241,6 +284,13 @@ angular.module('dashkiosk.services')
       });
       return self;
     }
+    Dashboard.prototype.applyDiff = function(data) {
+      var self = this;
+      diff(self, _.omit(data, 'group'),
+           function(k) { delete self[k]; },
+           function(k) { self[k] = data[k]; },
+           function(k) { self[k] = data[k]; });
+    };
     Dashboard.prototype.$delete = function() {
       return $http
         .delete('api/group/' + this.group.id + '/dashboard/' + this.id)
@@ -261,6 +311,8 @@ angular.module('dashkiosk.services')
           return false;
         });
     };
+
+    groups.client = new GroupCollection();
 
     return function() {
       if (ready) {
