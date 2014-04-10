@@ -4,19 +4,19 @@
       <form novalidate name="dashboardForm" class="form" role="form" ng-submit="submit()">
         <div class="modal-body">
           <div class="input-group" ng-class="{'has-error': dashboardForm.url.$invalid}"">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
+            <span class="input-group-addon"><span title="URL" class="glyphicon glyphicon-link"></span></span>
             <input type="url" class="form-control"
                    placeholder="URL" name="url" required
                    ng-model="dashboard.url">
           </div>
           <div class="input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+            <span class="input-group-addon"><span title="Description" class="glyphicon glyphicon-book"></span></span>
             <input type="text" class="form-control"
                    placeholder="Description" name="description"
                    ng-model="dashboard.description">
           </div>
           <div class="input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+            <span class="input-group-addon"><span title="Timeout" class="glyphicon glyphicon-time"></span></span>
             <input type="number" class="form-control"
                    placeholder="Timeout" name="timeout"
                ng-model="dashboard.timeout">
