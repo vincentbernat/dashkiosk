@@ -43,17 +43,12 @@ define('viewport', (function(window, $) {
 
     tw = Math.round(tw);
     th = Math.round(th);
-    var origin = '' + Math.round((cw / tw - scale)*tw) + 'px ' + Math.round((ch / th - scale)*th) + 'px';
     scale = 'scale(' + scale + ')';
-    console.log(origin);
     el.css({ width: tw + 'px',
              height: th + 'px',
              '-moz-transform': scale,
              '-webkit-transform': scale,
-             'transform': scale,
-             '-moz-transform-origin': origin,
-             '-webkit-transform-origin': origin,
-             'transform-origin': origin
+             'transform': scale
            });
   };
 
