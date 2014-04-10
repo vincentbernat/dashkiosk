@@ -53,6 +53,10 @@ db
                   config.get('port'),
                   config.get('environment'));
     });
+  })
+  .catch(function(err) {
+    logger.exception('fatal error', err);
+    process.exit(1);
   });
 
 module.exports = app;
