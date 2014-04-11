@@ -345,6 +345,7 @@ module.exports = function(grunt) {
           dest: 'dist/public',
           src: [
             '*.html',
+            'images/*.ico',
             'fonts/*.{ttf,otf,woff,eot,svg}'
           ]
         }, {
