@@ -2,9 +2,12 @@
 
 html {
     background-image: url(../images/dark-wood.jpg);
+    height: 100%;
 }
 body {
     background-color: transparent;
+    position: relative;
+    min-height: 100%;
 }
 
 @import "common/fonts";
@@ -32,4 +35,22 @@ body {
     padding-bottom: @line-height-computed;
     background-color: white;
     background-color: fade(white, 80%);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    a {
+        display: inline-block;
+        padding: 4px 16px 4px 16px;
+        background-color: white;
+        text-decoration: none;
+        color: @gray-darker;
+        border-radius: 4px 0 0 0;
+        &:hover, &:active {
+            color: @link-hover-color;
+        }
+    }
 }
