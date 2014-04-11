@@ -78,7 +78,8 @@ The following arguments are available:
 
  - `--environment ENV`: choose environment (`development` is a special value)
  - `--port PORT`: listen on the given port
- - `--log-level LEVEL`: enable more logs (debug, info, warning)
+ - `--log.level LEVEL`: enable more logs (debug, info, warning)
+ - `--log.file FILE`: also log to a file
  - `--configuration PATH`: a JSON configuration file
 
 A configuration file can be used instead an it would contain the same
