@@ -13,6 +13,7 @@
                 ng-click="display.$reload()"></span>
         </div>
         <h4 class="modal-title" ng-bind="display.name"></h4>
+        <span class="ip" ng-show="display.ip">{{ display.ip }}</span>
       </div>
       <form novalidate name="displayForm" class="form" role="form"
             ng-controller="EditDisplayCtrl" ng-submit="submit()">
