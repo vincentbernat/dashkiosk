@@ -1,6 +1,11 @@
 Dashkiosk's documentation
 =========================
 
+.. image:: ../app/images/dashkiosk.svg
+   :alt: Dashkiosk logo
+   :width: 200px
+   :align: right
+
 *Dashkiosk* is a solution to manage dashboards on multiple screens. It
 comes in three parts:
 
