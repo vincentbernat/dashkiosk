@@ -5,7 +5,10 @@
 (function(window, $, undefined) {
   'use strict';
 
-  var socketio = require('socketio');
+  var socketio = require('socketio'),
+      errors = require('errors');
+
+  errors.enable();
 
   $(window).on('load', function() {
     // Tell through a message
