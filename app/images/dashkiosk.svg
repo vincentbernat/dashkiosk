@@ -10,12 +10,12 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="470.59375"
-   height="470.59"
+   width="110"
+   height="110"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="dashkiosk.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -403,13 +403,13 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="471.87689"
-     inkscape:cy="187.63896"
+     inkscape:zoom="2.8"
+     inkscape:cx="102.97392"
+     inkscape:cy="86.597101"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1912"
+     inkscape:window-width="1239"
      inkscape:window-height="1056"
      inkscape:window-x="1920"
      inkscape:window-y="16"
@@ -426,7 +426,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -434,10 +434,10 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(179.75,-350.41)">
+     transform="translate(180.5512,-688.37662)">
     <g
        id="g4067"
-       transform="translate(-0.0041,-23.406082)">
+       transform="matrix(0.213764,0,0,0.213764,-137.426,618.16362)">
       <g
          id="g4061">
         <rect
@@ -449,7 +449,7 @@
            y="454.35187"
            ry="1.0370679" />
         <path
-           style="color:#000000;fill:url(#linearGradient4077);fill-opacity:1;stroke:#484848;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           style="color:#000000;fill:url(#linearGradient4077);fill-opacity:1;stroke:#484848;stroke-width:9.35611248;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
            d="m -150.40215,443.23608 c -12.93433,0 -23.34375,10.40942 -23.34375,23.34375 l 0,292.71875 c 0,12.93433 10.40942,23.34375 23.34375,23.34375 l 116.062503,0 0,31.3125 c 0,0.57454 0.45671,1.03125 1.03125,1.03125 l 177.718747,0 c 0.57454,0 1.03125,-0.45671 1.03125,-1.03125 l 0,-31.3125 116.0625,0 c 12.93433,0 23.34375,-10.40942 23.34375,-23.34375 l 0,-292.71875 c 0,-12.93433 -10.40942,-23.34375 -23.34375,-23.34375 l -411.90625,0 z m 14.8125,22.21875 382.3125,0 c 4.52505,0 8.15625,3.66245 8.15625,8.1875 l 0,278.625 c 0,4.52505 -3.6312,8.15625 -8.15625,8.15625 l -382.3125,0 c -4.52505,0 -8.1875,-3.6312 -8.1875,-8.15625 l 0,-278.625 c 0,-4.52505 3.66245,-8.1875 8.1875,-8.1875 z"
            id="rect3069"
            inkscape:connector-curvature="0" />

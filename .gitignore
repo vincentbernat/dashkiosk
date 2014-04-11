@@ -11,6 +11,9 @@
 /.tmp/
 /.rebooted
 
+# Sphinx
+/docs/_build/
+
 # Run stuff
 /db/dashkiosk-*.sqlite
 /config.json
