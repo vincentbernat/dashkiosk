@@ -4,7 +4,7 @@ import sys
 import os
 import json
 
-extensions = []
+extensions = ['sphinxcontrib.httpdomain']
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'

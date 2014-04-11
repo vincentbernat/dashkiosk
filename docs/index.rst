@@ -34,6 +34,7 @@ To contribute, use `GitHub`_.
    install
    configuration
    usage
+   api
    android
    license
 
