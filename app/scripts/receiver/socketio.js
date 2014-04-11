@@ -25,6 +25,26 @@ define('socketio', (function(window, io, undefined) {
       });
     });
 
+    // Log various events
+    socket.on('connecting', function() {
+      console.info('[Dashkiosk] connect in progress to socket.io server');
+    });
+    socket.on('connect_failed', function() {
+      console.warn('[Dashkiosk] unable to connect to socket.io server');
+      // Bad...
+    });
+    socket.on('error', function() {
+      console.warn('[Dashkiosk] uncaught error with socket.io server');
+      // Bad...
+    });
+    socket.on('reconnecting', function() {
+      console.info('[Dashkiosk] reconnect in progress to socket.io server');
+    });
+    socket.on('reconnect_failed', function() {
+      console.warn('[Dashkiosk] unable to reconnect to socket.io server');
+      // Bad...
+    });
+
     socket.on('disconnect', function() {
       console.warn('[Dashkiosk] connection to socket.io lost');
       screen.loading();
