@@ -24,6 +24,7 @@ app.get('/favicon.ico', serve('images/favicon.ico'));
 app.get('/admin', serve('admin.html'));
 app.get('/receiver', serve('receiver.html'));
 app.get('/unassigned', serve('unassigned.html'));
+app.get('/chromecast', serve('chromecast.html'));
 
 // API
 var api = require('./lib/api');
