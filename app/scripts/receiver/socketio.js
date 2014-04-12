@@ -36,7 +36,7 @@ define('socketio', (function(window, io, undefined) {
     });
     socket.on('error', function() {
       console.warn('[Dashkiosk] uncaught error with socket.io server');
-      // Bad...
+      supervisor.reload();
     });
     socket.on('reconnecting', function() {
       console.info('[Dashkiosk] reconnect in progress to socket.io server');
