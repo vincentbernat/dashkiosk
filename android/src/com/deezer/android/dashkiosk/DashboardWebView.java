@@ -94,14 +94,13 @@ public class DashboardWebView extends WebView {
                     im.setVisibility(View.GONE);
                 }
             };
-        /* And another interface to reload the web app */
+        /* And another interface to signal we are trying to reload the
+         * web app. If the app is not ready after the timeout, force a
+         * full reload. */
         final Runnable reload = new Runnable() {
                 @Override
                 public void run() {
-                    View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
-                    View im = rootView.findViewById(R.id.image);
-                    im.setVisibility(View.VISIBLE);
-                    load();
+                    reloadIfNotReady();
                 }
             };
         this.addJavascriptInterface(new Object() {
@@ -124,7 +123,7 @@ public class DashboardWebView extends WebView {
     }
 
     /* Load the application */
-    private void load() {
+    private void reloadIfNotReady() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         final String pingURL = sharedPref.getString("pref_ping_url", null);
         int timeout = Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
@@ -135,12 +134,21 @@ public class DashboardWebView extends WebView {
             public void run() {
                 if (!mReady) {
                     Log.i(TAG, "Unable to load " + pingURL + ". Let's retry");
+                    View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
+                    View im = rootView.findViewById(R.id.image);
+                    im.setVisibility(View.VISIBLE);
                     stopLoading();
                     load();
                 }
             }
         };
         handler.postDelayed(reload, timeout);
+    }
+
+    private void load() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        final String pingURL = sharedPref.getString("pref_ping_url", null);
+        this.reloadIfNotReady();
         this.loadUrl(pingURL);
         mReady = false;
     }

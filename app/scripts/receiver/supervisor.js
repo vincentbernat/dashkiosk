@@ -15,12 +15,11 @@ define('supervisor', (function(window) {
 
     reload: function() {
       if (window.JSInterface && window.JSInterface.reload) {
-        // Use the JS interface
+        // Use the JS interface. It doesn't do a true reload. It will
+        // reload only if the receiver doesn't signal its readiness.
         window.JSInterface.reload();
-      } else {
-        // No JS interface available, use a regular reload
-        window.location.reload();
       }
+      window.location.reload();
     }
   };
 
