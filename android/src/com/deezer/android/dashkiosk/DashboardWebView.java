@@ -42,7 +42,7 @@ public class DashboardWebView extends WebView {
 
     private static final String TAG = "DashKiosk";
     private Context mContext;
-    private boolean mReady = false;
+    private long lastAlive;     // Last time the webpage was alive
 
     public DashboardWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -86,71 +86,70 @@ public class DashboardWebView extends WebView {
 
         /* Provide an interface for readiness */
         final Handler handler = new Handler();
-        final Runnable show = new Runnable() {
+        final Runnable alive = new Runnable() {
                 @Override
                 public void run() {
+                    // Signal that the webapp is alive: display it and reset lastAlive counter
                     View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
                     View im = rootView.findViewById(R.id.image);
                     im.setVisibility(View.GONE);
-                }
-            };
-        /* And another interface to signal we are trying to reload the
-         * web app. If the app is not ready after the timeout, force a
-         * full reload. */
-        final Runnable reload = new Runnable() {
-                @Override
-                public void run() {
-                    reloadIfNotReady();
+                    lastAlive = System.nanoTime();
                 }
             };
         this.addJavascriptInterface(new Object() {
                 @JavascriptInterface
                 public void ready() {
                     Log.i(TAG, "Web page tells it is ready");
-                    mReady = true;
-                    handler.post(show);
+                    handler.post(alive);
                 }
 
                 @JavascriptInterface
-                public void reload() {
-                    Log.i(TAG, "Web page is requesting a reload");
-                    mReady = false;
-                    handler.post(reload);
+                public int timeout() {
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+                    int timeout = Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
+                    return timeout;
                 }
             }, "JSInterface");
 
         this.load();
     }
 
-    /* Load the application */
-    private void reloadIfNotReady() {
+    /* If the application doesn't heartbeat after the timeout, trigger a reload */
+    private void reloadIfNotAlive() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         final String pingURL = sharedPref.getString("pref_ping_url", null);
-        int timeout = Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
+        final int timeout = Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
 
         final Handler handler = new Handler();
         Runnable reload = new Runnable() {
-            @Override
-            public void run() {
-                if (!mReady) {
-                    Log.i(TAG, "Unable to load " + pingURL + ". Let's retry");
-                    View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
-                    View im = rootView.findViewById(R.id.image);
-                    im.setVisibility(View.VISIBLE);
-                    stopLoading();
-                    load();
+                @Override
+                public void run() {
+                    long delta = (System.nanoTime() - lastAlive) / 1000000;
+                    if (delta >= timeout) {
+                        // We didn't receive an hearbeat in time
+                        Log.i(TAG, "No activity from " + pingURL +
+                              " since " + delta + "ms (timeout: " + timeout + "). Let's retry");
+                        View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
+                        View im = rootView.findViewById(R.id.image);
+                        im.setVisibility(View.VISIBLE);
+                        stopLoading();
+                        load();
+                    } else {
+                        // OK, we got the heartbeat but we still have to watch.
+                        reloadIfNotAlive();
+                    }
                 }
-            }
-        };
-        handler.postDelayed(reload, timeout);
+            };
+
+        // Check in `timeout` ms if we got the heartbeat.
+        handler.postDelayed(reload, timeout + 1000);
     }
 
     private void load() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         final String pingURL = sharedPref.getString("pref_ping_url", null);
-        this.reloadIfNotReady();
+        this.reloadIfNotAlive();
         this.loadUrl(pingURL);
-        mReady = false;
     }
 
     // More events disabled

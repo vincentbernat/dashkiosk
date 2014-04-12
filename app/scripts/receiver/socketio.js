@@ -4,7 +4,6 @@ define('socketio', (function(window, io, undefined) {
 
   var screen = require('screen'),
       osd = require('osd'),
-      supervisor = require('supervisor'),
       localStorage = require('localstorage'),
       Viewport = require('viewport');
 
@@ -36,7 +35,7 @@ define('socketio', (function(window, io, undefined) {
     });
     socket.on('error', function(message) {
       console.warn('[Dashkiosk] uncaught error with socket.io server: ' + message);
-      supervisor.reload();
+      window.location.reload();
     });
     socket.on('reconnecting', function() {
       console.info('[Dashkiosk] reconnect in progress to socket.io server');
@@ -58,7 +57,7 @@ define('socketio', (function(window, io, undefined) {
 
     socket.on('reload', function() {
       console.info('[Dashkiosk] reload requested');
-      supervisor.reload();
+      window.location.reload();
     });
 
     socket.on('osd', function(text) {

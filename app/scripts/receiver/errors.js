@@ -1,8 +1,6 @@
 define('errors', (function(window) {
   'use strict';
 
-  var supervisor = require('supervisor');
-
   return {
     enable: function() {
       window.onerror = function(message, url, line, column, errorObj) {
@@ -17,7 +15,7 @@ define('errors', (function(window) {
           return true;
         } finally {
           console.error('[Dashkiosk] Fatal unexpected error, let\'s reload');
-          supervisor.reload();
+          window.location.reload();
         }
       };
     }
