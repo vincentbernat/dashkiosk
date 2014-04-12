@@ -1,9 +1,17 @@
-<span data-ui-element="dk-display"
-      dk-draggable="{{ display.name }}"
-      data-drag-type="text/vnd.dashkiosk.display">
-  <i ng-class="{on: display.connected, off: !display.connected}"></i>
-  <span class="name"
-        bs-modal
-        data-template="display.edit.html"
-        title="{{ display.description }}">{{ display.name }}</span>
-</span>
+<div data-ui-element="dk-display"
+     dk-draggable="{{ display.name }}"
+     data-drag-type="text/vnd.dashkiosk.display">
+  <div class="screen"
+       ng-class="{on: display.connected, off: !display.connected}"
+       style="background-position: {{ backgroundOffset() }}"
+       bs-modal
+       data-template="display.edit.html"
+       title="{{ display.description }}">
+    <div class="content">
+      <span class="name">{{ display.name }}</span>
+      <span class="description" ng-show="display.description">
+        {{ display.description }}
+      </span>
+    </div>
+  </div>
+</div>

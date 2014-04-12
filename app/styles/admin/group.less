@@ -18,4 +18,17 @@
         border-color: rgb(158, 211, 49);
         box-shadow: rgb(158, 211, 49) 0 -1px 2px 4px;
     }
+
+    .displays {
+        .make-row(@grid-gutter-width/4);
+        [data-ui-element=dk-display] {
+            margin-top: .2em;
+            margin-bottom: .2em;
+            .make-xs-column(6, @grid-gutter-width/4);
+            .make-md-column(4, @grid-gutter-width/4);
+            @media (min-width: ((2*@screen-phone + @screen-tablet)/3)) {
+                width: percentage(4/12);
+            }
+        }
+    }
 }
