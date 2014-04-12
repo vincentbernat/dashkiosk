@@ -34,8 +34,8 @@ define('socketio', (function(window, io, undefined) {
       console.warn('[Dashkiosk] unable to connect to socket.io server');
       // Bad...
     });
-    socket.on('error', function() {
-      console.warn('[Dashkiosk] uncaught error with socket.io server');
+    socket.on('error', function(message) {
+      console.warn('[Dashkiosk] uncaught error with socket.io server: ' + message);
       supervisor.reload();
     });
     socket.on('reconnecting', function() {
