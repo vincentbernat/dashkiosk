@@ -61,7 +61,7 @@ like this:
 
 On the figure above, you can see the three main entities in *Dashkiosk*:
 
- 1. The gray rectangles with a 5-digit serial numbers are the
+ 1. The monitors with a 5-digit serial numbers are the
     **displays**. For each of them, the serial number is attributed on
     their first connection and stored locally in the display
     [#storage]_. They come with a green light when they are actually
