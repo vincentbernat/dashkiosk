@@ -91,9 +91,17 @@ public class DashboardWebView extends WebView {
                 public void run() {
                     View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
                     View im = rootView.findViewById(R.id.image);
-                    if (im != null) {
-                        ((ViewGroup)im.getParent()).removeView(im);
-                    }
+                    im.setVisibility(View.GONE);
+                }
+            };
+        /* And another interface to reload the web app */
+        final Runnable reload = new Runnable() {
+                @Override
+                public void run() {
+                    View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
+                    View im = rootView.findViewById(R.id.image);
+                    im.setVisibility(View.VISIBLE);
+                    load();
                 }
             };
         this.addJavascriptInterface(new Object() {
@@ -102,6 +110,13 @@ public class DashboardWebView extends WebView {
                     Log.i(TAG, "Web page tells it is ready");
                     mReady = true;
                     handler.post(show);
+                }
+
+                @JavascriptInterface
+                public void reload() {
+                    Log.i(TAG, "Web page is requesting a reload");
+                    mReady = false;
+                    handler.post(reload);
                 }
             }, "JSInterface");
 

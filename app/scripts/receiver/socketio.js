@@ -57,7 +57,13 @@ define('socketio', (function(window, io, undefined) {
 
     socket.on('reload', function() {
       console.info('[Dashkiosk] reload requested');
-      window.location.reload();
+      if (window.JSInterface && window.JSInterface.reload) {
+        // Use the JS interface
+        window.JSInterface.reload();
+      } else {
+        // No JS interface available, use a regular reload
+        window.location.reload();
+      }
     });
 
     socket.on('osd', function(text) {
