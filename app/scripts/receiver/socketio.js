@@ -4,6 +4,7 @@ define('socketio', (function(window, io, undefined) {
 
   var screen = require('screen'),
       osd = require('osd'),
+      supervisor = require('supervisor'),
       localStorage = require('localstorage'),
       Viewport = require('viewport');
 
@@ -57,13 +58,7 @@ define('socketio', (function(window, io, undefined) {
 
     socket.on('reload', function() {
       console.info('[Dashkiosk] reload requested');
-      if (window.JSInterface && window.JSInterface.reload) {
-        // Use the JS interface
-        window.JSInterface.reload();
-      } else {
-        // No JS interface available, use a regular reload
-        window.location.reload();
-      }
+      supervisor.reload();
     });
 
     socket.on('osd', function(text) {
