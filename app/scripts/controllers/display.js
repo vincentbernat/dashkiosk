@@ -8,6 +8,9 @@ angular.module('dashkiosk.controllers')
     // but each group have a different image. Moreover, we want that
     // to change depending on the selected dashboard.
     $scope.backgroundOffset = function() {
+      if (!$scope.display.connected) {
+        return '0 0';
+      }
       var g = $scope.display.group,
           d = (_.find($scope.groups[g].dashboards,
                       { active: true }) || {}).id || -1;
