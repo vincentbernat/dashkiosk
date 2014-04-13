@@ -66,7 +66,8 @@ body {
     transform-origin: 50% 0;
 
     @keyframes rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(3600deg); }
+        from { transform: scale(1.2) rotate(0deg); }
+        50% { transform: scale(0.8) rotate(360deg); }
+        to { transform: scale(1.2) rotate(720deg); }
     }
 }

@@ -11,9 +11,10 @@
 </head>
 <body>
 
-  <iframe class="dashboard" scrolling="no" frameborder="0"></iframe>
+  <iframe class="dashboard" id="dashboard"
+          scrolling="no" frameborder="0"></iframe>
 
-  <div class="loading show">
+  <div class="loading show" id="loading">
     <div class="item-1"><span></span></div>
     <div class="item-2"><span></span></div>
     <div class="item-3"><span></span></div>
@@ -22,8 +23,9 @@
     <div class="item-6"><span></span></div>
   </div>
 
+  <script src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
   <!-- build:js scripts/chromecast-final.js -->
-  <script src="scripts/chomecast.js"></script>
+  <script src="scripts/chromecast.js"></script>
   <!-- endbuild -->
 </body>
 </html>
