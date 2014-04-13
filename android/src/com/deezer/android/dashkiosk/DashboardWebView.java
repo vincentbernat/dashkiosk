@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -41,8 +42,10 @@ import android.webkit.WebSettings;
 public class DashboardWebView extends WebView {
 
     private static final String TAG = "DashKiosk";
+    private static final int ALIVE = 1;
+    private static final int DEADLINE = 2;
     private Context mContext;
-    private long lastAlive;     // Last time the webpage was alive
+    private Handler mHandler = null;
 
     public DashboardWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -85,71 +88,65 @@ public class DashboardWebView extends WebView {
             });
 
         /* Provide an interface for readiness */
-        final Handler handler = new Handler();
-        final Runnable alive = new Runnable() {
-                @Override
-                public void run() {
-                    // Signal that the webapp is alive: display it and reset lastAlive counter
-                    View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
-                    View im = rootView.findViewById(R.id.image);
-                    im.setVisibility(View.GONE);
-                    lastAlive = System.nanoTime();
-                }
-            };
         this.addJavascriptInterface(new Object() {
                 @JavascriptInterface
                 public void ready() {
-                    Log.i(TAG, "Web page tells it is ready");
-                    handler.post(alive);
+                    mHandler.sendMessage(mHandler.obtainMessage(ALIVE));
                 }
 
                 @JavascriptInterface
                 public int timeout() {
-                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-                    int timeout = Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
-                    return timeout;
+                    return getTimeout();
                 }
             }, "JSInterface");
 
+        this.heartbeat();
         this.load();
     }
 
-    /* If the application doesn't heartbeat after the timeout, trigger a reload */
-    private void reloadIfNotAlive() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        final String pingURL = sharedPref.getString("pref_ping_url", null);
-        final int timeout = Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
-
-        final Handler handler = new Handler();
-        Runnable reload = new Runnable() {
+    // Trigger a reload if we miss an heartbeat
+    private void heartbeat() {
+        View rootView = ((Activity)mContext).getWindow()
+            .getDecorView().findViewById(android.R.id.content);
+        final View image = rootView.findViewById(R.id.image);
+        this.mHandler = new Handler() {
                 @Override
-                public void run() {
-                    long delta = (System.nanoTime() - lastAlive) / 1000000;
-                    if (delta >= timeout) {
-                        // We didn't receive an hearbeat in time
-                        Log.i(TAG, "No activity from " + pingURL +
-                              " since " + delta + "ms (timeout: " + timeout + "). Let's retry");
-                        View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
-                        View im = rootView.findViewById(R.id.image);
-                        im.setVisibility(View.VISIBLE);
+                public void handleMessage(Message input) {
+                    switch (input.what) {
+                    case ALIVE:
+                        // Got a heartbeat, delay deadline
+                        Log.d(TAG, "Received heartbeat");
+                        image.setVisibility(View.GONE);
+                        mHandler.removeMessages(DEADLINE);
+                        mHandler.sendMessageDelayed(mHandler.obtainMessage(DEADLINE),
+                                                    getTimeout());
+                        break;
+                    case DEADLINE:
+                        // We hit the deadline, trigger a reload
+                        Log.i(TAG, "No activity from supervised URL. Trigger reload.");
+                        image.setVisibility(View.VISIBLE);
                         stopLoading();
                         load();
-                    } else {
-                        // OK, we got the heartbeat but we still have to watch.
-                        reloadIfNotAlive();
+                        break;
                     }
                 }
             };
 
-        // Check in `timeout` ms if we got the heartbeat.
-        handler.postDelayed(reload, timeout + 1000);
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(DEADLINE),
+                                    getTimeout());
     }
 
     private void load() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences sharedPref = PreferenceManager
+            .getDefaultSharedPreferences(mContext);
         final String pingURL = sharedPref.getString("pref_ping_url", null);
-        this.reloadIfNotAlive();
         this.loadUrl(pingURL);
+    }
+
+    private int getTimeout() {
+        SharedPreferences sharedPref = PreferenceManager
+            .getDefaultSharedPreferences(mContext);
+        return Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
     }
 
     // More events disabled
