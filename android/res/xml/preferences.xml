@@ -26,6 +26,6 @@
         android:summary="@string/pref_ping_timeout_summary"
         android:entries="@array/pref_ping_timeout_entries"
         android:entryValues="@array/pref_ping_timeout_values"
-        android:defaultValue="2000" />
+        android:defaultValue="30000" />
   </PreferenceCategory>
 </PreferenceScreen>

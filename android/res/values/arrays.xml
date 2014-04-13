@@ -24,7 +24,6 @@
     </string-array>
 
     <string-array name="pref_ping_timeout_values">
-      <item>1000</item>
       <item>5000</item>
       <item>10000</item>
       <item>20000</item>
