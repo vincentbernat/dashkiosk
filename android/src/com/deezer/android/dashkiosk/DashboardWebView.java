@@ -127,6 +127,8 @@ public class DashboardWebView extends WebView {
                         image.setVisibility(View.VISIBLE);
                         stopLoading();
                         load();
+                        mHandler.sendMessageDelayed(mHandler.obtainMessage(DEADLINE),
+                                                    getTimeout());
                         break;
                     }
                 }
