@@ -92,4 +92,43 @@ describe('Display', function() {
     });
   });
 
+  describe('#connect()', function() {
+    it('should mark the display as connected', function(done) {
+      models.Display.register()
+        .then(function(display) {
+          display.connect();
+          display.toJSON().connected.should.equal(true);
+          done();
+        })
+        .catch(function(err) { done(err); });
+    });
+
+    it('should mark the display as connected if more connections than disconnections', function(done) {
+      models.Display.register()
+        .then(function(display) {
+          display.connect();
+          display.connect();
+          display.disconnect();
+          display.toJSON().connected.should.equal(true);
+          done();
+        })
+        .catch(function(err) { done(err); });
+    });
+
+    it('should mark the display as disconnected if less connections than disconnections', function(done) {
+      models.Display.register()
+        .then(function(display) {
+          display.connect();
+          display.disconnect();
+          display.disconnect();
+          display.connect();
+          display.disconnect();
+          display.toJSON().connected.should.equal(false);
+          done();
+        })
+        .catch(function(err) { done(err); });
+    });
+
+  });
+
 });
