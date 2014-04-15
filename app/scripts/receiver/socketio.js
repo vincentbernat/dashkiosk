@@ -8,7 +8,10 @@ define('socketio', (function(window, io, undefined) {
       Viewport = require('viewport');
 
   function connect() {
-    var socket = io.connect(window.location.origin + '/displays');
+    var socket = io.connect(window.location.origin + '/displays', {
+      'reconnection limit': 60*1000,
+      'max reconnection attempts': Infinity
+    });
 
     socket.on('connect', function() {
       console.info('[Dashkiosk] connected to socket.io server');
@@ -31,18 +34,19 @@ define('socketio', (function(window, io, undefined) {
     });
     socket.on('connect_failed', function() {
       console.warn('[Dashkiosk] unable to connect to socket.io server');
-      // Bad...
+      window.location.reload();
     });
     socket.on('error', function(message) {
       console.warn('[Dashkiosk] uncaught error with socket.io server: ' + message);
       window.location.reload();
     });
-    socket.on('reconnecting', function() {
-      console.info('[Dashkiosk] reconnect in progress to socket.io server');
+    socket.on('reconnecting', function(delay, attempts) {
+      console.info('[Dashkiosk] reconnect in progress to socket.io server (next: ' +
+                   delay + ' attempts:' + attempts + ')');
     });
     socket.on('reconnect_failed', function() {
       console.warn('[Dashkiosk] unable to reconnect to socket.io server');
-      // Bad...
+      window.location.reload();
     });
 
     socket.on('disconnect', function() {
