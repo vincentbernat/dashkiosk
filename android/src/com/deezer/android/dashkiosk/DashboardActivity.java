@@ -38,22 +38,36 @@ public class DashboardActivity extends Activity {
      * Hide navigation bar. Run at regular interval.
      */
     private void hideNavigationBar() {
-        /* Use immersive mode from Android 4.4. To get something
-         * similar that would work with previous versions check this
-         * file with tag v2.0.1 */
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-            View.SYSTEM_UI_FLAG_FULLSCREEN |
-            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        /* Use immersive mode from Android 4.4. */
+        if(android.os.Build.VERSION.SDK_INT >= 19) {
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        } else {
+            final Handler handler = new Handler();
+            Runnable runable = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            View decorView = getWindow().getDecorView();
+                            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+                        } finally {
+                            handler.postDelayed(this, 5000);
+                        }
+                    }
+                };
+            handler.postDelayed(runable, 100);
+        }
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus)
+        if (hasFocus && android.os.Build.VERSION.SDK_INT >= 19)
             this.hideNavigationBar();
     }
 
