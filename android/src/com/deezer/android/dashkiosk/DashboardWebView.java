@@ -65,8 +65,8 @@ public class DashboardWebView extends WebView {
         WebSettings ws = this.getSettings();
         ws.setJavaScriptEnabled(true);
         ws.setMediaPlaybackRequiresUserGesture(false);
-        ws.setLoadWithOverviewMode(true);
-        ws.setUseWideViewPort(true);
+        ws.setLoadWithOverviewMode(false);
+        ws.setUseWideViewPort(false);
         enableLocalStorage();
 
         /* No interaction */
