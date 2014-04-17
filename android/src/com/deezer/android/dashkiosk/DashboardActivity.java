@@ -51,6 +51,12 @@ public class DashboardActivity extends Activity {
             View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus)
+            this.hideNavigationBar();
+    }
+
     /**
      * Set orientation.
      */
