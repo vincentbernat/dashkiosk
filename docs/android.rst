@@ -6,10 +6,19 @@ fullscreen non-interactive dashboards on Android devices. Its main use
 is to be run from an Android stick plug on some TV to run the web
 application to display dashboards.
 
+Supported devices
+-----------------
+
 It works best with Android 4.4 (Kit Kat) or later since the WebView
 component shipped in those versions come from the Chromium project and
-are pretty up-to-date. Older versions won't compile and any patch is
-welcome to fix that.
+are pretty up-to-date. In the future, an external webview may be used[#]_.
+
+.. [#] For example, the one from the `Crosswalk project`_ is a good
+       candidate. It is currently not embeddable but it is
+       planned. You could look at `XWALK-957`_ for progress on this.
+
+.. _Crosswalk project: https://crosswalk-project.org/
+.. _XWALK-957: https://crosswalk-project.org/jira/browse/XWALK-957
 
 Features
 --------
