@@ -9,9 +9,11 @@ application to display dashboards.
 Supported devices
 -----------------
 
-It works best with Android 4.4 (Kit Kat) or later since the WebView
-component shipped in those versions come from the Chromium project and
-are pretty up-to-date. In the future, an external webview may be used[#]_.
+Currently, the minimal version of Android is 4.2 (Jelly
+Bean). However, it works best with Android 4.4 (Kit Kat) or later
+since the webview component shipped in those versions come from the
+Chromium project and are pretty up-to-date. In the future, an external
+webview may be used[#]_.
 
 .. [#] For example, the one from the `Crosswalk project`_ is a good
        candidate. It is currently not embeddable but it is
@@ -19,6 +21,10 @@ are pretty up-to-date. In the future, an external webview may be used[#]_.
 
 .. _Crosswalk project: https://crosswalk-project.org/
 .. _XWALK-957: https://crosswalk-project.org/jira/browse/XWALK-957
+
+There are a lot of Android devices that you can choose to run
+Dashkiosk on. When choosing one, prefer the ones which can be upgraded
+to Android 4.4.
 
 Features
 --------
