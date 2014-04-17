@@ -72,12 +72,8 @@ following command::
 
     adb install -r bin/DashKiosk-debug.apk
 
-The next step is to run the configuration panel. The application is
-designed to be run without any interaction. There is therefore no
-access to the configuration panel from the application. You will need
-to execute the following command::
-
-    adb shell am start -n com.deezer.android.dashkiosk/.DashboardActivity
+The next step is to run the configuration panel by clicking on the pen
+icon in the action bar.
 
 Configuration
 -------------

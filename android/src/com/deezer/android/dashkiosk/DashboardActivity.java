@@ -18,6 +18,7 @@ package com.deezer.android.dashkiosk;
 
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -26,6 +27,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.deezer.android.dashkiosk.DashboardWebView;
@@ -38,37 +42,35 @@ public class DashboardActivity extends Activity {
      * Hide navigation bar. Run at regular interval.
      */
     private void hideNavigationBar() {
-        /* Use immersive mode from Android 4.4. */
-        if(android.os.Build.VERSION.SDK_INT >= 19) {
-            View decorView = getWindow().getDecorView();
-            decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                View.SYSTEM_UI_FLAG_FULLSCREEN |
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        } else {
-            final Handler handler = new Handler();
-            Runnable runable = new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            View decorView = getWindow().getDecorView();
-                            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-                        } finally {
-                            handler.postDelayed(this, 5000);
-                        }
+        final Handler handler = new Handler();
+        Runnable runable = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        View decorView = getWindow().getDecorView();
+                        decorView.setSystemUiVisibility(
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_FULLSCREEN);
+                    } finally {
+                        handler.postDelayed(this, 20000);
                     }
-                };
-            handler.postDelayed(runable, 100);
-        }
-    }
+                }
+            };
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus && android.os.Build.VERSION.SDK_INT >= 19)
-            this.hideNavigationBar();
+        View decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(
+            new View.OnSystemUiVisibilityChangeListener() {
+                @Override
+                public void onSystemUiVisibilityChange(int visibility) {
+                    if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                        getActionBar().show();
+                    } else {
+                        getActionBar().hide();
+                    }
+                }
+            });
+
+        handler.postDelayed(runable, 100);
     }
 
     /**
@@ -89,6 +91,22 @@ public class DashboardActivity extends Activity {
         } else {
             Log.i(TAG, "No orientation change");
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_edit) {
+            startActivity(new Intent(this, DashboardPreferences.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actions, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
