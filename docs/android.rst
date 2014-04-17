@@ -45,6 +45,11 @@ Features
 Compilation
 -----------
 
+If you don't want to compile the Android app yourself, you can
+download a `pre-compiled version from GitHub`_.
+
+.. _pre-compiled version from GitHub: https://github.com/vincentbernat/dashkiosk/releases/
+
 You need to download the `Android SDK`_. Once installed, you should
 manage to get the ``android`` command in your path. Execute the
 remaining steps:
@@ -71,6 +76,10 @@ the APK on a device attached through USB on your computer with the
 following command::
 
     adb install -r bin/DashKiosk-debug.apk
+
+Alternatively, you can just point a browser to the APK and you will
+get proposed to install it. You need to ensure that you allowed the
+installation of APK from unknown sources.
 
 The next step is to run the configuration panel by clicking on the pen
 icon in the action bar.
