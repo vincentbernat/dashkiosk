@@ -5,6 +5,7 @@
        ng-class="{on: display.connected, off: !display.connected}"
        style="background-position: {{ backgroundOffset() }};"
        bs-modal
+       data-container="body"
        data-template="display.edit.html"
        title="{{ display.description }}">
     <div class="content">
