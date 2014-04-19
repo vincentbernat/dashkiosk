@@ -11,6 +11,12 @@
         android:entries="@array/pref_general_orientation_entries"
         android:entryValues="@array/pref_general_orientation_values"
         android:defaultValue="LANDSCAPE" />
+    <CheckBoxPreference
+        android:key="pref_lock_settings"
+        android:title="@string/pref_lock_settings"
+        android:summaryOn="@string/pref_lock_settings_summary_on"
+        android:summaryOff="@string/pref_lock_settings_summary_off"
+        android:defaultValue="false" />
   </PreferenceCategory>
   <PreferenceCategory
       android:title="@string/pref_ping_title"

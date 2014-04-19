@@ -63,7 +63,11 @@ public class DashboardActivity extends Activity {
                 @Override
                 public void onSystemUiVisibilityChange(int visibility) {
                     if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                        getActionBar().show();
+                        SharedPreferences sharedPref = PreferenceManager
+                            .getDefaultSharedPreferences(getApplication());
+                        if (!sharedPref.getBoolean("pref_lock_settings", false)) {
+                            getActionBar().show();
+                        }
                     } else {
                         getActionBar().hide();
                     }
@@ -77,7 +81,8 @@ public class DashboardActivity extends Activity {
      * Set orientation.
      */
     private void setOrientation() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        SharedPreferences sharedPref = PreferenceManager
+            .getDefaultSharedPreferences(getApplication());
         String orientation = sharedPref.getString("pref_general_orientation", null);
         if (orientation.equals("LANDSCAPE")) {
             Log.i(TAG, "Forcing orientation to landscape");

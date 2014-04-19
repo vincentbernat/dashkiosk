@@ -83,6 +83,13 @@ Configuration
 The **orientation** is configured to *landscape* by default. You can
 choose either *auto* or *portrait*.
 
+If you want to lock a bit the application, you can **lock settings**
+to prevent any further modifications. You can still revert the changes
+by invoking the preferences activity with ``adb``::
+
+    adb shell am start -n \
+       com.deezer.android.dashkiosk/com.deezer.android.dashkiosk.DashboardPreferences
+
 The important part is to input the **receiver URL**. You can check
 that this is the correct URL with any browser. You should see a
 dashboard with some nice images cycling.
