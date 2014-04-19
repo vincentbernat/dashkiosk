@@ -1,6 +1,23 @@
 define('supervisor', (function(window) {
   'use strict';
 
+  // Extract timeout from location hash
+  function timeoutFromLocationHash() {
+    var timeouts = window.location.hash.slice(1).split(/[,#]/)
+          .map(function(item) {
+            var mo = /^timeout=(\d+)$/.exec(item);
+            if (!mo) {
+              return null;
+            }
+            return parseInt(mo[1]);
+          })
+          .filter(function(item) { return item !== null; });
+    if (timeouts.length === 0) {
+      return undefined;
+    }
+    return timeouts[0];
+  }
+
   var lastTimeout = null,
       ready = function() {
         // Tell through a message
@@ -11,13 +28,14 @@ define('supervisor', (function(window) {
         // Tell through a JSInterface
         if (window.JSInterface && window.JSInterface.ready) {
           window.JSInterface.ready();
-          if (window.JSInterface.timeout) {
-            if (lastTimeout) {
-              window.clearTimeout(lastTimeout);
-            }
-            lastTimeout = window.setTimeout(ready, window.JSInterface.timeout() * 0.8);
-          }
         }
+        // Heartbeat
+        var timeout = (window.JSInterface || {}).timeout ||
+              timeoutFromLocationHash();
+        if (lastTimeout) {
+          window.clearTimeout(lastTimeout);
+        }
+        lastTimeout = window.setTimeout(ready, timeout * 0.8);
       };
 
   return {
