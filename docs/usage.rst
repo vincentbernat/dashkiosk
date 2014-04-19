@@ -267,6 +267,9 @@ The second limitation can be quite annoying. Here are some workarounds:
 .. _Node Unblocker: http://nodeunblocker.com/proxy
 .. _this one: https://github.com/fzaninotto/screenshot-as-a-service
 
+
+.. rubric:: Footnotes
+
 .. [#iframe] If the iframe is in the same domain, it can communicate
              with the iframe. However, most of the time, this is not
              the case. The receiver can also communicate with a
