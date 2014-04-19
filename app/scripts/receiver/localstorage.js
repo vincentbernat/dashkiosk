@@ -59,12 +59,36 @@ define('localstorage', (function(window, undefined) {
     this._write(JSON.stringify(data));
   };
 
+  function HashStorage() {
+  }
+
+  HashStorage.prototype.getItem = function(key) {
+    var ekey = key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'),
+        regex = new RegExp('^' + ekey + '=(.*)$'),
+        candidates = window.location.hash.slice(1).split(/[,#]/)
+          .map(function(item) {
+            var mo = regex.exec(item);
+            if (!mo) {
+              return null;
+            }
+            return mo[1];
+          })
+          .filter(function(item) { return item !== null; });
+    if (candidates.length === 0) {
+      return undefined;
+    }
+    return candidates[0];
+  };
+
+  HashStorage.prototype.setItem = function() { };
+
   var cookies = new CookieStorage('dashkiosk'),
-      local = new LocalStorage();
+      local = new LocalStorage(),
+      hash = new HashStorage();
 
   return {
     getItem: function(key) {
-      return local.getItem(key) || cookies.getItem(key);
+      return hash.getItem(key) || local.getItem(key) || cookies.getItem(key);
     },
     setItem: function(key, value) {
       local.setItem(key, value);
