@@ -25,6 +25,7 @@
     var inactivity = 30,
         appConfig = new cast.receiver.CastReceiverManager.Config();
     appConfig.maxInactivity = inactivity;
+    appConfig.statusText = 'Waiting for an URL';
     this.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
 
     // Setup message bus
@@ -51,6 +52,7 @@
     this.url = url;
     this.schedule();
     iframe.src = url + '#timeout=' + this.timeout;
+    this.castReceiverManager.setApplicationState('Receiver: ' + this.url);
   };
 
   // Deadline for heartbeat hit
