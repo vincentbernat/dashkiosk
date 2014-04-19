@@ -35,7 +35,9 @@ define('supervisor', (function(window) {
         if (lastTimeout) {
           window.clearTimeout(lastTimeout);
         }
-        lastTimeout = window.setTimeout(ready, timeout * 0.8);
+        if (timeout) {
+          lastTimeout = window.setTimeout(ready, timeout * 0.8);
+        }
       };
 
   return {
