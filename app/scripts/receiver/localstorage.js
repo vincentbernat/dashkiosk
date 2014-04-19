@@ -1,18 +1,27 @@
 define('localstorage', (function(window, undefined) {
   'use strict';
 
+  // Using local storage if available
+  function LocalStorage() {
+  }
   if ('localStorage' in window && window.localStorage !== null) {
-    return {
-      getItem: function(key) { return window.localStorage.getItem(key); },
-      setItem: function(key, value) { window.localStorage.setItem(key, value); }
+    LocalStorage.prototype.getItem = function(key) {
+      return window.localStorage.getItem(key);
     };
+    LocalStorage.prototype.setItem = function(key, value) {
+      window.localStorage.setItem(key, value);
+    };
+  } else {
+    LocalStorage.prototype.getItem = function() { return undefined; };
+    LocalStorage.prototype.setItem = function() { };
   }
 
-  console.warn('[Dashkiosk] local storage support is not available, fallback to cookies');
-  function Storage(name) {
+  // Cookie storage
+  function CookieStorage(name) {
     this.name = name;
   }
-  Storage.prototype.write = function(value) {
+
+  CookieStorage.prototype._write = function(value) {
     var days = 365,
         date = new Date();
     date.setTime(date.getTime() + (days*24*60*60*1000));
@@ -21,7 +30,7 @@ define('localstorage', (function(window, undefined) {
     window.document.cookie = this.name + '=' + value + expires + '; path=/';
   };
 
-  Storage.prototype.read = function() {
+  CookieStorage.prototype._read = function() {
     var nameEQ = this.name + '=',
         ca = document.cookie.split(';'),
         i, c;
@@ -39,17 +48,29 @@ define('localstorage', (function(window, undefined) {
     return null;
   };
 
-  Storage.prototype.getItem = function(key) {
-    var data = JSON.parse(this.read() || '{}');
+  CookieStorage.prototype.getItem = function(key) {
+    var data = JSON.parse(this._read() || '{}');
     return data[key];
   };
 
-  Storage.prototype.setItem = function(key, value) {
-    var data = JSON.parse(this.read() || '{}');
+  CookieStorage.prototype.setItem = function(key, value) {
+    var data = JSON.parse(this._read() || '{}');
     data[key] = value;
-    this.write(JSON.stringify(data));
+    this._write(JSON.stringify(data));
   };
 
-  return new Storage('dashkiosk');
+  var cookies = new CookieStorage('dashkiosk'),
+      local = new LocalStorage();
+
+  return {
+    getItem: function(key) {
+      return local.getItem(key) || cookies.getItem(key);
+    },
+    setItem: function(key, value) {
+      local.setItem(key, value);
+      cookies.setItem(key, value);
+    }
+  };
+
 
 })(window));
