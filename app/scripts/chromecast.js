@@ -12,7 +12,9 @@
   Supervisor.prototype.setup = function() {
     var cast = window.cast,
         self = this;
-    cast.receiver.logger.setLevelValue(cast.receiver.LoggerLevel.DEBUG);
+
+    // Enable this for dbugging
+    // cast.receiver.logger.setLevelValue(cast.receiver.LoggerLevel.DEBUG);
 
     // Setup heartbeat mechanism
     window.addEventListener('message', function(event) {
@@ -20,7 +22,7 @@
     });
 
     // Setup receiver
-    var inactivity = 6000,
+    var inactivity = 30,
         appConfig = new cast.receiver.CastReceiverManager.Config();
     appConfig.maxInactivity = inactivity;
     this.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -61,7 +63,7 @@
   Supervisor.prototype.ack = function(event) {
     if (event.data === 'ready' && this.heartbeat) {
       // We don't really care of the origin
-      console.info('[Dashkiosk/Chromecast] Heartbeat received');
+      console.debug('[Dashkiosk/Chromecast] Heartbeat received');
       this.schedule();
       iframe.classList.add('show');
       loading.classList.remove('show');
