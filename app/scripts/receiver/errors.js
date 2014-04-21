@@ -5,7 +5,7 @@ define('errors', (function(window) {
     enable: function() {
       window.onerror = function(message, url, line, column, errorObj) {
         try {
-          if (errorObj === undefined) {
+          if (errorObj === undefined || errorObj === null) {
             // We won't do anything more sensible than the default action
             return false;
           }
@@ -15,7 +15,9 @@ define('errors', (function(window) {
           return true;
         } finally {
           console.error('[Dashkiosk] Fatal unexpected error, let\'s reload');
-          window.location.reload();
+          setTimeout(function() {
+            window.location.reload();
+          }, 1000);
         }
       };
     }
