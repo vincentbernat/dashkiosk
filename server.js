@@ -5,7 +5,8 @@ var http     = require('http'),
     path     = require('path'),
     util     = require('util'),
     logger   = require('./lib/logger'),
-    config   = require('./lib/config');
+    config   = require('./lib/config'),
+    chromecast = require('./lib/chromecast');
 
 var app = require('./lib/express'),
     server = http.createServer(app),
@@ -49,6 +50,9 @@ db
     throw err;
   })
   .then(function() {
+    if (config.get('chromecast')) {
+      chromecast();
+    }
     server.listen(config.get('port'), function() {
       logger.info('Express server listening on port %d in %s mode',
                   config.get('port'),

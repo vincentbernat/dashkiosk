@@ -13,6 +13,36 @@ describe('Display', function() {
       .then(function() { done(); }, function(err) { done(err); });
   });
 
+  describe('#registerChromecast()', function() {
+    it('should create a new display for unknown devices', function(done) {
+      models.Display.registerChromecast('fakeserial')
+        .then(function(display) {
+          var name = display.toJSON().name;
+          name.should.have.length(6);
+          return models.Display.get(name)
+            .then(function(display) {
+              display.toJSON().name.should.equal(name);
+              display.toJSON().chromecast.should.equal('fakeserial');
+              done();
+            });
+        })
+        .catch(function(err) { done(err); });
+    });
+
+    it('should return an existing display for a returning device', function(done) {
+      models.Display.registerChromecast('fakeserial')
+        .then(function(display) {
+          var name = display.toJSON().name;
+          return models.Display.registerChromecast('fakeserial')
+            .then(function(display) {
+              display.toJSON().name.should.equal(name);
+              done();
+            });
+        })
+        .catch(function(err) { done(err); });
+    });
+  });
+
   describe('#register()', function() {
     it('should create a new display', function(done) {
       models.Display.register()

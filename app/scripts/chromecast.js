@@ -14,7 +14,7 @@
         self = this;
 
     // Enable this for dbugging
-    // cast.receiver.logger.setLevelValue(cast.receiver.LoggerLevel.DEBUG);
+    cast.receiver.logger.setLevelValue(cast.receiver.LoggerLevel.DEBUG);
 
     // Setup heartbeat mechanism
     window.addEventListener('message', function(event) {

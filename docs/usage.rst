@@ -73,7 +73,8 @@ On the figure above, you can see the three main entities in *Dashkiosk*:
     description. It is possible to create or rename any group. The
     group named "Unassigned" is special and new displays will be
     attached to it on first connection. Other than that, this is a
-    regular group.
+    regular group. The other special group is "Chromecast
+    devices". See :ref:`chromecast`.
 
  3. Each group of displays contains an ordered list of
     **dashboards**. A dashboard is just an URL to be displayed with a
@@ -267,6 +268,24 @@ The second limitation can be quite annoying. Here are some workarounds:
 .. _Node Unblocker: http://nodeunblocker.com/proxy
 .. _this one: https://github.com/fzaninotto/screenshot-as-a-service
 
+.. _chromecast:
+
+Chromecast devices
+------------------
+
+*Dashkiosk* can optionnaly handle Chromecast devices. When the support
+is enabled (see :ref:`options`), _Dashkiosk_ will discover Chromecast
+devices on the network assign them to the special group "Chromecast
+devices". This group has no dashboard on purpose.
+
+If a Chromecast device is on a group with a dashboard, _Dashkiosk_
+will wait for the Chromecast device to be on the home screen and
+starts a custom receiver which will load the regular receiver and turn
+your Chromecast device into a regular display.
+
+You can either add dashboards to the "Chromecast devices" group to let
+all Chromecast devices display a dashboard on inactivity or move the
+selected Chromecast devices to another group.
 
 .. rubric:: Footnotes
 

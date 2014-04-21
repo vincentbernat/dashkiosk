@@ -14,6 +14,42 @@ describe('Group', function() {
       .then(function() { done(); }, function(err) { done(err); });
   });
 
+  describe('#chromecast()', function() {
+    it('should create chromecast group', function(done) {
+      models.Group.chromecast()
+        .then(function(group) {
+          group.toJSON().name.should.equal('Chromecast devices');
+          group.toJSON().description.should.equal('Default group for discovered Chromecast devices');
+          done();
+        })
+        .catch(function(err) { done(err); });
+    });
+
+    it('should be present in database', function(done) {
+      models.Group.chromecast()
+        .then(function(chromecast) {
+          return models.Group.get(chromecast.toJSON().id)
+            .then(function(group) {
+              group.toJSON().id.should.equal(chromecast.toJSON().id);
+              done();
+            });
+        })
+        .catch(function(err) { done(err); });
+    });
+
+    it('should contain no dashboard', function(done) {
+      models.Group.chromecast()
+        .then(function(chromecast) {
+          return chromecast.getDashboards()
+            .then(function(dashboards) {
+              dashboards.length.should.equal(0);
+              done();
+            });
+        })
+        .catch(function(err) { done(err); });
+    });
+  });
+
   describe('#unassigned()', function() {
     it('should create unassigned group', function(done) {
       models.Group.unassigned()

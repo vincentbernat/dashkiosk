@@ -27,7 +27,8 @@
     "winston": "^0.7.2",
     "postal": "^0.9.0-rc1",
     "postal.diagnostics": "^0.7.0",
-    "bluebird": "^1.2.1"
+    "bluebird": "^1.2.1",
+    "nodecastor": "^0.1.2"
   },
   "devDependencies": {
     "blanket": "^1.1.6",
