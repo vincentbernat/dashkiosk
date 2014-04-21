@@ -250,6 +250,10 @@ some limitations to an IFrame:
    special ``X-Frame-Options`` in the headers forbidding the use of an
    IFrame.
 
+ - If you are serving *Dashkiosk* from an HTTPS URL, you cannot
+   display dashboards using HTTP. The other way is authorized. Hence,
+   it seems just easier to serve Dashkiosk receiver on HTTP.
+
 The second limitation can be quite annoying. Here are some workarounds:
 
  1. Find an embeddable version of the content. Youtube, Google Maps
