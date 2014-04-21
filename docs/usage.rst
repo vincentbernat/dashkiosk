@@ -274,14 +274,13 @@ Chromecast devices
 ------------------
 
 *Dashkiosk* can optionnaly handle Chromecast devices. When the support
-is enabled (see :ref:`options`), _Dashkiosk_ will discover Chromecast
+is enabled (see :ref:`options`), *Dashkiosk* will discover Chromecast
 devices on the network assign them to the special group "Chromecast
-devices". This group has no dashboard on purpose.
-
-If a Chromecast device is on a group with a dashboard, _Dashkiosk_
-will wait for the Chromecast device to be on the home screen and
-starts a custom receiver which will load the regular receiver and turn
-your Chromecast device into a regular display.
+devices". This group has no dashboard on purpose: if a Chromecast
+device is on a group with a dashboard, *Dashkiosk* will wait for the
+Chromecast device to be on the home screen and starts a custom
+receiver which will load the regular receiver and turn your Chromecast
+device into a regular display.
 
 You can either add dashboards to the "Chromecast devices" group to let
 all Chromecast devices display a dashboard on inactivity or move the

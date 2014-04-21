@@ -50,7 +50,7 @@ db
     throw err;
   })
   .then(function() {
-    if (config.get('chromecast')) {
+    if (config.get('chromecast:enabled')) {
       chromecast();
     }
     server.listen(config.get('port'), function() {

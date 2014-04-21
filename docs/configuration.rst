@@ -26,15 +26,23 @@ Here are the three more important options:
 
 If you want to be able to use Chromecast devices, you also need to set:
 
-  ``chromecast``
+  ``chromecast.enabled``
      Enable Chromecast support. Disabled by default.
 
-  ``receiver``
+  ``chromecast.receiver``
      The URL to the receiver. This is used to tell Chromecast devices
      where to find the receiver. The default value is unlikely to
      work. You should put the URL to access Dashkiosk and ends it with
      ``/receiver``. For example, put something like
      ``http://dashkiosk.example.com/receiver``.
+
+The Chromecast custom receiver is hosted on `GitHub`_. If you want to
+modify it or to host it yourself, you need to register a new
+application in the `Google Cast SDK Developer Console`_ and report the
+provided application ID as ``chromecast.app``.
+
+.. _GitHub: https://vincentbernat.github.io/dashkiosk/chromecast.html
+.. _Google Cast SDK Developer Console: https://cast.google.com/publish/#/overview
 
 The remaining options can usually be left untouched unless you decided
 to not use the integrated SQLite database.

@@ -7,7 +7,7 @@ Dashkiosk's documentation
    :align: right
 
 *Dashkiosk* is a solution to manage dashboards on multiple screens. It
-comes in three parts:
+comes in four parts:
 
  1. A **server** will manage the screens by sending them which URL
     they should display in realtime. A web interface enables the
@@ -21,8 +21,12 @@ comes in three parts:
  3. An **Android application** provides a simple fullscreen webview to
     display the receiver.
 
-The Android application is an optional component. Any device able to
-display a fullscreen web page should work.
+ 4. A **Chromecast custom receiver** which will run the regular receiver
+    if you want to display dashboards using Google Chromecast devices.
+
+The Android application and the Chromecast receiver are optional
+components. Any device able to display a fullscreen web page should
+work.
 
 To contribute, use `GitHub`_.
 

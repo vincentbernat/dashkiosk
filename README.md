@@ -1,7 +1,7 @@
 # Dashkiosk
 
 Dashkiosk is a solution to manage dashboards on multiple screens. It
-comes as three components:
+comes as four components:
 
  1. A _receiver_ runs in a browser attached to each screen and will
     display the requested dashboards. The receiver is quite dumb, it
@@ -14,6 +14,9 @@ comes as three components:
  3. An _Android app_ that will run the receiver. This is mainly a
     fullscreen webview.
 
+ 4. A _Chromecast custom receiver_ which will run the regular receiver
+    if you want to display dashboards using Google Chromecast devices.
+
 The full documentation is available on [ReadTheDocs][].
 
 [ReadTheDocs]: http://dashkiosk.readthedocs.org
@@ -23,7 +26,3 @@ The full documentation is available on [ReadTheDocs][].
 To run the server for development:
 
     $ grunt serve
-    
-The server uses an internal bus. Currently, the following events are
-emitted:
-
