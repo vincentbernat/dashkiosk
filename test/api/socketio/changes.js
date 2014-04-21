@@ -107,8 +107,13 @@ describe('socket.io changes API', function() {
           var client = ioclient.connect('http://127.0.0.1:5000/changes', options);
           client.once('snapshot', function(data) {
             // Got a snapshot, let's add a dashboard
-            client.once('group.updated', function(data) {
+            var once = false;
+            client.on('group.updated', function(data) {
               try {
+                if (data.name !== 'test group' || once) {
+                  return;
+                }
+                once = true;
                 data.name.should.equal('test group');
                 data.id.should.equal(group.toJSON().id);
                 data.should.have.property('dashboards');
