@@ -13,4 +13,6 @@
     <string name="pref_ping_url_summary">URL to the dashboard web application</string>
     <string name="pref_ping_timeout">Timeout</string>
     <string name="pref_ping_timeout_summary">Timeout in milliseconds when retrieving URL</string>
+    <string name="wait">Please, wait.</string>
+    <string name="wait_quote">This, Jen, is the Internet.</string>
 </resources>
