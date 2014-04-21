@@ -3,6 +3,13 @@
 
   var urn = 'urn:x-cast:com.deezer.cast.dashkiosk';
 
+  // Chromecast forces us to use an HTTPS URL but we cannot use an
+  // HTTP URL after that. It would be better to switch only if needed,
+  // but for now, let's just switch like this.
+  if (window.location.protocol === 'https:') {
+    window.location.href = window.location.href.replace(/^https:/, 'http:');
+  }
+
   function Supervisor(options) {
     options = options || {};
     this.timeout = options.timeout || 30000;
