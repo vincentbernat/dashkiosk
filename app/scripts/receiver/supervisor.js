@@ -30,8 +30,11 @@ define('supervisor', (function(window) {
           window.JSInterface.ready();
         }
         // Heartbeat
-        var timeout = ((window.JSInterface || {}).timeout ||
-                       timeoutFromLocationHash)();
+        var timeout;
+        if (window.JSInterface && window.JSInterface.timeout) {
+          timeout = window.JSInterface.timeout();
+        }
+        timeout = timeout || timeoutFromLocationHash();
         if (lastTimeout) {
           window.clearTimeout(lastTimeout);
         }
