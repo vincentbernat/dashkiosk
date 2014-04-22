@@ -4,6 +4,7 @@ var http     = require('http'),
     socketio = require('socket.io'),
     path     = require('path'),
     util     = require('util'),
+    glob     = require('glob'),
     logger   = require('./lib/logger'),
     config   = require('./lib/config'),
     chromecast = require('./lib/chromecast');
@@ -16,12 +17,19 @@ var app = require('./lib/express'),
 
 // Static files
 function serve(file) {
+  var f = path.join(config.get('path:static'), file),
+      matches = glob.sync(f);
+  if (matches.length > 0) {
+    return function(req, res) {
+      res.sendfile(matches[0]);
+    };
+  }
   return function(req, res) {
-    res.sendfile(path.join(config.get('path:static'), file));
+    res.send(404, "Not found.");
   };
 }
 app.get('/', function(req, res) { res.redirect('/receiver'); });
-app.get('/favicon.ico', serve('images/favicon.ico'));
+app.get('/favicon.ico', serve('images/*favicon.ico'));
 app.get('/admin', serve('admin.html'));
 app.get('/receiver', serve('receiver.html'));
 app.get('/unassigned', serve('unassigned.html'));
