@@ -1,4 +1,13 @@
 [data-ui-element=dk-group-list] {
     list-style-type: none;
     padding: 0; margin: 0;
+
+    /* Hack to avoid large spaces between groups */
+    & > li {
+        @media (min-width: @screen-md) {
+            float: none;
+            display: inline-block;
+            vertical-align: top;
+        }
+    }
 }
