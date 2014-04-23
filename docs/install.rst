@@ -41,6 +41,10 @@ To install it, you need to execute the following step:
      part. If you want to use the Android application, you still need
      to build it and install it. See :doc:`android`.
 
+If you get an error while compiling mDNS extension on Linux, ensure
+you have the appropriate development package for Avahi. Specifically,
+on Debian, you need ``libavahi-compat-libdnssd-dev``.
+
 Branding
 --------
 
