@@ -3,10 +3,8 @@
 var http     = require('http'),
     socketio = require('socket.io'),
     path     = require('path'),
-    fs       = require('fs'),
     util     = require('util'),
     glob     = require('glob'),
-    _        = require('lodash'),
     logger   = require('./lib/logger'),
     config   = require('./lib/config'),
     chromecast = require('./lib/chromecast');
@@ -18,47 +16,24 @@ var app = require('./lib/express'),
     });
 
 // Static files
-var serve = {
-  wildcard: function(file) {
-    var f = path.join(config.get('path:static'), file),
-        matches = glob.sync(f);
-    if (matches.length > 0) {
-      return function(req, res) {
-        res.sendfile(matches[0]);
-      };
-    } else {
-      throw new Error('Provided wildcard does not match anything');
-    }
-  },
-  regular: function(file) {
-    var f = path.join(config.get('path:static'), file);
+function serve(file) {
+  var f = path.join(config.get('path:static'), file),
+      matches = glob.sync(f);
+  if (matches.length > 0) {
     return function(req, res) {
-      res.sendfile(f);
-    };
-  },
-  template: function(file) {
-    // Currently, the templating is only done for branding purposes
-    var f = path.join(config.get('path:static'), file);
-    return function(req, res) {
-      fs.readFile(f, 'utf8', function(err, data) {
-        if (err) {
-          throw err;
-        }
-        var template = _.template(data)({
-          branding: config.get('branding')
-        });
-        console.log('hello');
-        res.send(template);
-      });
+      res.sendfile(matches[0]);
     };
   }
-};
+  return function(req, res) {
+    res.send(404, "Not found.");
+  };
+}
 app.get('/', function(req, res) { res.redirect('/receiver'); });
-app.get('/favicon.ico', serve.wildcard('images/*favicon.ico'));
-app.get('/admin',       serve.template('admin.html'));
-app.get('/receiver',    serve.template('receiver.html'));
-app.get('/unassigned',  serve.template('unassigned.html'));
-app.get('/chromecast',  serve.regular('chromecast.html'));
+app.get('/favicon.ico', serve('images/*favicon.ico'));
+app.get('/admin', serve('admin.html'));
+app.get('/receiver', serve('receiver.html'));
+app.get('/unassigned', serve('unassigned.html'));
+app.get('/chromecast', serve('chromecast.html'));
 
 // API
 var api = require('./lib/api');
