@@ -1,5 +1,8 @@
 'use strict';
 
+var glob = require('glob'),
+    fs   = require('fs');
+
 var PORTS = {
   express: 9400 || process.env.PORT,
   livereload: 31452
@@ -31,7 +34,7 @@ module.exports = function(grunt) {
             });
             nodemon.on('restart', function () {
               setTimeout(function() {
-                require('fs').writeFileSync('.rebooted', 'rebooted');
+                fs.writeFileSync('.rebooted', 'rebooted');
               }, 1000);
             });
           }
@@ -280,17 +283,24 @@ module.exports = function(grunt) {
       }
     },
 
-
-    // Copy files
-    copy: {
+    template: {
       html: {
+        options: {
+          data: {
+            unassigned: glob.sync('images/unassigned/*', { cwd: 'app' })
+          }
+        },
         files: [{
           expand: true,
           cwd: 'app',
           dest: 'build',
           src: [ '*.html' ]
         }]
-      },
+      }
+    },
+
+    // Copy files
+    copy: {
       scripts: {
         files: [{
           expand: true,
@@ -371,7 +381,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', function(target) {
     switch (target) {
     case 'html':
-      grunt.task.run('copy:html');
+      grunt.task.run('template:html');
       break;
     case 'templates':
       grunt.task.run('ngtemplates:build');
