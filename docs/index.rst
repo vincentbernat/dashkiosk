@@ -40,6 +40,7 @@ To contribute, use `GitHub`_.
    usage
    api
    android
+   chromecast
    license
 
 Indices and tables

@@ -272,24 +272,6 @@ The second limitation can be quite annoying. Here are some workarounds:
 .. _Node Unblocker: http://nodeunblocker.com/proxy
 .. _this one: https://github.com/fzaninotto/screenshot-as-a-service
 
-.. _chromecast:
-
-Chromecast devices
-------------------
-
-*Dashkiosk* can optionnaly handle Chromecast devices. When the support
-is enabled (see :ref:`options`), *Dashkiosk* will discover Chromecast
-devices on the network assign them to the special group "Chromecast
-devices". This group has no dashboard on purpose: if a Chromecast
-device is on a group with a dashboard, *Dashkiosk* will wait for the
-Chromecast device to be on the home screen and starts a custom
-receiver which will load the regular receiver and turn your Chromecast
-device into a regular display.
-
-You can either add dashboards to the "Chromecast devices" group to let
-all Chromecast devices display a dashboard on inactivity or move the
-selected Chromecast devices to another group.
-
 .. rubric:: Footnotes
 
 .. [#iframe] If the iframe is in the same domain, it can communicate
