@@ -9,15 +9,15 @@
 }
 
 .bounce-enter-leave {
-    &.ng-enter, &.ng-leave, &.ng-move {
+    &.ng-enter, &.ng-leave {
         transition: transform 0.8s cubic-bezier(1,.17,.34,1), opacity 1s linear;
         transition: transform 0.8s cubic-bezier(1,.17,.34,1.57), opacity 1s linear;
     }
-    &.ng-enter, &.ng-leave.ng-leave-active, &.ng-move {
+    &.ng-enter, &.ng-leave.ng-leave-active {
         transform: scale(0);
         opacity: 0;
     }
-    &.ng-enter.ng-enter-active, &.ng-leave, &.ng-move.ng-move-active {
+    &.ng-enter.ng-enter-active, &.ng-leave {
         transform: scale(1);
         opacity: 1;
     }

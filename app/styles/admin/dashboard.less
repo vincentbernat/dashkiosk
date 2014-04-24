@@ -4,10 +4,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
+    .bounce-enter-leave();
+
     transition: background-color 1s;
     background-color: white;
     &.active {
-        background-color: @state-info-bg;
+        background-color: darken(@state-info-bg, 10%);
     }
 
     .property {
