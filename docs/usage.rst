@@ -35,6 +35,8 @@ the ``/admin`` tab, you should see yourself as a new display in the
 "Unassigned" group and in the ``/receiver`` tab, you should see the
 default dashboard that you got by going in ``/unassigned``.
 
+To customize the default dashboard, see :ref:`unassigned`.
+
 Troubleshooting
 +++++++++++++++
 

@@ -102,6 +102,15 @@ Here are the steps:
 The database will be populated automatically when running *Dashkiosk*
 for the first time.
 
+.. _unassigned:
+
+Unassigned dashboard
+--------------------
+
+By default, displays are put in a group with a dashboard with cycling
+images. You can add more images in ``app/images/unassigned`` if you
+want. Then, rebuild with ``grunt``.
+
 .. _Node.js: http://nodejs.org/
 .. _npm: https://www.npmjs.org
 .. _how to install Node.js via the package manager: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
