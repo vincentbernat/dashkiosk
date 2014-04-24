@@ -29,9 +29,14 @@ header {
         margin: 4px 10px;
 
         /* Animate when display */
-        transform: translateY(-150%);
         transition: transform 0.5s;
-        &.show {
+        &.ng-hide-add, &.ng-hide-remove {
+            display: block !important;
+        }
+        &.ng-hide-remove, &.ng-hide-add.ng-hide-add-active {
+            transform: translateY(-150%);
+        }
+        &.ng-hide-remove.ng-hide-remove-active, &.ng-hide-add {
             transform: translateY(0);
         }
 
