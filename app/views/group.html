@@ -30,6 +30,7 @@
     <div class="displays">
       <dk-display
         ng-repeat="display in group.displays track by display.id | orderBy:['-connected','name']"
+        ng-animate
         display="display" groups="groups">
       </dk-display>
     </div>

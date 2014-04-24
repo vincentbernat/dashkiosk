@@ -1,5 +1,16 @@
 *[data-ui-element=dk-display] {
 
+    &.ng-enter, &.ng-leave {
+        transition: transform 0.8s cubic-bezier(1,.17,.34,1);
+        transition: transform 0.8s cubic-bezier(1,.17,.34,1.57);
+    }
+    &.ng-enter, &.ng-leave.ng-leave-active {
+        transform: scale(0);
+    }
+    &.ng-enter.ng-enter-active, &.ng-leave {
+        transform: scale(1);
+    }
+
     display: inline-block;
 
     transition: transform 0.3s;
