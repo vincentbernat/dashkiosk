@@ -1,4 +1,5 @@
 angular.module('dashkiosk', ['ngRoute',
+                             'ngAnimate',
                              'mgcrea.ngStrap',
                              'xeditable',
                              'dashkiosk.services',
