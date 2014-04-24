@@ -1,15 +1,22 @@
 *[data-ui-element=dk-dashboard] {
     padding: .3em;
     border-top: 1px solid @gray-lighter;
-    overflow: hidden;
-    text-overflow: ellipsis;
 
     .slide-enter-leave();
 
     transition: background-color 1s;
     background-color: white;
+    overflow: hidden;
     &.active {
         background-color: darken(@state-info-bg, 10%);
+    }
+
+    & > a {
+        display: inline-block;
+        max-width: 66%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .property {
