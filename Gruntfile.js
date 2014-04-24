@@ -287,7 +287,8 @@ module.exports = function(grunt) {
       html: {
         options: {
           data: {
-            unassigned: glob.sync('images/unassigned/*', { cwd: 'app' })
+            unassigned: glob.sync('images/unassigned/*', { cwd: 'app' }),
+            version: require('./package.json').version
           }
         },
         files: [{
