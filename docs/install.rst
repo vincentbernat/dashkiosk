@@ -49,16 +49,16 @@ Branding
 --------
 
 As is, *Dashkiosk* is branded for `Deezer`_. If you do not like that,
-there are two images that you should modify before building the final
-version with ``grunt``.
+drop a replacement for each of them with the suffix of your
+choice. Then, run ``grunt`` with ``--branding=suffix``.
 
-  - The spinning vinyl is located in ``app/images/loading.svg``. You
+  - The spinning vinyl is located in ``app/images/loading-deezer.svg``. You
     should be able to replace it by anything that will give a cool
     effect while spinning. In this case, please submit it back.
 
   - The *Deezer* logo appearing both in the administration interface
     and in the default dashboard is located in
-    ``app/images/stamp.svg``. Put your favorite logo instead.
+    ``app/images/stamp-deezer.svg``. Put your favorite logo instead.
 
 Database
 --------
