@@ -2,8 +2,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.deezer.android.dashkiosk"
-    android:versionCode="6"
-    android:versionName="2.2.2">
+    android:versionCode="@string/app_versionCode"
+    android:versionName="@string/app_versionName">
 
   <uses-sdk
       android:minSdkVersion="17"

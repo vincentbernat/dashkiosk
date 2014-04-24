@@ -141,8 +141,9 @@ public class DashboardWebView extends WebView {
     private void load() {
         SharedPreferences sharedPref = PreferenceManager
             .getDefaultSharedPreferences(mContext);
-        final String pingURL = sharedPref.getString("pref_ping_url", null);
-        this.loadUrl(pingURL);
+        String pingURL = sharedPref.getString("pref_ping_url", null);
+        String appVer = getResources().getString(R.string.app_versionName);
+        this.loadUrl(pingURL + "?v=" + appVer);
     }
 
     private int getTimeout() {
