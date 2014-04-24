@@ -288,7 +288,7 @@ module.exports = function(grunt) {
         options: {
           data: {
             unassigned: glob.sync('images/unassigned/*', { cwd: 'app' }),
-            branding: grunt.option('branding') || 'deezer',
+            branding: grunt.option('branding') || 'default',
             version: require('./package.json').version
           }
         },
