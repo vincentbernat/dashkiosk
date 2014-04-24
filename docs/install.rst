@@ -61,7 +61,12 @@ the following perks:
     ``app/images/stamp-deezer.svg``.
 
 You can create alternate version of those images and drop them at the
-same place with a different suffix.
+same place with a different suffix. Currently, the available brandings
+are:
+
+ - ``default``
+ - ``deezer``
+ - ``dailymotion``
 
 Database
 --------
