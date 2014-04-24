@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Dashkiosk</string>
-    <string name="app_versionName">2.2.2</string>
-    <string name="app_versionCode">6</string>
+    <string name="app_versionName">2.2.3</string>
     <string name="preferences">Dashkiosk preferences</string>
     <string name="pref_general_title">General settings</string>
     <string name="pref_general_orientation">Orientation</string>
