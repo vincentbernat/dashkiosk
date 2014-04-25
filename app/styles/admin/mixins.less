@@ -23,7 +23,7 @@
     }
 }
 
-.slide-enter-leave {
+.slide-right-enter-leave {
     &.ng-enter, &.ng-leave {
         transition: transform 0.8s cubic-bezier(1,.17,.34,1), opacity 1s linear;
         transition: transform 0.8s cubic-bezier(1,.17,.34,1.57), opacity 1s linear;
@@ -35,5 +35,24 @@
     &.ng-enter.ng-enter-active, &.ng-leave {
         transform: translateX(0);
         opacity: 1;
+    }
+}
+
+.slide-move() {
+    &.ng-move, &.ng-move.ng-move-active + & {
+        transition: transform 0.3s cubic-bezier(1,.17,.34,1);
+        transition: transform 0.3s cubic-bezier(1,.17,.34,1.57);
+    }
+    &.ng-move {
+        transform: translateY(100%);
+    }
+    &.ng-move.ng-move-active {
+        transform: translateY(0);
+    }
+    &.ng-move + & {
+        transform: translateY(-100%);
+    }
+    &.ng-move.ng-move-active + & {
+        transform: translateY(0);
     }
 }
