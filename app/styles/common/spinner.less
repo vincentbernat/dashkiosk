@@ -3,7 +3,6 @@
     height: @dimension;
 
     animation: loading-indicator-rotate 10s infinite linear;
-    transform-origin: 50% 0;
     
     .one-round(@idx, @color) {
         .item-@{idx} {
@@ -14,7 +13,7 @@
                 background-color: @color;
                 border-radius: @dimension/4;
             }
-            transform: rotate(@idx * 60deg);
+            transform: translateY(@dimension/2) rotate(@idx * 60deg);
         }
     }
 

@@ -5,6 +5,7 @@ angular.module('dashkiosk.directives')
     return {
       restrict: 'E',
       replace: true,
+      transclude: true,
       templateUrl: 'loading.html',
       controller: function($scope) {
         $scope.isBusy = loadingIndicatorService.isBusy;

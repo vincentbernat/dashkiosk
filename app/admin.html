@@ -19,7 +19,9 @@
     <header>
       <img class="logo" src="images/dashkiosk.svg">Dashkiosk
       <img class="branding" src="images/stamp-<%= branding %>.svg">
-      <dk-loading-indicator></dk-loading-indicator>
+      <dk-loading-indicator>
+        <%= include('spinner') %>
+      </dk-loading-indicator>
     </header>
 
     <div class="container" ng-view>

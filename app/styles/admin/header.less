@@ -23,7 +23,6 @@ header {
     }
 
     /* Some pure CSS spinner */
-    .loading-indicator(@navbar-height - 8px);
     [data-ui-element=dk-loading-indicator] {
         float: right;
         margin: 4px 10px;
@@ -40,6 +39,9 @@ header {
             transform: translateY(0);
         }
 
+        .spinner {
+            .loading-indicator(@navbar-height - 12px);
+        }
     }
         
 }
