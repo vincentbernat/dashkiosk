@@ -29,7 +29,8 @@
     "sequelize": "^1.7.0",
     "socket.io": "^0.9.16",
     "sqlite3": "^2.2.0",
-    "winston": "^0.7.2"
+    "winston": "^0.7.2",
+    "memwatch": "^0.2.2"
   },
   "devDependencies": {
     "blanket": "^1.1.6",
