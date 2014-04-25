@@ -1,0 +1,34 @@
+.loading-indicator(@dimension) {
+    width: @dimension;
+    height: @dimension;
+
+    animation: loading-indicator-rotate 10s infinite linear;
+    transform-origin: 50% 0;
+    
+    .one-round(@idx, @color) {
+        .item-@{idx} {
+            span {
+                position: absolute;
+                width: @dimension/4;
+                height: @dimension/4;
+                background-color: @color;
+                border-radius: @dimension/4;
+            }
+            transform: rotate(@idx * 60deg);
+        }
+    }
+
+    .one-round(1, #2ecc71);
+    .one-round(2, #3498db);
+    .one-round(3, #9b59b6);
+    .one-round(4, #e67e22);
+    .one-round(5, #c0392b);
+    .one-round(6, #e74c3c);
+    .one-round(7, #e74c8c);
+
+    @keyframes loading-indicator-rotate {
+        from { transform: scale(1.1) rotate(0deg); }
+        50% { transform: scale(0.9) rotate(360deg); }
+        to { transform: scale(1.1) rotate(720deg); }
+    }
+}

@@ -285,13 +285,21 @@ module.exports = function(grunt) {
 
     template: {
       html: {
-        options: {
-          data: {
-            unassigned: glob.sync('images/unassigned/*', { cwd: 'app' }),
-            branding: grunt.option('branding') || 'default',
-            version: require('./package.json').version
-          }
-        },
+        options: (function() {
+          var options = {
+            data: {
+              unassigned: glob.sync('images/unassigned/*', { cwd: 'app' }),
+              branding: grunt.option('branding') || 'default',
+              version: require('./package.json').version,
+              include: function(rel) {
+                return grunt.template.process(fs.readFileSync('app/' + rel + '.html',
+                                                              'utf8'),
+                                              options);
+              }
+            }
+          };
+          return options;
+        })(),
         files: [{
           expand: true,
           cwd: 'app',
