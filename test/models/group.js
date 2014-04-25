@@ -455,6 +455,26 @@ describe('Group', function() {
               dashboards[0].toJSON().url.should.equal('http://www.example1.com');
               dashboards[1].toJSON().url.should.equal('http://www.example2.com');
               dashboards[2].toJSON().url.should.equal('http://www.example3.com');
+              return group.moveDashboard(d1, 1);
+            })
+            .then(function() {
+              return group.getDashboards();
+            })
+            .then(function(dashboards) {
+              dashboards.length.should.equal(3);
+              dashboards[0].toJSON().url.should.equal('http://www.example2.com');
+              dashboards[1].toJSON().url.should.equal('http://www.example1.com');
+              dashboards[2].toJSON().url.should.equal('http://www.example3.com');
+              return group.moveDashboard(d2, 1);
+            })
+            .then(function() {
+              return group.getDashboards();
+            })
+            .then(function(dashboards) {
+              dashboards.length.should.equal(3);
+              dashboards[0].toJSON().url.should.equal('http://www.example1.com');
+              dashboards[1].toJSON().url.should.equal('http://www.example2.com');
+              dashboards[2].toJSON().url.should.equal('http://www.example3.com');
               done();
             });
         })
