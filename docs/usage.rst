@@ -5,7 +5,7 @@ Running the server
 ------------------
 
 Once installed and configured, running *Dashkiosk* should be
-straightforward. While in the ``build`` directory::
+straightforward. While in the ``dist`` directory::
 
     $ node server.js --environment production
 
