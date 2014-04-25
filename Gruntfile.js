@@ -99,7 +99,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           dot: true,
-          src: [ 'dist/*', '.tmp' ]
+          src: [ 'dist/*', '.tmp', '!dist/db/*.sqlite' ]
         }]
       },
       build: {
