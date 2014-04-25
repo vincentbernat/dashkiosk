@@ -118,3 +118,19 @@ want. Then, rebuild with ``grunt``.
 .. _Deezer: http://www.deezer.com
 .. _PostgreSQL: http://www.postgresql.org
 .. _Sequelize.js: http://sequelizejs.com
+
+Upgrade
+=======
+
+To upgrade, you can use the exact same instructions that you used for
+installation. You can choose to do an in-place upgrade if you want
+to::
+
+    $ npm install
+    $ bower install
+    $ grunt
+
+If you kept the default SQLite database, be sure to save it (it's in
+``dist/db/``) before upgrading and restore it after upgrade. The
+``dist/`` directory where *Dashkiosk* is built is wiped out on
+upgrade.
