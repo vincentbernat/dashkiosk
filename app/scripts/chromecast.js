@@ -14,6 +14,7 @@
     options = options || {};
     this.timeout = options.timeout || 30000;
     this.heartbeat = null;
+    this.tries = 0;
   }
 
   Supervisor.prototype.setup = function() {
@@ -58,7 +59,17 @@
     loading.classList.add('show');
     this.url = url;
     this.schedule();
-    iframe.src = url + '#timeout=' + this.timeout;
+
+    // To force iframe reload, we need to change the URL provided. We
+    // add a query string to it.
+    var a = document.createElement('a');
+    a.href = url;
+    this.tries += 1;
+    iframe.src = a.origin + a.pathname + (a.search || '') +
+      '?_v=' + this.tries +
+      (a.hash || '') +
+      '#timeout=' + this.timeout;
+
     this.castReceiverManager.setApplicationState('Receiver: ' + this.url);
   };
 
