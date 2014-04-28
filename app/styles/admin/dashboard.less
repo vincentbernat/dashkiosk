@@ -1,50 +1,62 @@
 *[data-ui-element=dk-dashboard] {
-    padding: .3em;
+    padding: 0 .3em;
     border-top: 1px solid @gray-lighter;
+    height: 2.1em;
+    line-height: 2.1em;
+    clear: both;
+    &.add {
+        padding: .3em;
+        height: auto;
+        & > * {
+            height: auto;
+            line-height: normal;
+        }
+    }
 
     .slide-right-enter-leave();
     .slide-move();
 
     transition: background-color 1s;
     background-color: white;
-    overflow: hidden;
     &.active {
         background-color: darken(@state-info-bg, 10%);
     }
 
-    & > a {
-        display: inline-block;
-        max-width: 66%;
+    .name, .properties {
+        display: block;
+        height: 2.1em;
+        line-height: 2.1em;
+        white-space: nowrap;
+    }
+
+    .name {
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+    .properties {
+        float: right;
         white-space: nowrap;
     }
 
     .property {
-        float: right;
-        display: block;
-        margin-left: 1em;
-        white-space: nowrap;
-        &:after {
-            content: " ";
-            white-space: normal;
-        }
-
+        margin-left: .3em;
         color: @gray;
         em {
             color: black;
             font-style: normal;
         }
-
-        .move {
-            visibility: hidden;
-            &.available {
-                visibility: visible;
-            }
+    }
+    .move {
+        visibility: hidden;
+        &.available {
+            visibility: visible;
         }
-        .move, &.edit {
-            cursor: pointer;
+        & + .move {
+            margin-left: 0;
         }
+    }
+    .move, .edit {
+        cursor: pointer;
     }
 }
 
