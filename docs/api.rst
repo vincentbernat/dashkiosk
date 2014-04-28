@@ -601,7 +601,7 @@ After this handshake, the display can receive the following messages:
       The OSD should be shown or hidden. If the message comes with a
       text, the OSD is displayed with the provided text. Otherwise, it
       is hidden.
- ``osd``
+ ``viewport``
       Modify the current viewport of the display with the provided value.
 
 Internal bus message
