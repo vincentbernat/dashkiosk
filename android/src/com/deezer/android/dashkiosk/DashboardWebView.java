@@ -29,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
+import org.xwalk.core.XWalkPreferences;
 import org.xwalk.core.XWalkView;
 
 /**
@@ -50,6 +51,8 @@ public class DashboardWebView extends XWalkView {
 
     @Override
     protected void onAttachedToWindow() {
+        XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
+
         /* Provide an interface for readiness */
         this.addJavascriptInterface(new Object() {
                 @JavascriptInterface
