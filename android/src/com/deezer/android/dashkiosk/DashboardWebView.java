@@ -28,18 +28,14 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.webkit.WebSettings;
+import org.xwalk.core.XWalkView;
 
 /**
  * Fullscreen web view that is setup for kiosk mode: no interaction
  * allowed.
  */
-public class DashboardWebView extends WebView {
+public class DashboardWebView extends XWalkView {
 
     private static final String TAG = "DashKiosk";
     private static final int ALIVE = 1;
@@ -52,41 +48,8 @@ public class DashboardWebView extends WebView {
         mContext = context;
     }
 
-    @SuppressWarnings("deprecation")
-    private void enableLocalStorage() {
-        WebSettings ws = this.getSettings();
-        ws.setDatabaseEnabled(true);
-        ws.setDatabasePath(mContext.getApplicationContext().getDir("databases", Context.MODE_PRIVATE).getPath());
-        ws.setDomStorageEnabled(true);
-    }
-
     @Override
     protected void onAttachedToWindow() {
-        WebSettings ws = this.getSettings();
-        ws.setJavaScriptEnabled(true);
-        ws.setMediaPlaybackRequiresUserGesture(false);
-        ws.setLoadWithOverviewMode(false);
-        ws.setUseWideViewPort(true);
-        enableLocalStorage();
-
-        /* No interaction */
-        this.setWebViewClient(new WebViewClient() {
-                @Override
-                public boolean shouldOverrideKeyEvent(WebView view, KeyEvent event) {
-                    return true;
-                }
-            });
-
-        /* Log Javascript stuff */
-        this.setWebChromeClient(new WebChromeClient() {
-                @Override
-                public boolean onConsoleMessage(ConsoleMessage cm) {
-                    Log.d(TAG, "Javascript log (" + cm.sourceId() + ":" +
-                          cm.lineNumber() + "): " + cm.message());
-                    return true;
-                }
-            });
-
         /* Provide an interface for readiness */
         this.addJavascriptInterface(new Object() {
                 @JavascriptInterface
@@ -101,7 +64,7 @@ public class DashboardWebView extends WebView {
             }, "JSInterface");
 
         this.heartbeat();
-        this.load();
+        this.loadReceiver();
     }
 
     // Trigger a reload if we miss an heartbeat
@@ -126,7 +89,7 @@ public class DashboardWebView extends WebView {
                         Log.i(TAG, "No activity from supervised URL. Trigger reload.");
                         image.setVisibility(View.VISIBLE);
                         stopLoading();
-                        load();
+                        loadReceiver();
                         mHandler.sendMessageDelayed(mHandler.obtainMessage(DEADLINE),
                                                     getTimeout());
                         break;
@@ -138,38 +101,20 @@ public class DashboardWebView extends WebView {
                                     getTimeout());
     }
 
-    private void load() {
+    private void loadReceiver() {
         SharedPreferences sharedPref = PreferenceManager
             .getDefaultSharedPreferences(mContext);
         String pingURL = sharedPref.getString("pref_ping_url", null);
         String appVer = getResources().getString(R.string.app_versionName);
         String url = pingURL + "?v=" + appVer;
         Log.d(TAG, "Loading " + url);
-        this.loadUrl(url);
+        this.load(url, null);
     }
 
     private int getTimeout() {
         SharedPreferences sharedPref = PreferenceManager
             .getDefaultSharedPreferences(mContext);
         return Integer.valueOf(sharedPref.getString("pref_ping_timeout", null));
-    }
-
-    // More events disabled
-    @Override
-    public boolean onGenericMotionEvent(MotionEvent event) {
-        return true;
-    }
-    @Override
-    public boolean onHoverEvent(MotionEvent event) {
-        return true;
-    }
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return true;
-    }
-    @Override
-    public boolean onTrackballEvent(MotionEvent event) {
-        return true;
     }
 
 }
