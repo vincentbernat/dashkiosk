@@ -32,9 +32,7 @@ Here is a demonstration video:
 
 .. raw:: html
 
-    <iframe frameborder="0" width="560" height="315"
-        src="http://www.dailymotion.com/embed/video/x1sy4x7"
-        allowfullscreen></iframe>
+    <style>.embed-container { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; max-width: 100%; height: auto; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='http://www.dailymotion.com/embed/video/x1sy4x7' frameborder='0' allowFullScreen></iframe></div>
 
 To contribute, use `GitHub`_.
 
