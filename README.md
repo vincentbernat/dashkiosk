@@ -21,6 +21,12 @@ The full documentation is available on [ReadTheDocs][].
 
 [ReadTheDocs]: http://dashkiosk.readthedocs.org
 
+Here is a demonstration video:
+
+<iframe frameborder="0" width="480" height="270"
+        src="//www.dailymotion.com/embed/video/x1sy4x7"
+        allowfullscreen></iframe>
+
 # Development
 
 To run the server for development:
