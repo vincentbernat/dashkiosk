@@ -23,9 +23,7 @@ The full documentation is available on [ReadTheDocs][].
 
 Here is a demonstration video:
 
-<iframe frameborder="0" width="480" height="270"
-        src="//www.dailymotion.com/embed/video/x1sy4x7"
-        allowfullscreen></iframe>
+[![Dashkiosk demo](http://s2.dmcdn.net/EsM95.jpg)](http://www.dailymotion.com/video/x1sy4x7_dashkiosk-demo_tech)
 
 # Development
 
