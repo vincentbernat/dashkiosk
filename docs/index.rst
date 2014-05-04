@@ -28,6 +28,14 @@ The Android application and the Chromecast receiver are optional
 components. Any device able to display a fullscreen web page should
 work.
 
+Here is a demonstration video:
+
+.. raw:: html
+
+    <iframe frameborder="0" width="560" height="315"
+        src="http://www.dailymotion.com/embed/video/x1sy4x7"
+        allowfullscreen></iframe>
+
 To contribute, use `GitHub`_.
 
 .. _GitHub: https://github.com/vincentbernat/dashkiosk/
