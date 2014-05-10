@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wait"
+    android:background="#323"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" >
+    
+    <TextView
+        android:id="@+id/h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/wait"
+        android:typeface="serif"
+        android:textSize="40dp"
+        android:textAllCaps="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/h1"
+        android:gravity="center"
+        android:text="@string/wait_quote"
+        android:typeface="serif"
+        android:textSize="20dp"/>
+  </RelativeLayout>
+
+  <ProgressBar
+      style="?android:attr/progressBarStyleLarge"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="right|top"
+      android:layout_marginTop="15dp"
+      android:layout_marginRight="15dp" />
+</FrameLayout>

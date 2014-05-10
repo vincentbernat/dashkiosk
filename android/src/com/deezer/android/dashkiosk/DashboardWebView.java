@@ -32,6 +32,8 @@ import org.xwalk.core.JavascriptInterface;
 import org.xwalk.core.XWalkPreferences;
 import org.xwalk.core.XWalkView;
 
+import com.deezer.android.dashkiosk.DashboardWaitscreen;
+
 /**
  * Fullscreen web view that is setup for kiosk mode: no interaction
  * allowed.
@@ -43,6 +45,7 @@ public class DashboardWebView extends XWalkView {
     private static final int DEADLINE = 2;
     private Context mContext;
     private Handler mHandler = null;
+    private DashboardWaitscreen mWaitscreen = null;
 
     public DashboardWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -71,15 +74,29 @@ public class DashboardWebView extends XWalkView {
                 }
             }, "JSInterface");
 
+        this.displayWaitScreen();
         this.heartbeat();
         this.loadReceiver();
     }
 
+    private void displayWaitScreen() {
+        if (mWaitscreen != null) {
+            return;
+        }
+        mWaitscreen = new DashboardWaitscreen(mContext);
+        mWaitscreen.show();
+    }
+
+    private void hideWaitScreen() {
+        if (mWaitscreen == null) {
+            return;
+        }
+        mWaitscreen.dismiss();
+        mWaitscreen = null;
+    }
+
     // Trigger a reload if we miss an heartbeat
     private void heartbeat() {
-        View rootView = ((Activity)mContext).getWindow()
-            .getDecorView().findViewById(android.R.id.content);
-        final View image = rootView.findViewById(R.id.image);
         this.mHandler = new Handler() {
                 @Override
                 public void handleMessage(Message input) {
@@ -87,7 +104,7 @@ public class DashboardWebView extends XWalkView {
                     case ALIVE:
                         // Got a heartbeat, delay deadline
                         Log.d(TAG, "Received heartbeat");
-                        image.setVisibility(View.GONE);
+                        hideWaitScreen();
                         mHandler.removeMessages(DEADLINE);
                         mHandler.sendMessageDelayed(mHandler.obtainMessage(DEADLINE),
                                                     getTimeout());
@@ -95,7 +112,7 @@ public class DashboardWebView extends XWalkView {
                     case DEADLINE:
                         // We hit the deadline, trigger a reload
                         Log.i(TAG, "No activity from supervised URL. Trigger reload.");
-                        image.setVisibility(View.VISIBLE);
+                        displayWaitScreen();
                         stopLoading();
                         loadReceiver();
                         mHandler.sendMessageDelayed(mHandler.obtainMessage(DEADLINE),
