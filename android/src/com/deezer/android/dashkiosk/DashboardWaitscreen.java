@@ -19,10 +19,11 @@ package com.deezer.android.dashkiosk;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 
 public class DashboardWaitscreen extends Dialog {
 
@@ -30,8 +31,11 @@ public class DashboardWaitscreen extends Dialog {
         super(context);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.wait);
-        this.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT,
-                                   ViewGroup.LayoutParams.FILL_PARENT);
+        this.setCancelable(false);
+
+        Window window = this.getWindow();
+        window.setLayout(ViewGroup.LayoutParams.FILL_PARENT,
+                         ViewGroup.LayoutParams.FILL_PARENT);
     }
 
 }
