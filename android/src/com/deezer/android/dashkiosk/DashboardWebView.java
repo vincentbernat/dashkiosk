@@ -64,6 +64,11 @@ public class DashboardWebView extends XWalkView {
                 public int timeout() {
                     return getTimeout();
                 }
+
+                @JavascriptInterface
+                public void log(String message) {
+                    Log.d(TAG, "Javascript log: " + message);
+                }
             }, "JSInterface");
 
         this.heartbeat();

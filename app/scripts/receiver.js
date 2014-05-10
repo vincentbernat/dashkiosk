@@ -7,8 +7,10 @@
 
   var socketio = require('socketio'),
       errors = require('errors'),
-      supervisor = require('supervisor');
+      supervisor = require('supervisor'),
+      console = require('console');
 
+  window.console = console;
   errors.enable();
 
   $(window).on('load', function() {

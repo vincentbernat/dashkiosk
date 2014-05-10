@@ -18,7 +18,7 @@ define('screen', (function($, undefined) {
   function dashboard(d) {
     // Check URL validity
     if (typeof d.url !== 'string') {
-      console.warn('[Dashkiosk] received an URL without target: ', d.url);
+      console.warn('[Dashkiosk] received an URL without target: ' + d.url);
       return;
     }
     // Push it
