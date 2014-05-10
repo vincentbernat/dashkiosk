@@ -18,6 +18,7 @@ package com.deezer.android.dashkiosk;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,11 +32,15 @@ public class DashboardWaitscreen extends Dialog {
         super(context);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.wait);
-        this.setCancelable(false);
 
         Window window = this.getWindow();
-        window.setLayout(ViewGroup.LayoutParams.FILL_PARENT,
-                         ViewGroup.LayoutParams.FILL_PARENT);
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                         ViewGroup.LayoutParams.MATCH_PARENT);
+        window.setBackgroundDrawable(new ColorDrawable(0));
+        window.getDecorView()
+            .setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
 }
