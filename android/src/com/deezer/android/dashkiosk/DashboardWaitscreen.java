@@ -18,20 +18,28 @@ package com.deezer.android.dashkiosk;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class DashboardWaitscreen extends Dialog {
 
+    private Context mContext;
+
     public DashboardWaitscreen(Context context) {
         super(context);
+        mContext = context;
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.wait);
+        this.setCancelable(false);
 
         Window window = this.getWindow();
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -41,6 +49,15 @@ public class DashboardWaitscreen extends Dialog {
             .setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
                 View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    @Override
+    public void onBackPressed() {
+        SharedPreferences sharedPref = PreferenceManager
+            .getDefaultSharedPreferences(mContext);
+        if (!sharedPref.getBoolean("pref_lock_settings", false)) {
+            mContext.startActivity(new Intent(mContext, DashboardPreferences.class));
+        }
     }
 
 }

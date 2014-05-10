@@ -86,8 +86,10 @@ Alternatively, you can just point a browser to the APK and you will
 get proposed to install it. You need to ensure that you allowed the
 installation of APK from unknown sources.
 
-The next step is to run the configuration panel by clicking on the pen
-icon in the action bar.
+The next step is to run the configuration panel. This panel can be
+accessed by using the back button while the loading screen is
+running. It can be accessed later by clicking on the pen icon in the
+action bar.
 
 Configuration
 -------------
