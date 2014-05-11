@@ -62,11 +62,8 @@ angular.module('dashkiosk.controllers')
 
     // Destroy the display
     $scope.delete = function() {
-      realDisplay
-        .$delete()
-        .then(function() {
-          $scope.$hide();
-        });
+      $scope.$hide();
+      realDisplay.$delete();
     };
 
   });
