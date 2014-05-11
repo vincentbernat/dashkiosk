@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import org.xwalk.core.JavascriptInterface;
 import org.xwalk.core.XWalkPreferences;
+import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkView;
 
 import com.deezer.android.dashkiosk.DashboardWaitscreen;
@@ -55,6 +56,17 @@ public class DashboardWebView extends XWalkView {
     @Override
     protected void onAttachedToWindow() {
         XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
+
+        /* Don't show error dialog */
+        this.setResourceClient(new XWalkResourceClient(this) {
+                @Override
+                public void onReceivedLoadError(XWalkView view,
+                                                int errorCode,
+                                                String description,
+                                                String failingUrl) {
+                    Log.d(TAG, "Load Failed for " + failingUrl + ": " + description);
+                }
+            });
 
         /* Provide an interface for readiness */
         this.addJavascriptInterface(new Object() {
