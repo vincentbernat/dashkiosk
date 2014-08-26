@@ -1,6 +1,6 @@
 {
   "name": "dashkiosk",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "private": true,
   "dependencies": {
     "angular": "~1.2.14",
