@@ -41,46 +41,47 @@ angular.module('dashkiosk.directives')
                   _.contains(event.dataTransfer.types, acceptable));
         };
 
-        var first = false, second = false;
+        var makeDroppable = (function() {
+          var droppable = false;
+          return function(on) {
+            droppable = on;
+            setTimeout(function() {
+              if (droppable) {
+                element.addClass('droppable');
+              } else {
+                element.removeClass('droppable');
+              }
+            }, 100);
+          };
+        })();
 
         element
           .on('dragover', function(event) {
             if (!accept(event)) {
               return true;
             }
+            makeDroppable(true);
             if (event.preventDefault) {
               event.preventDefault();
             }
             return false;
           })
           .on('dragenter', function(event) {
-            if (first) {
-              second = true;
+            console.debug('dragenter', element);
+            if (!accept(event)) {
+              event.dataTransfer.effectAllowed = 'none';
+              event.dataTransfer.dropEffect = 'none';
               return true;
-            } else {
-              first = true;
-              if (!accept(event)) {
-                event.dataTransfer.effectAllowed = 'none';
-                event.dataTransfer.dropEffect = 'none';
-                return true;
-              }
-              element.addClass('droppable');
-              event.dataTransfer.effectAllowed = 'move';
-              event.dataTransfer.dropEffect = 'move';
-              return false;
             }
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.dropEffect = 'move';
+            makeDroppable(true);
+            return false;
           })
           .on('dragleave', function() {
-            if (second) {
-              second = false;
-            } else if (first) {
-              first = false;
-            }
-            if (!first && !second) {
-              element.removeClass('droppable');
-              return false;
-            }
-            return true;
+            console.debug('dragleave', element);
+            makeDroppable(false);
+            return false;
           })
           .on('drop', function(event) {
             if (!accept(event)) {
@@ -89,7 +90,7 @@ angular.module('dashkiosk.directives')
             if (event.stopPropagation) {
               event.stopPropagation();
             }
-            element.removeClass('droppable');
+            makeDroppable(false);
             var fn = scope.$eval(attrs.dkDroppable);
             if ('undefined' !== typeof fn) {
               var value = event.dataTransfer.getData(element.attr('data-drag-accept'));
