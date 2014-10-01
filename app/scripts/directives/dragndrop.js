@@ -41,33 +41,20 @@ angular.module('dashkiosk.directives')
                   _.contains(event.dataTransfer.types, acceptable));
         };
 
-        var makeDroppable = (function() {
-          var droppable = false;
-          return function(on) {
-            droppable = on;
-            setTimeout(function() {
-              if (droppable) {
-                element.addClass('droppable');
-              } else {
-                element.removeClass('droppable');
-              }
-            }, 100);
-          };
-        })();
+        var counter = 0;
 
         element
           .on('dragover', function(event) {
             if (!accept(event)) {
               return true;
             }
-            makeDroppable(true);
             if (event.preventDefault) {
               event.preventDefault();
             }
             return false;
           })
           .on('dragenter', function(event) {
-            console.debug('dragenter', element);
+            counter++;
             if (!accept(event)) {
               event.dataTransfer.effectAllowed = 'none';
               event.dataTransfer.dropEffect = 'none';
@@ -75,12 +62,14 @@ angular.module('dashkiosk.directives')
             }
             event.dataTransfer.effectAllowed = 'move';
             event.dataTransfer.dropEffect = 'move';
-            makeDroppable(true);
+            element.addClass('droppable');
             return false;
           })
           .on('dragleave', function() {
-            console.debug('dragleave', element);
-            makeDroppable(false);
+            counter--;
+            if (counter === 0) {
+              element.removeClass('droppable');
+            }
             return false;
           })
           .on('drop', function(event) {
@@ -90,7 +79,8 @@ angular.module('dashkiosk.directives')
             if (event.stopPropagation) {
               event.stopPropagation();
             }
-            makeDroppable(false);
+            counter = 0;
+            element.removeClass('droppable');
             var fn = scope.$eval(attrs.dkDroppable);
             if ('undefined' !== typeof fn) {
               var value = event.dataTransfer.getData(element.attr('data-drag-accept'));
