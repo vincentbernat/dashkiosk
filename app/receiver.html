@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="styles/receiver.css">
   <!-- endbuild -->
   <style>
-   .loading .spinning {
+   .loading .branding {
      background-image: url("images/loading-<%= branding %>.svg");
    }
   </style>
@@ -20,7 +20,7 @@
   <div class="osd text"></div>
   <div class="osd technical"></div>
   <div class="show loading" id="loading">
-    <div class="spinning"></div>
+    <div class="branding branding-<%= branding %>"></div>
   </div>
 
   <!-- build:js scripts/receiver-vendor.js -->
