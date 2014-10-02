@@ -284,7 +284,11 @@ The second limitation can be quite annoying. Here are some workarounds:
 .. [#storage] The serial number is stored either in the local storage
               of the browser or in a cookie. If a display comes
               without this serial number or with an invalid one, it
-              will be granted a new one.
+              will be granted a new one. The appropriate token is also
+              put in the URL in case neither cookies or local storage
+              are available. This way, you can point the browser to
+              the receiver part, then bookmark or turn the web page as
+              an application.
 .. [#f1] If you don't have this group, this may be because no display
          has ever been registered. In this case, point your browser to
          the ``/receiver`` URL to register one.
