@@ -236,7 +236,7 @@ module.exports = function(grunt) {
     },
 
     // Prepare Angular files to be minified
-    ngmin: {
+    ngAnnotate: {
       build: {
         files: [{
           expand: true,
@@ -409,7 +409,7 @@ module.exports = function(grunt) {
       grunt.task.run('less:build', 'csslint:build', 'autoprefixer:build');
       break;
     case 'scripts':
-      grunt.task.run('jshint', 'copy:scripts', 'ngmin:build');
+      grunt.task.run('jshint', 'copy:scripts', 'ngAnnotate:build');
       break;
     case 'images':
       grunt.task.run('copy:images');
