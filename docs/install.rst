@@ -30,7 +30,6 @@ To install it, you need to execute the following step:
   5. Install the appropriate dependencies with the following commands::
 
          $ npm install
-         $ bower install
 
   6. Build the final version of *Dashkiosk* with the following command::
 
@@ -132,7 +131,6 @@ installation. You can choose to do an in-place upgrade if you want
 to::
 
     $ npm install
-    $ bower install
     $ grunt
 
 If you kept the default SQLite database, be sure to save it (it's in

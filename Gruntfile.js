@@ -42,7 +42,6 @@ module.exports = function(grunt) {
       }
     },
 
-
     // Watching changes
     watch: {
       html: {
@@ -107,6 +106,13 @@ module.exports = function(grunt) {
           dot: true,
           src: [ 'build/*' ]
         }]
+      }
+    },
+
+    // Install/update bower files
+    bower: {
+      install: {
+        target: 'app/bower_components'
       }
     },
 
@@ -384,6 +390,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('serve', [
+    'bower:install',
     'build',
     'concurrent:server'
   ]);
@@ -431,6 +438,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('dist', [
     'clean:dist',
+    'bower:install',
     'build',
     'test',
     'useminPrepare',
