@@ -112,7 +112,9 @@ module.exports = function(grunt) {
     // Install/update bower files
     bower: {
       install: {
-        target: 'app/bower_components'
+        options: {
+          copy: false
+        }
       }
     },
 
