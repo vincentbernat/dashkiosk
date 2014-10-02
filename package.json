@@ -28,9 +28,11 @@
     "postal.diagnostics": "~0.7.3",
     "sequelize": "^1.7.0",
     "socket.io": "^0.9.16",
-    "sqlite3": "^2.2.0",
     "winston": "^0.7.2",
     "memwatch": "^0.2.2"
+  },
+  "optionalDependencies": {
+    "sqlite3": "^2.2.0"
   },
   "devDependencies": {
     "blanket": "^1.1.6",
@@ -65,6 +67,7 @@
     "load-grunt-tasks": "~0.4.0",
     "should": "^3.2.0",
     "socket.io-client": "^0.9.16",
+    "sqlite3": "^2.2.0",
     "supertest": "^0.10.0",
     "time-grunt": "^0.3.1"
   },
