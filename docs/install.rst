@@ -71,6 +71,7 @@ are:
  - ``default``
  - ``deezer``
  - ``dailymotion``
+ - ``exoscale``
 
 Database
 --------
