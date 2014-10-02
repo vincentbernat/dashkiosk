@@ -62,8 +62,12 @@ define('localstorage', (function(window, undefined) {
   function HashStorage() {
   }
 
+  HashStorage.prototype._escapeRegExp = function(str) {
+    return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+  };
+
   HashStorage.prototype.getItem = function(key) {
-    var ekey = key.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'),
+    var ekey = this._escapeRegExp(key),
         regex = new RegExp('^' + ekey + '=(.*)$'),
         candidates = window.location.hash.slice(1).split(/[,#]/)
           .map(function(item) {
@@ -80,7 +84,19 @@ define('localstorage', (function(window, undefined) {
     return candidates[0];
   };
 
-  HashStorage.prototype.setItem = function() { };
+  HashStorage.prototype.setItem = function(key, value) {
+    var ekey = this._escapeRegExp(key),
+        regex = new RegExp('^' + ekey + '=(.*)$'),
+        hash = window.location.hash
+          .slice(1)
+          .split(/[,#]/)
+          .filter(function(item) {
+            return !regex.exec(item);
+          })
+          .join('#')
+          .concat([ekey + '=' + value]);
+    window.location.hash = hash;
+  };
 
   var cookies = new CookieStorage('dashkiosk'),
       local = new LocalStorage(),
@@ -91,6 +107,7 @@ define('localstorage', (function(window, undefined) {
       return hash.getItem(key) || local.getItem(key) || cookies.getItem(key);
     },
     setItem: function(key, value) {
+      hash.setItem(key, value);
       local.setItem(key, value);
       cookies.setItem(key, value);
     }
