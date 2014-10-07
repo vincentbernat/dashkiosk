@@ -94,7 +94,7 @@ define('localstorage', (function(window, undefined) {
             return !regex.exec(item);
           })
           .join('#')
-          .concat([ekey + '=' + value]);
+          .concat(['#' + ekey + '=' + value]);
     window.location.hash = hash;
   };
 
