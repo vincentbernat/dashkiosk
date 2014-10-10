@@ -4,7 +4,13 @@ define('localstorage', (function(window, undefined) {
   // Using local storage if available
   function LocalStorage() {
   }
-  if ('localStorage' in window && window.localStorage !== null) {
+  var hasLocalStorage;
+  try {
+    hasLocalStorage = 'localStorage' in window && window.localStorage !== null;
+  } catch (e) {
+    hasLocalStorage = false;
+  }
+  if (hasLocalStorage) {
     LocalStorage.prototype.getItem = function(key) {
       return window.localStorage.getItem(key);
     };
