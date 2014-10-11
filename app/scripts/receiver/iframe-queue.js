@@ -11,7 +11,17 @@ define('iframe-queue', (function(window, $, undefined) {
     this.el = $('<iframe>')
       .appendTo('body')
       .one('load', function() {
-        self.show();
+        if (dashboard.delay) {
+          console.info('[Dashkiosk] iframe ready ' +
+                       self.el.attr('src') +
+                       ', but wait ' +
+                       dashboard.delay + 's');
+          window.setTimeout(function() {
+            self.show();
+          }, dashboard.delay * 1000);
+        } else {
+          self.show();
+        }
       })
       .attr('scrolling', 'no')
       .attr('frameborder', '0');
