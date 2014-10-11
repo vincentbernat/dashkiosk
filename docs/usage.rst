@@ -168,12 +168,26 @@ Currently, a dashboard has:
  - an URL
  - an optional description
  - a timer to tell how much time the dashboard should be displayed
+ - a timer to tell how much time the dashboard should be delayed before displayed once ready
  - a viewport size (see :ref:`viewport`).
 
-The timer is optional but it doesn't make sense to omit it if you have
-several dashboards in a group. Without it, once the dashboard is
-displayed, the next one will never be displayed unless you remove or
-modify the current one.
+The first timer (*timeout*) is optional but it doesn't make sense to
+omit it if you have several dashboards in a group. Without it, once
+the dashboard is displayed, the next one will never be displayed
+unless you remove or modify the current one.
+
+The second timer (*delay*) is useful for dashboards triggering the
+*ready* event while they are not really ready to be displayed. This is
+common for dashboards grabbing stuff with Javascript. There is no easy
+way to tell when the dashboard is really ready to be displayed. A
+workaround is to specify this delay. The receiver will wait for the
+given amount of time before displaying the dashboard.
+
+The time spent loading the dashboard and the additional specified
+delay are reducing the amount of time a dashboard is displayed. If a
+dashboard takes 5 seconds to load and an additional delay of 5 seconds
+is requested, if it is specified to be displayed for 30 seconds, it
+will in fact be displayed only during 20 seconds.
 
 You can also modify the timer and the viewport by clicking on them
 directly in the list of dashboards in each group.
