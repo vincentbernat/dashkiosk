@@ -18,6 +18,15 @@
           onbeforesave="dashboard.$update({timeout: $data || null})"
           e-size="3">{{ dashboard.timeout }}</em>s
     </span>
+    <span class="property delay"
+          bs-tooltip="'Delay'"
+          ng-show="dashboard.delay">
+      <span class="glyphicon glyphicon-time"></span>
+      <em editable-text="dashboard.delay"
+          buttons="no"
+          onbeforesave="dashboard.$update({delay: $data || null})"
+          e-size="3">{{ dashboard.delay }}</em>s
+    </span>
     <span class="property edit"
                  bs-modal
                  data-container="body"
