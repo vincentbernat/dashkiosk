@@ -459,6 +459,10 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
+  grunt.registerTask('heroku', [
+    'dist'
+  ]);
+
   grunt.registerTask('default', [
     'dist'
   ]);
