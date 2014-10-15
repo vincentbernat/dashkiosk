@@ -88,6 +88,15 @@ long option style by prepending them with ``--``. For example::
 
      --port 8087 --environment production
 
+Environment variables
+------------------------
+
+You can also specify options using environment variables. In this
+case, substitute `.` by `__` to get valid values::
+
+    $ export port=8088
+    $ export db__database=dashkiosk4
+
 JSON configuration file
 -----------------------
 
