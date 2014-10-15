@@ -47,6 +47,7 @@ To contribute, use `GitHub`_.
    api
    android
    chromecast
+   cloud
    license
 
 Indices and tables
