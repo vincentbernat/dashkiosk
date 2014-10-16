@@ -69,4 +69,14 @@ db
     process.exit(1);
   });
 
+// Demo: halt after the given number of minutes
+if (config.get('demo')) {
+  var end = ((config.get('demo') * 1) || 60);
+  logger.info('Demo mode enabled, will stop in ' + end + ' minutes');
+  setTimeout(function() {
+    logger.info('End of demo mode, quitting');
+    process.exit(5);
+  }, end * 60 * 1000);
+}
+
 module.exports = app;
