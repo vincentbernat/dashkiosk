@@ -21,6 +21,10 @@ The full documentation is available on [ReadTheDocs][].
 
 [ReadTheDocs]: http://dashkiosk.readthedocs.org
 
+A live installation, reset every hour, is publicly available:
+ - [administration panel](http://dashkiosk.app.exo.io/admin)
+ - [receiver](http://dashkiosk.app.exo.io/receiver)
+
 Here is a demonstration video:
 
 [![Dashkiosk demo](http://s2.dmcdn.net/EsM95.jpg)](http://www.dailymotion.com/video/x1sy4x7_dashkiosk-demo_tech)

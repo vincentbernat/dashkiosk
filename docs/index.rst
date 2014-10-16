@@ -28,6 +28,10 @@ The Android application and the Chromecast receiver are optional
 components. Any device able to display a fullscreen web page should
 work.
 
+A live installation, reset every hour, is publicly available:
+ - `administration panel`_
+ - `receiver`_
+
 Here is a demonstration video:
 
 .. raw:: html
@@ -37,6 +41,8 @@ Here is a demonstration video:
 To contribute, use `GitHub`_.
 
 .. _GitHub: https://github.com/vincentbernat/dashkiosk/
+.. _administration panel: http://dashkiosk.app.exo.io/admin
+.. _receiver: http://dashkiosk.app.exo.io/receiver
 
 .. toctree::
    :maxdepth: 2
