@@ -103,6 +103,8 @@ PaaS and deploy the result::
     $ exoapp dashkiosk4mycompany push
     $ exoapp dashkiosk4mycompany deploy
 
+The result should be visible at http://dashkiosk4mycompany.app.exo.io.
+
 .. _Heroku: https://www.heroku.com/
 .. _exoscale PaaS: https://www.exoscale.ch/add-on/paas/
 .. _exoscale: https://www.exoscale.ch/
