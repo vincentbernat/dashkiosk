@@ -40,6 +40,9 @@ can then build the application with the ``push`` command::
 
     $ exoapp dashkiosk4mycompany push
 
+If you want a custom branding, you have to modify ``Gruntfile.js`` to
+change the default branding at the top of the file.
+
 Configure a database
 ---------------------
 
