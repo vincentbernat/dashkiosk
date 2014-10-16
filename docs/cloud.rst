@@ -71,7 +71,7 @@ environment variables under the right name::
              db__username=aepfx9trwgz \
              db__password=CfWYSgV841jS \
              db__options__dialect=mysql \
-             db__options__hostname=mysql.app.exo.io
+             db__options__host=mysql.app.exo.io
     $ exoapp dashkiosk4mycompany config.add SET_ENV_VARS=true
 
 The last command ensures that the configuration variables are

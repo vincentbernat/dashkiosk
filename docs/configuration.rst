@@ -70,7 +70,7 @@ to not use the integrated SQLite database.
  ``db.options.storage``
      Location of the SQLite database. Not used for other databases.
 
- ``db.options.hostname``
+ ``db.options.host``
      Hostname (or IP) where the database is located. This is not needed for SQLite.
 
  ``log.level``
