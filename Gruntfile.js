@@ -297,7 +297,7 @@ module.exports = function(grunt) {
           var options = {
             data: {
               unassigned: glob.sync('images/unassigned/*', { cwd: 'app' }),
-              branding: grunt.option('branding') || 'default',
+              branding: grunt.option('branding') || process.env.BRANDING || 'default',
               version: require('./package.json').version,
               include: function(rel) {
                 return grunt.template.process(fs.readFileSync('app/' + rel + '.html',
