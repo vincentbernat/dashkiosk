@@ -15,6 +15,7 @@
 /docs/_build/
 
 # Run stuff
-/db/dashkiosk-*.sqlite
+/db/*
+!/db/migrations/*
 /config.json
 /coverage.html
