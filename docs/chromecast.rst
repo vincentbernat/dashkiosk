@@ -17,7 +17,7 @@ correctly on your setup.
 For Linux, use the following command to check that you can see The
 Chromecast devices::
 
-    $ avahi-browse avahi-browse _googlecast._tcp
+    $ avahi-browse _googlecast._tcp
     + eth0.20 IPv4 Chromecast Here              _googlecast._tcp     local
     + eth0.20 IPv4 Chromecast Demo              _googlecast._tcp     local
 
