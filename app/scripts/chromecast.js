@@ -74,8 +74,9 @@
     this.castReceiverManager.setApplicationState('Receiver: ' + this.url);
 
     var shortened = this.url;
-    if (shortened.indexOf('#'))
+    if (shortened.indexOf('#')) {
       shortened = shortened.slice(0, shortened.indexOf('#'));
+    }
     status.textContent = 'Connecting to ' + shortened;
   };
 
