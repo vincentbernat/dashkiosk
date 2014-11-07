@@ -50,7 +50,8 @@
   };
 
   var iframe = window.document.getElementById('dashboard'),
-      loading = window.document.getElementById('loading');
+      loading = window.document.getElementById('loading'),
+      status = window.document.getElementById('status');
 
   // Load a new page
   Supervisor.prototype.load = function(url) {
@@ -71,6 +72,7 @@
       '#timeout=' + this.timeout;
 
     this.castReceiverManager.setApplicationState('Receiver: ' + this.url);
+    status.textContent = 'Connecting to ' + this.url;
   };
 
   // Deadline for heartbeat hit

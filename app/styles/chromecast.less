@@ -22,6 +22,29 @@ body {
         display: block;
     }
 }
+.status {
+    position: absolute;
+    left: 100px;
+    bottom: 100px;
+    color: #9b59b6;
+    font-family: monospace;
+    &:after {
+        content: "█";
+        margin-left: 0.5em;
+        font-size: 1.2em;
+        animation-duration: 1s;
+        animation-name: blink;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+    }
+    @keyframes blink {
+        from { opacity: 0; }
+        10% { opacity: 0; }
+        50% { opacity: 1; }
+        to { opacity: 1; }
+    }
+
+}
 
 .dashboard {
     z-index: 10;
