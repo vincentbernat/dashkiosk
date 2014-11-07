@@ -72,7 +72,11 @@
       '#timeout=' + this.timeout;
 
     this.castReceiverManager.setApplicationState('Receiver: ' + this.url);
-    status.textContent = 'Connecting to ' + this.url;
+
+    var shortened = this.url;
+    if (shortened.indexOf('#'))
+      shortened = shortened.slice(0, shortened.indexOf('#'));
+    status.textContent = 'Connecting to ' + shortened;
   };
 
   // Deadline for heartbeat hit
