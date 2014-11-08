@@ -54,7 +54,7 @@ describe('Dashboard', function() {
           return group.addDashboard('http://www.example.com',
                                     { description: 'Fake example',
                                       timeout: 43,
-                                      availability: 'every 1 second of december' })
+                                      availability: 'of december' })
             .then(function(dashboard) {
               dashboard.isAvailable(new Date('2014-11-08T16:39:47')).should.be.false;
               dashboard.isAvailable(new Date('2015-11-08T16:39:47')).should.be.false;
@@ -73,7 +73,7 @@ describe('Dashboard', function() {
           return group.addDashboard('http://www.example.com',
                                     { description: 'Fake example',
                                       timeout: 43,
-                                      availability: 'every 1 second of december\nevery 1 second in 2015' })
+                                      availability: 'every 1 day of december\nin 2015' })
             .then(function(dashboard) {
               dashboard.isAvailable(new Date('2014-11-08T16:39:47')).should.be.false;
               dashboard.isAvailable(new Date('2015-11-08T16:39:47')).should.be.true;
