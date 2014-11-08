@@ -203,6 +203,8 @@ are some examples:
    Saturday nor on Sunday.
  - ``after 9:00 am and before 6:00 pm except on saturday and sunday``
    will only display the dashboard during work hours.
+ - ``after 9:00 am and before 6:00 pm on monday through friday``
+   achieves the exact same effect.
 
 If one rule matches, the dashboard will be displayed. You need to
 ensure that there is at least one dashboard in each group that can be
