@@ -16,6 +16,6 @@
 
 # Run stuff
 /db/*
-!/db/migrations/*
+!/db/migrations
 /config.json
 /coverage.html
