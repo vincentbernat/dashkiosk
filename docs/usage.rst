@@ -170,6 +170,7 @@ Currently, a dashboard has:
  - a timer to tell how much time the dashboard should be displayed
  - a timer to tell how much time the dashboard should be delayed before displayed once ready
  - a viewport size (see :ref:`viewport`).
+ - some availability rules
 
 The first timer (*timeout*) is optional but it doesn't make sense to
 omit it if you have several dashboards in a group. Without it, once
@@ -191,6 +192,30 @@ will in fact be displayed only during 20 seconds.
 
 You can also modify the timer and the viewport by clicking on them
 directly in the list of dashboards in each group.
+
+It is possible to make some dashboards selected only when some time
+criteria are matched. The rules can be written in plain English. Here
+are some examples:
+
+ - ``after 9:00 am and before 6:00 pm`` will only display the
+   dashboard during the day
+ - ``except on saturday and sunday`` will not display the dashboard on
+   Saturday nor on Sunday.
+ - ``after 9:00 am and before 6:00 pm except on saturday and sunday``
+   will only display the dashboard during work hours.
+
+If one rule matches, the dashboard will be displayed. You need to
+ensure that there is at least one dashboard in each group that can be
+displayed at anytime. For the complete grammar, have a look at the
+`documentation of Later.js`_. Each rule is prefixed by ``every 1
+second``.
+
+The availability of a dashboard is only assessed when moving from one
+dashboard to another. If a dashboard becomes unavailable while the
+timeout is not elapsed, no change will happen.
+
+.. _documentation of Later.js: http://bunkat.github.io/later/parsers.html#text
+
 
 About the dashboards
 --------------------
