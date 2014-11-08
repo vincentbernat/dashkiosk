@@ -42,6 +42,15 @@
                    placeholder="Viewport size (height × width)" name="viewport"
                    ng-model="dashboard.viewport">
           </div>
+          <div class="input-group">
+            <span class="input-group-addon"><span title="Time availability" class="glyphicon glyphicon-calendar"></span></span>
+            <textarea class="form-control pull-left"
+                      autocapitalize="off" autocorrect="off"
+                      placeholder="Restrict availability of this dashboard to the specified time ranges"
+                      name="availability" rows="4" style="resize: vertical"
+                      ng-model="dashboard.availability">
+            </textarea>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger pull-left"
