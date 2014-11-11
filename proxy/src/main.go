@@ -1,12 +1,12 @@
 package main
 
 import (
+	"flag"
 	"github.com/elazarl/goproxy"
 	"log"
-	"flag"
-	"strings"
 	"net/http"
 	"path/filepath"
+	"strings"
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 
 	proxy := goproxy.NewProxyHttpServer()
 	proxy.Verbose = *verbose
-	proxy.OnRequest().DoFunc(func (req *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
+	proxy.OnRequest().DoFunc(func(req *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
 		host := strings.SplitN(req.URL.Host, ":", 2)[0]
 		for _, domain := range strings.Split(*https, ",") {
 			m, _ := filepath.Match(domain, host)
