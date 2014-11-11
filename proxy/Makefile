@@ -29,7 +29,7 @@ $(DEPS):
 
 # Cleanup
 clean:
-	rm -rf $(GOPATH)
+	rm -rf $(PWD)/build
 
 # Wrapper around go commands
 fmt:
