@@ -1,4 +1,5 @@
-GOPATH=$(PWD)/build
+VERSION=$(shell node -pe 'JSON.parse(process.argv[1]).version' "$$(cat ../package.json)")
+GOPATH=$(PWD)/build:$(PWD)
 export GOPATH
 
 # Verbosity
@@ -15,12 +16,12 @@ v_gocmd_1 = go
 
 # Compute list of dependencies. We assume that built-in dependencies
 # are those without a dot before the first `/'.
-DEPS=$(shell go list -f '{{join .Deps "\n"}}' ./src/... | grep '^[a-z]*\.')
+DEPS=$(shell go list -f '{{join .Deps "\n"}}' ./src/... | grep '^[a-z]*\.' | sort | uniq)
 
 # Build proxy
 all: $(PWD)/build/proxy
 $(PWD)/build/proxy: deps fmt vet
-	$(V_gobuild) -o $@ ./src
+	$(V_gobuild) -ldflags "-X main.version $(VERSION)" -o $@ ./src
 
 # Grab dependencies
 deps: $(DEPS)
