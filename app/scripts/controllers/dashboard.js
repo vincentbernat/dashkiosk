@@ -3,7 +3,7 @@ angular.module('dashkiosk.controllers')
     'use strict';
 
   })
-  .controller('EditDashboardCtrl', function($scope) {
+  .controller('EditDashboardCtrl', function($scope, $filter, $window) {
     'use strict';
 
     var realDashboard = $scope.$parent.dashboard,
@@ -37,7 +37,7 @@ angular.module('dashkiosk.controllers')
 
     // Turn the rules into a list of schedules
     function schedules() {
-      var later = window.later;
+      var later = $window.later;
       later.date.localTime();
       var lines  = (copyDashboard.availability || '').match(/[^\r\n]+/g),
           scheds = _.map(lines, function(line) {
@@ -64,16 +64,26 @@ angular.module('dashkiosk.controllers')
     };
 
     // Tell when it will be next available (give a range)
-    $scope.nextAvailable = function() {
-      console.log('nextAvailable');
+    $scope.nextAvailable = function(available) {
       var scheds = schedules(),
-          ranges = _.map(scheds, function(s) { return s.nextRange(); });
+          ranges = _.map(scheds, function(s) { return s.nextRange(); }),
+          fmt = 'EEEE, MMMM d, y \'at\' HH:mm';
       if (ranges.length === 0) {
         return null;
       }
-      return ranges.sort(function(a, b) {
+      var range = ranges.sort(function(a, b) {
         return b[0] - a[0];
       })[0];
+      if (available) {
+        /* We are interested in the next availability */
+        var from = $filter('date')(range[0], fmt);
+        if (range[1]) {
+          return from + ' until ' + $filter('date')(range[1], fmt);
+        }
+        return from;
+      }
+      /* Next unavailability */
+      return $filter('date')(range[1], fmt);
     };
 
     // Destroy the dashboard.

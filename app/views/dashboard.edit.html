@@ -56,15 +56,14 @@
             <span ng-switch="isAvailable()">
               <span ng-switch-when="true">
                 Currently, it is available for display.
-                <span ng-if="nextAvailable()[1]">
-                  It will become unavailable from {{
-                  nextAvailable()[1] | date:"EEEE, MMMM d, y 'at' hh:mm" }}.
+                <span ng-if="nextAvailable(false)">
+                  It will become unavailable from {{ nextAvailable(false) }}.
                 </span>
               </span>
               <span ng-switch-default>
                 Currently, it is not available for display.
-                <span ng-if="nextAvailable()[0]">
-                  It will be displayed from {{ nextAvailable()[0] | date:"EEEE, MMMM d, y 'at' hh:mm" }}.
+                <span ng-if="nextAvailable(true)">
+                  It will be displayed from {{ nextAvailable(true) }}.
                 </span>
               </span>
             </span>
