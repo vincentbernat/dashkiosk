@@ -53,6 +53,21 @@
           </div>
           <p class="help-block">
             The dashboard will be displayed only when availability rules allow it.
+            <span ng-switch="isAvailable()">
+              <span ng-switch-when="true">
+                Currently, it is available for display.
+                <span ng-if="nextAvailable()[1]">
+                  It will become unavailable from {{
+                  nextAvailable()[1] | date:"EEEE, MMMM d, y 'at' hh:mm" }}.
+                </span>
+              </span>
+              <span ng-switch-default>
+                Currently, it is not available for display.
+                <span ng-if="nextAvailable()[0]">
+                  It will be displayed from {{ nextAvailable()[0] | date:"EEEE, MMMM d, y 'at' hh:mm" }}.
+                </span>
+              </span>
+            </span>
           </p>
         </div>
         <div class="modal-footer">

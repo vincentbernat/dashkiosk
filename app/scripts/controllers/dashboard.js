@@ -35,6 +35,47 @@ angular.module('dashkiosk.controllers')
       }
     };
 
+    // Turn the rules into a list of schedules
+    function schedules() {
+      var later = window.later;
+      later.date.localTime();
+      var lines  = (copyDashboard.availability || '').match(/[^\r\n]+/g),
+          scheds = _.map(lines, function(line) {
+            var sched = later.parse.text('every 1 second ' + line);
+            if (sched.error !== -1) {
+              return false;
+            }
+            return later.schedule(sched);
+          });
+
+      return _.without(scheds || [], false);
+    }
+
+    // Tell if a dashboard is available
+    $scope.isAvailable = function() {
+      var now = new Date(),
+          scheds = schedules();
+      if (scheds.length === 0) {
+        return true;
+      }
+      return _.reduce(scheds, function(current, sched) {
+        return current || sched.isValid(now);
+      }, false);
+    };
+
+    // Tell when it will be next available (give a range)
+    $scope.nextAvailable = function() {
+      console.log('nextAvailable');
+      var scheds = schedules(),
+          ranges = _.map(scheds, function(s) { return s.nextRange(); });
+      if (ranges.length === 0) {
+        return null;
+      }
+      return ranges.sort(function(a, b) {
+        return b[0] - a[0];
+      })[0];
+    };
+
     // Destroy the dashboard.
     $scope.delete = function() {
       realDashboard.$delete();
