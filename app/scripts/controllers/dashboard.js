@@ -72,7 +72,7 @@ angular.module('dashkiosk.controllers')
         return null;
       }
       var range = ranges.sort(function(a, b) {
-        return b[0] - a[0];
+        return a[0] - b[0];
       })[0];
       if (available) {
         /* We are interested in the next availability */
