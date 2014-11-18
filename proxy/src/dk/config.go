@@ -8,6 +8,7 @@ type Config struct {
 	Proxy struct {
 		Listen string
 		Debug  bool
+		Syslog bool
 	}
 	Url map[string]*struct {
 		To_Https bool

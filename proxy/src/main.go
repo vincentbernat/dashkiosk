@@ -4,7 +4,9 @@ import "dk"
 import (
 	"code.google.com/p/gcfg"
 	log "github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus/hooks/syslog"
 	"gopkg.in/alecthomas/kingpin.v1"
+	"log/syslog"
 	"os"
 )
 
@@ -44,8 +46,19 @@ func main() {
 		log.WithField("error", err).
 			Fatal("main: incorrect or incomplete configuration")
 	}
+
+	/* Logging */
 	if *debug {
 		cfg.Proxy.Debug = true
+	}
+	if cfg.Proxy.Syslog {
+		log.Debug("main: output logs to syslog as well")
+		syslogOutput, err := logrus_syslog.NewSyslogHook("", "",
+			syslog.LOG_INFO|syslog.LOG_DAEMON, "")
+		if err != nil {
+			log.Fatal("main: unable to setup syslog output")
+		}
+		log.AddHook(syslogOutput)
 	}
 
 	/* Start proxy */
