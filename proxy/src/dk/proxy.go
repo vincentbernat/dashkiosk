@@ -1,15 +1,16 @@
 package dk
 
 import (
-	log "github.com/Sirupsen/logrus"
 	"github.com/elazarl/goproxy"
+	"github.com/op/go-logging"
 	"net/http"
 )
+
+var log = logging.MustGetLogger("dk-proxy")
 
 func Proxy(cfg Config) error {
 	proxy := goproxy.NewProxyHttpServer()
 	proxy.Verbose = cfg.Proxy.Debug
-	log.WithField("listen", cfg.Proxy.Listen).
-		Info("proxy: start serving requests")
+	log.Info("start serving requests on %s", cfg.Proxy.Listen)
 	return http.ListenAndServe(cfg.Proxy.Listen, proxy)
 }

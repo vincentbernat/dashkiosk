@@ -3,19 +3,57 @@ package main
 import "dk"
 import (
 	"code.google.com/p/gcfg"
-	log "github.com/Sirupsen/logrus"
-	"github.com/Sirupsen/logrus/hooks/syslog"
+	"github.com/op/go-logging"
 	"gopkg.in/alecthomas/kingpin.v1"
 	"log/syslog"
 	"os"
 )
 
 var version string
+var log = logging.MustGetLogger("dk-proxy")
+
+func setupLogging(debug bool, toSyslog bool) {
+	/* Logging to stderr */
+	format := logging.MustStringFormatter(
+		"[%{color:bold}%{level:.4s}%{color:reset}] %{time:2006-01-02T15:04:05Z-07:00} %{shortpkg}/%{shortfunc}: %{message}")
+	stderr := logging.NewLogBackend(os.Stderr, "", 0)
+	stderrFormatted := logging.NewBackendFormatter(stderr, format)
+	stderrLeveled := logging.AddModuleLevel(stderrFormatted)
+	stderrLeveled.SetLevel(logging.INFO, "")
+	if debug {
+		stderrLeveled.SetLevel(logging.DEBUG, "")
+	}
+	if toSyslog {
+		sb, err := logging.NewSyslogBackendPriority(
+			"dk-proxy", syslog.LOG_INFO|syslog.LOG_DAEMON)
+		if err == nil {
+			logging.SetBackend(stderrLeveled, sb)
+			return
+		}
+	}
+	logging.SetBackend(stderrLeveled)
+}
+
+func parseConfigurationFile(configfile string) (*dk.Config, error) {
+	var cfg dk.Config
+	var err error
+	log.Debug("parsing configuration file `%s'", configfile)
+	err = gcfg.ReadFileInto(&cfg, configfile)
+	if err != nil {
+		log.Critical("unable to parse configuration")
+		return nil, err
+	}
+	err = cfg.Validate()
+	if err != nil {
+		log.Critical("incorrect or incomplete configuration: %s", err)
+		return nil, err
+	}
+	return &cfg, nil
+}
 
 func main() {
 	/* Setup initial logging */
-	log.SetOutput(os.Stderr)
-	log.SetLevel(log.WarnLevel)
+	setupLogging(true, false)
 
 	/* Parse command line arguments */
 	debug := kingpin.
@@ -27,44 +65,22 @@ func main() {
 		ExistingFile()
 	kingpin.Version(version)
 	kingpin.Parse()
-	if *debug {
-		log.SetLevel(log.DebugLevel)
-	}
 
 	/* Parse and validate configuration file */
-	var cfg dk.Config
-	var err error
-	log.WithField("file", *configfile).
-		Debug("main: parsing configuration file")
-	err = gcfg.ReadFileInto(&cfg, *configfile)
+	cfg, err := parseConfigurationFile(*configfile)
 	if err != nil {
-		log.WithField("error", err).
-			Fatal("main: unable to parse configuration")
-	}
-	err = cfg.Validate()
-	if err != nil {
-		log.WithField("error", err).
-			Fatal("main: incorrect or incomplete configuration")
+		os.Exit(1)
 	}
 
 	/* Logging */
 	if *debug {
 		cfg.Proxy.Debug = true
 	}
-	if cfg.Proxy.Syslog {
-		log.Debug("main: output logs to syslog as well")
-		syslogOutput, err := logrus_syslog.NewSyslogHook("", "",
-			syslog.LOG_INFO|syslog.LOG_DAEMON, "")
-		if err != nil {
-			log.Fatal("main: unable to setup syslog output")
-		}
-		log.AddHook(syslogOutput)
-	}
+	setupLogging(cfg.Proxy.Debug, cfg.Proxy.Syslog)
 
 	/* Start proxy */
-	err = dk.Proxy(cfg)
+	err = dk.Proxy(*cfg)
 	if err != nil {
-		log.WithField("error", err).
-			Fatal("main: proxy stopped")
+		log.Fatal("proxy stopped")
 	}
 }
