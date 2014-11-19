@@ -1,5 +1,9 @@
 package dk
 
+import (
+	"code.google.com/p/gcfg"
+)
+
 type Config struct {
 	Proxy struct {
 		Listen string
@@ -9,6 +13,24 @@ type Config struct {
 	Url map[string]*struct {
 		To_Https bool
 	}
+}
+
+// Parse a configuration file
+func ParseConfigurationFile(configfile string) (*Config, error) {
+	var cfg Config
+	var err error
+	log.Debug("parsing configuration file `%s'", configfile)
+	err = gcfg.ReadFileInto(&cfg, configfile)
+	if err != nil {
+		log.Critical("unable to parse configuration")
+		return nil, err
+	}
+	err = cfg.Validate()
+	if err != nil {
+		log.Critical("incorrect or incomplete configuration: %s", err)
+		return nil, err
+	}
+	return &cfg, nil
 }
 
 // Validate (and complete with default values) a parsed configuration.

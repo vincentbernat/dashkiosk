@@ -2,7 +2,6 @@ package main
 
 import "dk"
 import (
-	"code.google.com/p/gcfg"
 	"github.com/op/go-logging"
 	"gopkg.in/alecthomas/kingpin.v1"
 	"log/syslog"
@@ -34,23 +33,6 @@ func setupLogging(debug bool, toSyslog bool) {
 	logging.SetBackend(stderrLeveled)
 }
 
-func parseConfigurationFile(configfile string) (*dk.Config, error) {
-	var cfg dk.Config
-	var err error
-	log.Debug("parsing configuration file `%s'", configfile)
-	err = gcfg.ReadFileInto(&cfg, configfile)
-	if err != nil {
-		log.Critical("unable to parse configuration")
-		return nil, err
-	}
-	err = cfg.Validate()
-	if err != nil {
-		log.Critical("incorrect or incomplete configuration: %s", err)
-		return nil, err
-	}
-	return &cfg, nil
-}
-
 func main() {
 	/* Setup initial logging */
 	setupLogging(true, false)
@@ -67,7 +49,7 @@ func main() {
 	kingpin.Parse()
 
 	/* Parse and validate configuration file */
-	cfg, err := parseConfigurationFile(*configfile)
+	cfg, err := dk.ParseConfigurationFile(*configfile)
 	if err != nil {
 		os.Exit(1)
 	}
