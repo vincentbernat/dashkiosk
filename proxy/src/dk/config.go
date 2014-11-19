@@ -34,7 +34,7 @@ func ParseConfigurationFile(configfile string) (*Config, error) {
 }
 
 // Validate (and complete with default values) a parsed configuration.
-func (m Config) Validate() error {
+func (m *Config) Validate() error {
 	if m.Proxy.Listen == "" {
 		m.Proxy.Listen = "127.0.0.1:3128"
 	}
