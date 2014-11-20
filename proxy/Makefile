@@ -45,6 +45,6 @@ doc:
 	$(V_gocmd)doc -http=:8000 -index
 check:
 	$(V_gotest) ./src/dk/...
-
+	@rm -f src/dk/dk.test
 
 .PHONY: all deps clean fmt vet doc check
