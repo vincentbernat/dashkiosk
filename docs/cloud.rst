@@ -50,9 +50,9 @@ By default, *Dashkiosk* will use an SQLite database. However, with a
 PaaS, this means that the database will be lost at each deployment. It
 is therefore more convenient to use a MySQL database::
 
-    $ exoapp dashkiosk4mycompany addon.add mysqls.free
-    $ exoapp dashkiosk4mycompany addon mysqls.free
-    Addon                    : mysqls.free
+    $ exoapp dashkiosk4mycompany addon.add mysqls.tiny
+    $ exoapp dashkiosk4mycompany addon mysqls.tiny
+    Addon                    : mysqls.tiny
     
      Settings
        MYSQLS_DATABASE          : aepfx9trwgz
