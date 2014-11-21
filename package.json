@@ -33,7 +33,7 @@
   },
   "optionalDependencies": {
     "memwatch": "^0.2.2",
-    "nodecastor": "^0.1.2",
+    "nodecastor": "^0.1.6",
     "sqlite3": "^2.2.0",
     "mysql": "^2.5.2",
     "pg": "^3.6.0"
