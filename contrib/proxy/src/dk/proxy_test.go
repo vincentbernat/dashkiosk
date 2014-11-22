@@ -92,3 +92,26 @@ func (s *ProxySuite) TestAllowFraming(c *C) {
 	c.Assert(err, IsNil)
 	c.Assert(resp.Header.Get("X-Frame-Options"), Equals, "")
 }
+
+func (s *ProxySuite) TestXForwardedFor(c *C) {
+	m := http.NewServeMux()
+	m.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "hello!")
+	})
+	s.Server = httptest.NewServer(m)
+
+	// Default
+	resp, _, err := s.get("/hello")
+	c.Assert(err, IsNil)
+	c.Assert(resp.Header.Get("X-Forwarded-For"), Equals, "127.0.0.1")
+
+	// Not stripped
+	resp, _, err = s.get("/no-x-forwarded-for")
+	c.Assert(err, IsNil)
+	c.Assert(resp.Header.Get("X-Forwarded-For"), Equals, "")
+
+	// Stripped
+	resp, _, err = s.get("/x-forwarded-for")
+	c.Assert(err, IsNil)
+	c.Assert(resp.Header.Get("X-Forwarded-For"), Equals, "127.0.0.1")
+}
