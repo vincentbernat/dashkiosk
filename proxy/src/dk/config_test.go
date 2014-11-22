@@ -6,14 +6,14 @@ import (
 )
 
 // Hookup with go check
-func Test(t *testing.T) { TestingT(t) }
+func TestConfig(t *testing.T) { TestingT(t) }
 
-type S struct{}
+type ConfigSuite struct{}
 
-var _ = Suite(&S{})
+var _ = Suite(&ConfigSuite{})
 
 // Test a simple configuration file
-func (s *S) TestConfigSimple(c *C) {
+func (s *ConfigSuite) TestConfigSimple(c *C) {
 	cfg, err := ParseConfigurationFile("testdata/simple.ini")
 	c.Assert(err, IsNil)
 	c.Assert(cfg.Proxy.Debug, Equals, true)
@@ -22,7 +22,7 @@ func (s *S) TestConfigSimple(c *C) {
 }
 
 // Test an empty configuration file
-func (s *S) TestConfigEmpty(c *C) {
+func (s *ConfigSuite) TestConfigEmpty(c *C) {
 	cfg, err := ParseConfigurationFile("testdata/empty.ini")
 	c.Assert(err, IsNil)
 	c.Assert(cfg.Proxy.Debug, Equals, false)
@@ -31,33 +31,33 @@ func (s *S) TestConfigEmpty(c *C) {
 }
 
 // Test a configuration file with unknown directives
-func (s *S) TestConfigUnknown(c *C) {
+func (s *ConfigSuite) TestConfigUnknown(c *C) {
 	cfg, err := ParseConfigurationFile("testdata/errors.ini")
 	c.Assert(err, NotNil)
 	c.Assert(cfg, IsNil)
 }
 
 // Test a configuration files with several URL
-func (s *S) TestConfigMultipleURL(c *C) {
+func (s *ConfigSuite) TestConfigMultipleURL(c *C) {
 	cfg, err := ParseConfigurationFile("testdata/urls.ini")
 	c.Assert(err, IsNil)
 	c.Assert(len(cfg.Url), Equals, 3)
-	c.Assert(*cfg.Url["http://www.*"].Allow_Framing, Equals, false)
-	c.Assert(cfg.Url["http://www.example.org*"].Allow_Framing, IsNil)
-	c.Assert(*cfg.Url["http://www.example.com*"].Allow_Framing, Equals, true)
+	c.Assert(cfg.Url["http://*/nothing/*"].Allow_Framing, IsNil)
+	c.Assert(*cfg.Url["http://*/*allow-framing"].Allow_Framing, Equals, true)
+	c.Assert(*cfg.Url["http://*/no-allow-framing"].Allow_Framing, Equals, false)
 }
 
 // Test merge of URL configuration
-func (s *S) TestConfigUrlMatching(c *C) {
+func (s *ConfigSuite) TestConfigUrlMatching(c *C) {
 	cfg, err := ParseConfigurationFile("testdata/urls.ini")
 	c.Assert(err, IsNil)
-	c.Assert(*cfg.UrlConfiguration("http://www.example.com").Allow_Framing,
+	c.Assert(*cfg.UrlConfiguration("http://www.example.com/allow-framing").Allow_Framing,
 		Equals, true)
-	c.Assert(*cfg.UrlConfiguration("http://www.example.org").Allow_Framing,
+	c.Assert(*cfg.UrlConfiguration("http://www.example.com/no-allow-framing").Allow_Framing,
 		Equals, false)
-	c.Assert(*cfg.UrlConfiguration("http://www.example.net").Allow_Framing,
+	c.Assert(*cfg.UrlConfiguration("http://www.example.net/nothing/no-allow-framing").Allow_Framing,
 		Equals, false)
 	// Default value
-	c.Assert(*cfg.UrlConfiguration("http://example.net").Allow_Framing,
+	c.Assert(*cfg.UrlConfiguration("http://www.example.com/nothing/").Allow_Framing,
 		Equals, true)
 }

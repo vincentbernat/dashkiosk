@@ -61,7 +61,7 @@ func main() {
 	setupLogging(cfg.Proxy.Debug, cfg.Proxy.Syslog)
 
 	/* Start proxy */
-	err = dk.Proxy(*cfg)
+	err = dk.RunProxy(*cfg)
 	if err != nil {
 		log.Fatal("proxy stopped")
 	}
