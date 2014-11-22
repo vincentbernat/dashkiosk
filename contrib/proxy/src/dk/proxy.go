@@ -32,14 +32,14 @@ func NewProxy(cfg Config) (*goproxy.ProxyHttpServer, error) {
 	})
 
 	// Add X-Forwarded-For header
-	proxy.OnResponse().
-		DoFunc(func(resp *http.Response, ctx *goproxy.ProxyCtx) *http.Response {
+	proxy.OnRequest().
+		DoFunc(func(req *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
 		x := ctx.UserData.(*UrlConfig).Append_XForwardedFor
 		if x != nil && *x {
 			src := strings.Split(ctx.Req.RemoteAddr, ":")[0]
-			resp.Header.Set("X-Forwarded-For", src)
+			req.Header.Set("X-Forwarded-For", src)
 		}
-		return resp
+		return req, nil
 	})
 
 	return proxy, nil
