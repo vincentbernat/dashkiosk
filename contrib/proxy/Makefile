@@ -1,4 +1,4 @@
-VERSION=$(shell node -pe 'JSON.parse(process.argv[1]).version' "$$(cat ../package.json)")
+VERSION=$(shell node -pe 'JSON.parse(process.argv[1]).version' "$$(cat ../../package.json)")
 GOPATH=$(PWD)/build~:$(PWD)
 export GOPATH
 
