@@ -1,6 +1,7 @@
 package dk
 
 import (
+	"crypto/tls"
 	"fmt"
 	"github.com/elazarl/goproxy"
 	"net/http"
@@ -10,6 +11,14 @@ import (
 
 func NewProxy(cfg Config) (*goproxy.ProxyHttpServer, error) {
 	proxy := goproxy.NewProxyHttpServer()
+
+	// Use two transports, one secure (certificate checks are
+	// done) and one insecure.
+	secureTransport := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: false}}
+	insecureTransport := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}
+
 	log.Info("start serving requests on %s", cfg.Proxy.Listen)
 
 	// Register configuration inside context
@@ -93,6 +102,26 @@ func NewProxy(cfg Config) (*goproxy.ProxyHttpServer, error) {
 		}
 
 		return resp
+	})
+
+	// For HTTPS, do certificate checks
+	proxy.OnRequest().
+		DoFunc(func(req *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
+		if req.URL.Scheme != "https" {
+			return req, nil
+		}
+		verify := ctx.UserData.(*UrlConfig).Https_Verify_Cert
+		ctx.RoundTripper = goproxy.RoundTripperFunc(func(req *http.Request, ctx *goproxy.ProxyCtx) (*http.Response, error) {
+			if verify != nil && *verify {
+				log.Debug("proxy: selecting secure transport for %v", req.URL)
+				return secureTransport.RoundTrip(req)
+			} else {
+				log.Debug("proxy: selecting insecure transport for %v", req.URL)
+				return insecureTransport.RoundTrip(req)
+			}
+		})
+
+		return req, nil
 	})
 
 	// Log requests

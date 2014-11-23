@@ -155,12 +155,32 @@ func (s *ProxySuite) TestHttps(c *C) {
 	c.Assert(string(body), Equals, "No SSL")
 
 	// SSL
-	_, body, err = s.get("/https")
+	_, body, err = s.get("/no-https-verify-cert/https")
 	c.Assert(err, IsNil)
 	c.Assert(string(body), Equals, "SSL")
 
 	// SSL with redirect to SSL
-	resp, _, err := s.get("/redirect/https")
+	resp, _, err := s.get("/redirect/no-https-verify-cert/https")
 	c.Assert(err, IsNil)
 	c.Assert(resp.Header.Get("Location"), Equals, s.Server.URL+"/https")
+}
+
+func (s *ProxySuite) TestHttpsVerifyCert(c *C) {
+	// Creating a whole certificate chain just of that is
+	// troublesome. Let's just check that we get an error when
+	// going through HTTPS.
+	m := http.NewServeMux()
+	m.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "SSL")
+	})
+	s.ServerTLS = httptest.NewTLSServer(m)
+
+	resp, body, err := s.get("/no-https-verify-cert/https")
+	c.Assert(err, IsNil)
+	c.Assert(resp.StatusCode, Equals, 200)
+	c.Assert(string(body), Equals, "SSL")
+
+	resp, _, err = s.get("/https-verify-cert/https")
+	c.Assert(err, IsNil)
+	c.Assert(resp.StatusCode, Equals, 500)
 }

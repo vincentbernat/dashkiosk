@@ -13,8 +13,11 @@ import (
 type UrlConfig struct {
 	Allow_Framing        *bool
 	Append_XForwardedFor *bool
-	Https                *bool
-	Nothing              bool // Temporary
+	// HTTPS-related stuff
+	Https             *bool
+	Https_Verify_Cert *bool
+	// Just to help testing
+	Nothing bool
 }
 
 // Default configuration for an URL
@@ -24,6 +27,7 @@ var defaultUrlConfig = UrlConfig{
 	Allow_Framing:        &t,
 	Append_XForwardedFor: &t,
 	Https:                &f,
+	Https_Verify_Cert:    &t,
 }
 
 // General configuration.
@@ -96,6 +100,9 @@ func (u *UrlConfig) merge(src UrlConfig) {
 	}
 	if src.Https != nil {
 		u.Https = src.Https
+	}
+	if src.Https_Verify_Cert != nil {
+		u.Https_Verify_Cert = src.Https_Verify_Cert
 	}
 }
 
