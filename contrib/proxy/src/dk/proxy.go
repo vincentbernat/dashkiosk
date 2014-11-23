@@ -10,7 +10,6 @@ import (
 
 func NewProxy(cfg Config) (*goproxy.ProxyHttpServer, error) {
 	proxy := goproxy.NewProxyHttpServer()
-	proxy.Verbose = cfg.Proxy.Debug
 	log.Info("start serving requests on %s", cfg.Proxy.Listen)
 
 	// Register configuration inside context
@@ -95,6 +94,26 @@ func NewProxy(cfg Config) (*goproxy.ProxyHttpServer, error) {
 
 		return resp
 	})
+
+	// Log requests
+	if cfg.Proxy.Debug {
+		proxy.OnResponse().
+			DoFunc(func(resp *http.Response, ctx *goproxy.ProxyCtx) *http.Response {
+			var status int
+			if resp != nil {
+				status = resp.StatusCode
+			} else {
+				status = 0
+			}
+			log.Debug("proxy: from %s: %d: %s %s %s",
+				ctx.Req.RemoteAddr,
+				status,
+				ctx.Req.Method,
+				ctx.Req.URL.String(),
+				ctx.Req.Proto)
+			return resp
+		})
+	}
 
 	return proxy, nil
 }
