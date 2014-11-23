@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/elazarl/goproxy"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -59,6 +60,40 @@ func NewProxy(cfg Config) (*goproxy.ProxyHttpServer, error) {
 			req.URL.Scheme = "https"
 		}
 		return req, nil
+	})
+
+	// Convert back location to non-HTTP
+	proxy.OnResponse().
+		DoFunc(func(resp *http.Response, ctx *goproxy.ProxyCtx) *http.Response {
+		if resp == nil {
+			return resp
+		}
+		location := resp.Header.Get("Location")
+		if location == "" {
+			return resp
+		}
+		// If the requested location would have been
+		// redirected to HTTPS, give it back as an HTTP
+		// location.
+		url, err := url.Parse(location)
+		if err != nil || url.Scheme != "https" {
+			return resp
+		}
+		// For testing purposes, the address of the right server is in X-Test-HTTP header
+		host := resp.Header.Get("X-Test-HTTP")
+		if host != "" {
+			host = host[7:]
+		}
+		ncfg := cfg.UrlConfiguration(
+			fmt.Sprintf("http://%s%s",
+				host, url.Path))
+		if ncfg.Https != nil && *ncfg.Https {
+			url.Scheme = "http"
+			url.Host = host
+			resp.Header.Set("Location", url.String())
+		}
+
+		return resp
 	})
 
 	return proxy, nil

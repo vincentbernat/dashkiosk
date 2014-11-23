@@ -136,6 +136,11 @@ func (s *ProxySuite) TestHttps(c *C) {
 	m2.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "SSL")
 	})
+	m2.HandleFunc("/redirect/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Location", s.ServerTLS.URL+"/https")
+		w.Header().Set("X-Test-HTTP", s.Server.URL)
+		fmt.Fprintf(w, "Follow redirect SSL")
+	})
 	s.Server = httptest.NewServer(m1)
 	s.ServerTLS = httptest.NewTLSServer(m2)
 
@@ -153,4 +158,9 @@ func (s *ProxySuite) TestHttps(c *C) {
 	_, body, err = s.get("/https")
 	c.Assert(err, IsNil)
 	c.Assert(string(body), Equals, "SSL")
+
+	// SSL with redirect to SSL
+	resp, _, err := s.get("/redirect/https")
+	c.Assert(err, IsNil)
+	c.Assert(resp.Header.Get("Location"), Equals, s.Server.URL+"/https")
 }
