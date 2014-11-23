@@ -24,9 +24,11 @@ func NewProxy(cfg Config) (*goproxy.ProxyHttpServer, error) {
 	// Remove X-Frame-Options header
 	proxy.OnResponse().
 		DoFunc(func(resp *http.Response, ctx *goproxy.ProxyCtx) *http.Response {
-		allowed := ctx.UserData.(*UrlConfig).Allow_Framing
-		if allowed != nil && *allowed {
-			resp.Header.Del("X-Frame-Options")
+		if resp != nil {
+			allowed := ctx.UserData.(*UrlConfig).Allow_Framing
+			if allowed != nil && *allowed {
+				resp.Header.Del("X-Frame-Options")
+			}
 		}
 		return resp
 	})
