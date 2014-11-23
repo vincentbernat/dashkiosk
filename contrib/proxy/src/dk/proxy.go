@@ -44,6 +44,23 @@ func NewProxy(cfg Config) (*goproxy.ProxyHttpServer, error) {
 		return req, nil
 	})
 
+	// Make the request over HTTPS
+	proxy.OnRequest().
+		DoFunc(func(req *http.Request, ctx *goproxy.ProxyCtx) (*http.Request, *http.Response) {
+		ssl := ctx.UserData.(*UrlConfig).Https
+		if ssl != nil && *ssl {
+			// For tests, we also need to get the
+			// appropriate port for SSL. We expect to
+			// found it in X-Test-HTTPS header.
+			host := req.Header.Get("X-Test-HTTPS")
+			if host != "" {
+				req.URL.Host = host[8:]
+			}
+			req.URL.Scheme = "https"
+		}
+		return req, nil
+	})
+
 	return proxy, nil
 }
 

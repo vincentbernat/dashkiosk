@@ -13,14 +13,17 @@ import (
 type UrlConfig struct {
 	Allow_Framing        *bool
 	Append_XForwardedFor *bool
+	Https                *bool
 	Nothing              bool // Temporary
 }
 
 // Default configuration for an URL
 var t = true
+var f = false
 var defaultUrlConfig = UrlConfig{
 	Allow_Framing:        &t,
 	Append_XForwardedFor: &t,
+	Https:                &f,
 }
 
 // General configuration.
@@ -90,6 +93,9 @@ func (u *UrlConfig) merge(src UrlConfig) {
 	}
 	if src.Append_XForwardedFor != nil {
 		u.Append_XForwardedFor = src.Append_XForwardedFor
+	}
+	if src.Https != nil {
+		u.Https = src.Https
 	}
 }
 

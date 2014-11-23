@@ -15,9 +15,10 @@ import (
 func TestProxy(t *testing.T) { TestingT(t) }
 
 type ProxySuite struct {
-	Server *httptest.Server
-	Proxy  *httptest.Server
-	Client *http.Client
+	Server    *httptest.Server
+	ServerTLS *httptest.Server
+	Proxy     *httptest.Server
+	Client    *http.Client
 }
 
 var _ = Suite(&ProxySuite{})
@@ -40,13 +41,23 @@ func (s *ProxySuite) TearDownTest(c *C) {
 	if s.Server != nil {
 		s.Server.Close()
 	}
+	if s.ServerTLS != nil {
+		s.ServerTLS.Close()
+	}
 	if s.Proxy != nil {
 		s.Proxy.Close()
 	}
 }
 
 func (s *ProxySuite) get(url string) (*http.Response, []byte, error) {
-	resp, err := s.Client.Get(s.Server.URL + url)
+	req, err := http.NewRequest("GET", s.Server.URL+url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+	if s.ServerTLS != nil {
+		req.Header.Add("X-Test-HTTPS", s.ServerTLS.URL)
+	}
+	resp, err := s.Client.Do(req)
 	if err != nil {
 		return resp, nil, err
 	}
@@ -114,4 +125,32 @@ func (s *ProxySuite) TestXForwardedFor(c *C) {
 	_, body, err = s.get("/x-forwarded-for")
 	c.Assert(err, IsNil)
 	c.Assert(string(body), Equals, "127.0.0.1")
+}
+
+func (s *ProxySuite) TestHttps(c *C) {
+	m1 := http.NewServeMux()
+	m1.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "No SSL")
+	})
+	m2 := http.NewServeMux()
+	m2.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "SSL")
+	})
+	s.Server = httptest.NewServer(m1)
+	s.ServerTLS = httptest.NewTLSServer(m2)
+
+	// Default
+	_, body, err := s.get("/hello")
+	c.Assert(err, IsNil)
+	c.Assert(string(body), Equals, "No SSL")
+
+	// No SSL
+	_, body, err = s.get("/no-https")
+	c.Assert(err, IsNil)
+	c.Assert(string(body), Equals, "No SSL")
+
+	// SSL
+	_, body, err = s.get("/https")
+	c.Assert(err, IsNil)
+	c.Assert(string(body), Equals, "SSL")
 }
