@@ -18,6 +18,17 @@ There are a lot of Android devices that you can choose to run
 Dashkiosk on. When choosing one, prefer the ones which can be upgraded
 to Android 4.4.
 
+Many cheap devices are using a Rockchip SoC limited to a 720p
+resolution. This can be circumvented with some non official
+experimental firmwares but usually, this is a sufficient resolution to
+display dashboards.
+
+The following devices [#devices]_ are known to work reasonably well:
+
+ - `MK809III Mini PC (RK3188 SoC) <http://www.amazon.com/MK809III-Android-Mali-400-OpenGLES2-0-OpenVG1-1/dp/B00CZ7RBIU>`_
+
+.. _issue: https://github.com/vincentbernat/dashkiosk/issues/new
+
 Features
 --------
 
@@ -138,3 +149,7 @@ dashboards. Javascript errors from the receiver are prefixed with
 .. _tarball for Dashkiosk: https://github.com/vincentbernat/dashkiosk/releases
 .. _Crosswalk project: https://crosswalk-project.org/
 .. _XWALK-957: https://crosswalk-project.org/jira/browse/XWALK-957
+
+.. rubric:: Footnotes
+
+.. [#devices] Please, open an `issue`_ if you want to contribute to this list.
