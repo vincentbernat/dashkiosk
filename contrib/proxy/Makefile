@@ -1,26 +1,27 @@
 VERSION=$(shell node -pe 'JSON.parse(process.argv[1]).version' "$$(cat ../../package.json)")
 GOPATH=$(PWD)/build~:$(PWD)
+GO=go
 export GOPATH
 
 # Verbosity
 V=0
 V_gobuild = $(v_gobuild_$(V))
-v_gobuild_0 = @echo "  GO BUILD " $@; go build
-v_gobuild_1 = go build -v -x
+v_gobuild_0 = @echo "  GO BUILD " $@; $(GO) build
+v_gobuild_1 = $(GO) build -v -x
 V_goget = $(v_goget_$(V))
-v_goget_0 = @echo   "  GO GET   " $@; go get
-v_goget_1 = go get -v
+v_goget_0 = @echo   "  GO GET   " $@; $(GO) get
+v_goget_1 = $(GO) get -v
 V_gocmd = $(v_gocmd_$(V))
-v_gocmd_0 = @echo   "  GO" $(shell echo $@ | tr a-z A-Z); go
-v_gocmd_1 = go
+v_gocmd_0 = @echo   "  GO" $(shell echo $@ | tr a-z A-Z); $(GO)
+v_gocmd_1 = $(GO)
 V_gotest = $(v_gotest_$(V))
-v_gotest_0 = @echo  "  GO TEST  "; go test
-v_gotest_1 = go test -v
+v_gotest_0 = @echo  "  GO TEST  "; $(GO) test
+v_gotest_1 = $(GO) test -v
 
 # Compute list of dependencies. We assume that built-in dependencies
 # are those without a dot before the first `/'.
-DEPS  = $(shell go list -f '{{join .Deps "\n"}}' ./src/... | grep '^[a-z]*\.' | sort | uniq)
-DEPS += $(shell go list -f '{{join .TestImports "\n"}}' ./src/... | grep '^[a-z]*\.' | sort | uniq)
+DEPS  = $(shell $(GO) list -f '{{join .Deps "\n"}}' ./src/... | grep '^[a-z]*\.' | sort | uniq)
+DEPS += $(shell $(GO) list -f '{{join .TestImports "\n"}}' ./src/... | grep '^[a-z]*\.' | sort | uniq)
 
 # Build proxy
 all: $(PWD)/build~/proxy
