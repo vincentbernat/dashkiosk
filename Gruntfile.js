@@ -382,7 +382,7 @@ module.exports = function(grunt) {
           dest: 'dist',
           src: [
             'package.json',
-            'server.js',
+            'server.js', 'forever.js',
             'lib/**/*',
             'db/migrations/*.js'
           ]
