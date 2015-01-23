@@ -34,3 +34,8 @@ Here is a demonstration video:
 To run the server for development:
 
     $ grunt serve
+
+# Android receiver
+
+The Android receiver has moved to its
+[own repository](https://github.com/vincentbernat/dashkiosk-android).
