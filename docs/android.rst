@@ -60,7 +60,10 @@ remaining steps:
   1. Run the ``android`` command and ensure a version matching the one
      in ``build.gradle`` file of the build tools is installed. Also
      ensure that you install the SDK for the target API (as specified
-     in ``AndroidManifest.xml``).
+     in ``AndroidManifest.xml``). You can use the following commands::
+
+        android update sdk --no-ui --all --filter build-tools-21.1.2
+        android update sdk --no-ui --all --filter android-19
 
   2. Clone the `git repository`_.
 
