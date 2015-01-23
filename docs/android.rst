@@ -53,21 +53,20 @@ download a `pre-compiled version from GitHub`_.
 
 .. _pre-compiled version from GitHub: https://github.com/vincentbernat/dashkiosk/releases/
 
-You need to download the `Android SDK`_ and `Gradle`_ 2.2.1. Once
-installed, you should manage to get the ``android`` command (for
-*Android SDK*) and the ``gradle`` command (for *Gradle) in your
-path. Execute the remaining steps:
+You need to download the `Android SDK`. Once installed, you should
+manage to get the ``android`` command in your path. Execute the
+remaining steps:
 
   1. Run the ``android`` command and ensure a version matching the one
      in ``build.gradle`` file of the build tools is installed. Also
      ensure that you install the SDK for the target API (as specified
      in ``AndroidManifest.xml``).
 
-  1. Clone the `git repository`_.
+  2. Clone the `git repository`_.
 
-  6. Build the application with the following command::
+  3. Build the application with the following command::
 
-        gradle assemble
+        ./gradlew assemble
 
 At the end of the compilation, you get
 ``build/outputs/apk/dashkiosk-android-debug.apk`` that should be
