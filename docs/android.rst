@@ -53,21 +53,12 @@ download a `pre-compiled version from GitHub`_.
 
 .. _pre-compiled version from GitHub: https://github.com/vincentbernat/dashkiosk/releases/
 
-You need to download the `Android SDK`. Once installed, you should
-manage to get the ``android`` command in your path. Execute the
-remaining steps:
+Building from source is just a matter of following those two simple
+steps:
 
-  1. Run the ``android`` command and ensure a version matching the one
-     in ``build.gradle`` file of the build tools is installed. Also
-     ensure that you install the SDK for the target API (as specified
-     in ``AndroidManifest.xml``). You can use the following commands::
+  1. Clone the `git repository`_.
 
-        android update sdk --no-ui --all --filter build-tools-21.1.2
-        android update sdk --no-ui --all --filter android-19
-
-  2. Clone the `git repository`_.
-
-  3. Build the application with the following command::
+  2. Build the application with the following command::
 
         ./gradlew assemble
 
