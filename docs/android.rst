@@ -53,35 +53,25 @@ download a `pre-compiled version from GitHub`_.
 
 .. _pre-compiled version from GitHub: https://github.com/vincentbernat/dashkiosk/releases/
 
-You need to download the `Android SDK`_. Once installed, you should
-manage to get the ``android`` command in your path. Execute the
-remaining steps:
+You need to download the `Android SDK`_ and `Gradle`_ 2.2.1. Once
+installed, you should manage to get the ``android`` command (for
+*Android SDK*) and the ``gradle`` command (for *Gradle) in your
+path. Execute the remaining steps:
 
-  1. Get a nightly *Crosswalk* build like `this one`_ (you can pick a
-     more recent one if needed). Unpack it in some directory and
-     execute the following command::
+  1. Run the ``android`` command and ensure a version matching the one
+     in ``build.gradle`` file of the build tools is installed. Also
+     ensure that you install the SDK for the target API (as specified
+     in ``AndroidManifest.xml``).
 
-        android update lib-project -p .
-
-  2. Grab the latest `tarball for Dashkiosk`_ from GitHub.
-
-  3. Unpack it and go into the ``android`` directory.
-
-  4. Execute the following command to update the project::
-
-        android update project -p .
-
-  5. Update the path to *Crosswalk* in ``project.properties``. This
-     must be a relative path.
+  1. Clone the `git repository`_.
 
   6. Build the application with the following command::
 
-        ant debug
+        gradle assemble
 
-At the end of the compilation, you get ``bin/DashKiosk-debug.apk``
-that should be installed on the Android device.
-
-.. _this one: https://download.01.org/crosswalk/releases/crosswalk/android/canary/7.35.136.0/arm/crosswalk-webview-7.35.136.0-arm.zip
+At the end of the compilation, you get
+``build/outputs/apk/dashkiosk-android-debug.apk`` that should be
+installed on the Android device.
 
 Installation
 ------------
@@ -91,7 +81,7 @@ available in the ``platform-tools`` directory. You can then install
 the APK on a device attached through USB on your computer with the
 following command::
 
-    adb install -r bin/DashKiosk-debug.apk
+    adb install -r build/outputs/apk/dashkiosk-android-debug.apk
 
 Alternatively, you can just point a browser to the APK and you will
 get proposed to install it. You need to ensure that you allowed the
@@ -146,9 +136,9 @@ dashboards. Javascript errors from the receiver are prefixed with
 ``[Dashkiosk]``.
 
 .. _Android SDK: http://developer.android.com/sdk/index.htm
-.. _tarball for Dashkiosk: https://github.com/vincentbernat/dashkiosk/releases
+.. _Gradle: http://www.gradle.org/
+.. _git repository: https://github.com/vincentbernat/dashkiosk-android
 .. _Crosswalk project: https://crosswalk-project.org/
-.. _XWALK-957: https://crosswalk-project.org/jira/browse/XWALK-957
 
 .. rubric:: Footnotes
 
