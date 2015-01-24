@@ -112,6 +112,13 @@ The **timeout** is not really important. Until the application is able
 to make contact with the receiver, it will try to reload the receiver
 if the timeout is reached.
 
+Another interesting setting is the ability to **ignore SSL
+errors**. This can be useful if you need to access a lot of
+self-signed pages. However, if you have an internal root certificate,
+it is better to add it to the Android system. This can be done in the
+preferences: *Security* → *Credential Storage* → *Install from
+storage*.
+
 Alternatively, the configuration can be done at compile-time by
 modifying ``res/xml/preferences.xml``.
 
