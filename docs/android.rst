@@ -69,10 +69,16 @@ installed on the Android device.
 Installation
 ------------
 
-Ensure you have ``adb`` available in your path. If not, it is
-available in the ``platform-tools`` directory. You can then install
-the APK on a device attached through USB on your computer with the
-following command::
+You need the ``adb`` tool. On Debian and Ubuntu, you can install the
+``android-tools-adb`` package to get it. Otherwise, it is available in
+the ``platform-tools`` of the Android SDK. If you didn't install the
+SDK yourself, it should be in ``~/.android-sdk``. If ``adb`` is not
+present in the ``platform-tools`` directory, you can install it with::
+
+    tools/android update sdk --no-ui --all --filter platform-tool
+
+You can then install the APK on a device attached through USB on your
+computer with the following command::
 
     adb install -r build/outputs/apk/dashkiosk-android-debug.apk
 
