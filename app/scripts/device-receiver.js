@@ -41,7 +41,9 @@
       (a.hash || '') +
       '#timeout=' + this.timeout;
 
-    this.castReceiverManager.setApplicationState('Receiver: ' + this.url);
+    if (this.onUrlLoad) {
+      this.onUrlLoad(this.url);
+    }
 
     var shortened = this.url;
     if (shortened.indexOf('#')) {

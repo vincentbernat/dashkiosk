@@ -18,19 +18,24 @@
         appConfig = new cast.receiver.CastReceiverManager.Config();
     appConfig.maxInactivity = inactivity;
     appConfig.statusText = 'Waiting for an URL';
-    this.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+    var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
 
     // Setup message bus
-    this.messageBus = this.castReceiverManager
+    var messageBus = castReceiverManager
       .getCastMessageBus(urn);
-    this.messageBus.onMessage = function(event) {
+    messageBus.onMessage = function(event) {
       var message = JSON.parse(event.data),
           url = message.url;
       self.load(url);
     };
 
+    // Setup callback when a URL is loaded
+    this.onUrlLoad = function(url) {
+      castReceiverManager.setApplicationState('Receiver: ' + url);
+    };
+
     // Start
-    this.castReceiverManager.start(appConfig);
+    castReceiverManager.start(appConfig);
   };
 
 })(window.dkSupervisor, window.cast, window);
