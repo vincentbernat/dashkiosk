@@ -19,7 +19,8 @@ comes in four parts:
     to display.
 
  3. An **Android application** provides a simple fullscreen webview to
-    display the receiver.
+    display the receiver. There is also a **Firefox app** fulfilling
+    the same purpose.
 
  4. A **Chromecast custom receiver** which will run the regular receiver
     if you want to display dashboards using Google Chromecast devices.
@@ -53,6 +54,7 @@ To contribute, use `GitHub`_.
    api
    android
    chromecast
+   firefox
    cloud
    license
 

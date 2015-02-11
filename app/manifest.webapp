@@ -1,0 +1,10 @@
+{
+  "name": "Dashkiosk",
+  "description": "Receiver for Dashkiosk",
+  "launch_path": "/receiver",
+  "fullscreen": "true",
+  "orientation": [ "landscape" ],
+  "icons": {
+    "128": "/favicon.png"
+  }
+}

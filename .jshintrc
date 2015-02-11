@@ -24,6 +24,7 @@
     "angular": false,
     "define": false,
     "io": false,
-    "require": false
+    "require": false,
+    "Apps": false
   }
 }

@@ -12,7 +12,8 @@ comes as four components:
     manage those screens individually or in a group.
     
  3. An _Android app_ that will run the receiver. This is mainly a
-    fullscreen webview.
+    fullscreen webview. There is also a _Firefox app_ fulfilling the
+    same purpose.
 
  4. A _Chromecast custom receiver_ which will run the regular receiver
     if you want to display dashboards using Google Chromecast devices.

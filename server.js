@@ -31,10 +31,12 @@ function serve(file) {
 }
 app.get('/', function(req, res) { res.redirect('/receiver'); });
 app.get('/favicon.ico', serve('images/*favicon.ico'));
+app.get('/favicon.png', serve('images/*favicon.png'));
 app.get('/admin', serve('admin.html'));
 app.get('/receiver', serve('receiver.html'));
 app.get('/unassigned', serve('unassigned.html'));
 app.get('/chromecast', serve('chromecast.html'));
+app.get('/firefox', serve('firefox.html'));
 
 // API
 var api = require('./lib/api');

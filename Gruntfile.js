@@ -65,6 +65,10 @@ module.exports = function(grunt) {
         files: [ 'app/fonts/*.{ttf,otf,woff,eot,svg}' ],
         tasks: [ 'build:fonts' ]
       },
+      webapp: {
+        files: [ 'app/*.webapp' ],
+        tasks: [ 'build:webapp' ]
+      },
       scripts: {
         files: [ 'app/scripts/{,*/}*.js' ],
         tasks: [ 'build:scripts' ]
@@ -78,6 +82,7 @@ module.exports = function(grunt) {
           'build/styles/*.css',
           'build/images/{,*/,*/*/}*.*',
           'build/fonts/*.{ttf,otf,woff,eot,svg}',
+          'build/*.webapp',
           'build/scripts/{,*/}*.js' // Including templates
         ]
       },
@@ -340,6 +345,16 @@ module.exports = function(grunt) {
           ]
         }]
       },
+      webapp: {
+        files: [{
+          expand: true,
+          cwd: 'app',
+          dest: 'build',
+          src: [
+            '*.webapp'
+          ]
+        }]
+      },
       fonts: {
         files: [{
           expand: true,
@@ -374,6 +389,7 @@ module.exports = function(grunt) {
           dest: 'dist/public',
           src: [
             '*.html',
+            '*.webapp',
             'images/*.ico',
             'fonts/*.{ttf,otf,woff,eot,svg}'
           ]
@@ -421,6 +437,9 @@ module.exports = function(grunt) {
     case 'server':
       grunt.task.run('jshint:server');
       break;
+    case 'webapp':
+      grunt.task.run('copy:webapp');
+      break;
     case undefined:
       grunt.task.run(
         'clean:build',
@@ -431,7 +450,8 @@ module.exports = function(grunt) {
         'build:scripts',
         'build:images',
         'build:fonts',
-        'build:server'
+        'build:server',
+        'build:webapp'
       );
       break;
     default:

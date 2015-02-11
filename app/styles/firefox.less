@@ -1,0 +1,39 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+body {
+    background-image: url(../images/dark-wood.jpg);
+    text-align: center;
+}
+
+.logo {
+    display: inline-block;
+    width: 50%;
+    height: 50%;
+    background: url(../images/dashkiosk.svg) no-repeat center;
+    background-size: contain;
+}
+
+.instructions {
+    color: orange;
+}
+
+/* Install button */
+button {
+    padding: 0.5em 3em;
+}
+
+
+/* Elements visibility */
+body {
+    &.is-firefox .is-not-firefox,
+    &.is-not-firefox .is-firefox {
+        display: none;
+    }
+}
