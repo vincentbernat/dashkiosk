@@ -1,8 +1,8 @@
 Cloud install
 =============
 
-You can run *Dashkiosk* on a PaaS like `Heroku`_. The Chromecast
-support is unlikely to work in this case but the remaining
+You can run *Dashkiosk* on a PaaS like `Heroku`_ or `Dokku`_. The
+Chromecast support is unlikely to work in this case but the remaining
 functionalities should work without any problem. The following
 documentation is done using `exoscale PaaS`_ (a Swiss cloud
 provider). The process should be quite similar with another provider.
@@ -106,5 +106,6 @@ PaaS and deploy the result::
 The result should be visible at http://dashkiosk4mycompany.app.exo.io.
 
 .. _Heroku: https://www.heroku.com/
+.. _Dokku: https://github.com/progrium/dokku
 .. _exoscale PaaS: https://www.exoscale.ch/add-on/paas/
 .. _exoscale: https://www.exoscale.ch/
