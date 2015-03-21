@@ -35,6 +35,11 @@ If you want to be able to use Chromecast devices, you also need to set:
      work. You should put the URL to access Dashkiosk and ends it with
      ``/receiver``. For example, put something like
      ``http://dashkiosk.example.com/receiver``.
+     
+     If the reciever is on a server with only internal DNS records
+     use the IP address of the server rather than URL. Chromecasts
+     are hard coded to only use Google's DNS servers (``8.8.8.8`` and
+     ``8.8.4.4``) for lookups, rather than those given by DHCP.
 
 The Chromecast custom receiver is hosted on `GitHub`_. If you want to
 modify it or to host it yourself, you need to register a new
