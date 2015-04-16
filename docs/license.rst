@@ -21,3 +21,12 @@ ISC License
   OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
   TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
   PERFORMANCE OF THIS SOFTWARE.
+
+Branded images
+--------------
+
+As an exception, branded images are free to redistribute but cannot be
+modified except when the brand logo is completely removed. Branded
+images are all images prefixed by ``app/images/stamp-`` or
+``app/images/loading-``, except ``app/images/stamp-default.svg`` and
+``app/images/loading-default.svg``.

@@ -72,6 +72,12 @@ are:
  - ``dailymotion``
  - ``exoscale``
 
+If you do your own branding, they can be integrated into *Dashkiosk*
+if the used images can be freely distributed. Submit a `pull
+request`_.
+
+.. _pull request: https://github.com/vincentbernat/dashkiosk/pulls
+
 Database
 --------
 
