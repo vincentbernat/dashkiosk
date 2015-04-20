@@ -7,7 +7,7 @@ WORKDIR /dashkiosk
 COPY .  /dashkiosk
 RUN npm install
 RUN grunt --branding=exoscale
-RUN cd dist ; npm install --production
+RUN cd dist ; ln -s ../node_modules
 
 # We use SQLite by default. If you want to keep the database between
 # runs, don't forget to provide a volume for /database.
