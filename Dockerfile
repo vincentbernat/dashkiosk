@@ -1,4 +1,4 @@
-FROM node:0.10
+FROM node:0.10-onbuild
 
 RUN npm install -g bower grunt-cli
 RUN apt-get -qq update && apt-get install -qq gifsicle libjpeg-progs optipng
