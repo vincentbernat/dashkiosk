@@ -30,6 +30,7 @@ define('iframe-queue', (function(window, $, undefined) {
     vp.adapt(this.el);
 
     // Load the URL
+    this.el.attr('sandbox', 'allow-scripts');
     this.el.attr('src', dashboard.url);
   }
 
