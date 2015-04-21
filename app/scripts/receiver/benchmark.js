@@ -98,12 +98,25 @@ define('benchmark', (function(window, $) {
     }
   }
 
-  return {
-    done: function(cb) {
+  var done = function(cb) {
+    var run = function() {
+
+      // Only run the benchmark if the page is not hidden. If the
+      // visibility API is unavailable, the document will never be
+      // considered hidden.
+      window.document.removeEventListener('visibilitychange', run, false);
+      if (window.document.hidden === true) {
+        window.document.addEventListener('visibilitychange', run, false);
+        return;
+      }
+      window.document.removeEventListener('visibilitychange', run, false);
+
+      // Setup some global variables
       benchmark = $('.benchmark');
       stageWidth = benchmark.width();
       stageHeight = benchmark.height();
 
+      // Create and start animate particles
       createParticles();
       prevTime = window.performance.now();
       animate();
@@ -115,6 +128,7 @@ define('benchmark', (function(window, $) {
           particles[i].destroy();
         }
         particles = [];
+        benchmark.remove();
 
         // Record the number of frames displayed
         var fps = frames / duration * 1000;
@@ -124,10 +138,15 @@ define('benchmark', (function(window, $) {
         }
 
         // Call callback
-        benchmark.remove();
         cb();
       }, duration);
-    }
+    };
+
+    run();
+  };
+
+  return {
+    done: done
   };
 
 })(window, Zepto));
