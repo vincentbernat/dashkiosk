@@ -31,7 +31,9 @@
                  1px 1px 2px #000;
     opacity: 0.9;
 
-    transition: transform 0.5s;
+    .dk-fast-browser & {
+        transition: transform 0.5s;
+    }
 
     &.show {
         transform: translateX(0);

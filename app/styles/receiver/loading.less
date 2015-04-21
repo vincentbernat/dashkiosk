@@ -35,15 +35,17 @@
 
     transform: translateX(-150%);
     transform: translate3d(-150%, 0, 0);
-    transition: transform 0.5s;
+    .dk-fast-browser & {
+        transition: transform 0.5s;
+    }
 
     &.show {
         transform: translateX(0);
         transform: translate3d(0, 0, 0);
-        .branding {
+        .dk-fast-browser & .branding {
             animation: spinning 10s infinite linear;
         }
-        .branding-exoscale {
+        .dk-fast-browser & .branding-exoscale {
             animation: shaking 2s infinite linear;
         }
     }

@@ -9,8 +9,11 @@ iframe {
     z-index: 100;
 
     top: -150%;
-    transition: top 0.5s;
     transform-origin: 0 0;
+
+    .dk-fast-browser & {
+        transition: top 0.5s;
+    }
 
     background-color: white;
 

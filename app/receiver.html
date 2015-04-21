@@ -19,7 +19,8 @@
   <div class="glow"></div>
   <div class="osd text"></div>
   <div class="osd technical"></div>
-  <div class="show loading" id="loading">
+  <div class="benchmark"></div>
+  <div class="show" id="loading">
     <div class="branding branding-<%= branding %>"></div>
   </div>
 
@@ -29,6 +30,8 @@
   <!-- endbuild -->
   <!-- build:js scripts/receiver-final.js -->
   <script src="scripts/require.js"></script>
+  <script src="scripts/receiver/polyfills.js"></script>
+  <script src="scripts/receiver/benchmark.js"></script>
   <script src="scripts/receiver/console.js"></script>
   <script src="scripts/receiver/supervisor.js"></script>
   <script src="scripts/receiver/errors.js"></script>
