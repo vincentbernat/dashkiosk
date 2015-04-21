@@ -52,32 +52,32 @@ define('benchmark', (function(window, $) {
   function Particle() {
     var angle = Math.PI * 2 * Math.random();
     var velocity = minVelocity + ((maxVelocity - minVelocity) * Math.random());
-    var x = stageWidth / 2;
-    var y = stageHeight / 2;
-    var dx = Math.cos(angle) * velocity;
-    var dy = Math.sin(angle) * velocity;
+    this.x = stageWidth / 2;
+    this.y = stageHeight / 2;
+    this.dx = Math.cos(angle) * velocity;
+    this.dy = Math.sin(angle) * velocity;
 
-    var domNode = $('<span>');
-    domNode
+    this.domNode = $('<span>');
+    this.domNode
       .addClass('particle')
-      .css({ left: x + 'px',
-             top: y + 'px' });
-    domNode.appendTo(benchmark);
-
-    this.destroy = function() {
-      domNode.remove();
-    };
-
-    this.draw = function(timeDelta) {
-      var timeDeltaSeconds = timeDelta / 1000;
-      var testX = x + (dx * timeDeltaSeconds);
-      var testY = y + (dy * timeDeltaSeconds);
-      x = testX;
-      y = testY;
-      domNode.css({ left: x + 'px',
-                    top: y + 'px' });
-    };
+      .css({ left: this.x + 'px',
+             top: this.y + 'px' });
+    this.domNode.appendTo(benchmark);
   }
+
+  Particle.prototype.destroy = function() {
+    this.domNode.remove();
+  };
+
+  Particle.prototype.draw = function(timeDelta) {
+    var timeDeltaSeconds = timeDelta / 1000;
+    var testX = this.x + (this.dx * timeDeltaSeconds);
+    var testY = this.y + (this.dy * timeDeltaSeconds);
+    this.x = testX;
+    this.y = testY;
+    this.domNode.css({ left: this.x + 'px',
+                       top: this.y + 'px' });
+  };
 
   function createParticles() {
     for (var i = 0; i < maxParticles; i++) {
