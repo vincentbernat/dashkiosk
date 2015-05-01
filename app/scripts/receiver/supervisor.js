@@ -9,7 +9,7 @@ define('supervisor', (function(window) {
             if (!mo) {
               return null;
             }
-            return parseInt(mo[1]);
+            return parseInt(mo[1], 10);
           })
           .filter(function(item) { return item !== null; });
     if (timeouts.length === 0) {
