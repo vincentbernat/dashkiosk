@@ -45,7 +45,7 @@ define('iframe-queue', (function(window, $, undefined) {
         .removeClass('show');
       window.setTimeout(function() {
         self.el.remove();
-      }, 1001);
+      }, 1001);                 // This is more reliable than relying on transitionend
     } else {
       this.el.remove();
     }
