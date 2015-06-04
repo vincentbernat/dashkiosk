@@ -10,12 +10,22 @@ var http     = require('http'),
     config   = require('./lib/config'),
     chromecast = require('./lib/chromecast'),
     monitor    = require('./lib/monitor');
+    auth       = require('http-auth');
+
+var basic = auth.basic({
+        realm: "Dashkiosk"
+    }, function (username, password, callback) { // Custom authentication method. 
+        callback(username === "interactivedashboard" && password === "Vandaag#0405");
+    }
+);
 
 var app = require('./lib/express'),
     server = http.createServer(app),
     io = socketio.listen(server, {
       logger: logger
     });
+    
+app.use(auth.connect(basic));
 
 // Static files
 function serve(file) {
