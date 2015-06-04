@@ -15,7 +15,7 @@ define('errors', (function(window) {
           return true;
         } finally {
           console.error('[Dashkiosk] Fatal unexpected error, let\'s reload');
-          setTimeout(function() {
+          window.setTimeout(function() {
             window.location.reload();
           }, 1000);
         }

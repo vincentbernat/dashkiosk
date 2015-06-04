@@ -71,8 +71,8 @@
 
   Supervisor.prototype.schedule = function() {
     var self = this;
-    clearTimeout(this.heartbeat);
-    this.heartbeat = setTimeout(function() { self.deadline(self.url); },
+    window.clearTimeout(this.heartbeat);
+    this.heartbeat = window.setTimeout(function() { self.deadline(self.url); },
                                 this.timeout);
   };
 
