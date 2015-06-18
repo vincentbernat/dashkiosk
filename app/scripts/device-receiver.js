@@ -46,7 +46,7 @@
     }
 
     var shortened = this.url;
-    if (shortened.indexOf('#')) {
+    if (shortened.indexOf('#') >= 0) {
       shortened = shortened.slice(0, shortened.indexOf('#'));
     }
     status.textContent = 'Connecting to ' + shortened;
