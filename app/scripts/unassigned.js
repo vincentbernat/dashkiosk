@@ -3,51 +3,60 @@
  * background images.
  */
 
-(function(window, $, undefined) {
+(function(window, undefined) {
   'use strict';
 
-  var transitionEnd = 'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
-      duration = 60;
+  var duration = 60,
+      document = window.document;
 
   // Preload the next image and insert it in place of the current one.
   function rotate() {
 
-    if ('hidden' in window.document &&
-        window.document.hidden &&
-        $('.background').children().length) {
+    if ('hidden' in document &&
+        document.hidden) {
       // In the background, don't need to load anything
       window.setTimeout(rotate, duration * 1000);
       return;
     }
 
-    var photo = $('.photo')
-          .first()
-          .data('image'),
-        preload = $('<img>'),
-        cleanup = function() {
-          $('.background')
-            .children()
-            .slice(1)
-            .remove();
+    /* Create an img tag to preload the photo */
+    var photo = document.querySelector('.photo').dataset.image,
+        preload = document.createElement('img');
+
+    var cleanup = function() {
+          /* We only need two photos in background (for transition purpose) */
+          var bg = document.querySelector('.background');
+          while (bg.childNodes.length > 1) {
+            bg.removeChild(bg.lastChild);
+          }
+        },
+        load = function() {
+          preload.removeEventListener('load', load, false);
+          preload.removeEventListener('error', error, false);
+
+          /* Add a div with the photo as first child.
+             This will trigger the CSS transition */
+          var bg = document.querySelector('.background');
+          var newbg = document.createElement('div');
+          newbg.style.backgroundImage = 'url(' + photo + ')';
+          bg.insertBefore(newbg, bg.firstChild);
+        },
+        error = function() {
+          preload.removeEventListener('load', load, false);
+          preload.removeEventListener('error', error, false);
         };
 
+    /* Do the preload. Once loaded, load the image into the background */
     console.log('[Dashkiosk/unassigned] Load ' + photo);
     cleanup();
-    preload
-      .one('load', function() {
-        preload.off('error');
-        $('<div>')
-          .css({'background-image': 'url(' + photo + ')'})
-          .appendTo($('.background'))
-          .prependTo($('.background'))
-          .one(transitionEnd, cleanup);
-      })
-      .one('error', function() {
-        preload.off('load');
-      })
-      .attr('src', photo);
+    preload.addEventListener('load', load, false);
+    preload.addEventListener('error', error, false);
+    preload.setAttribute('src', photo);
 
-    $('.photo').last().after($('.photo').first());
+    /* Rotate the photos */
+    var last = document.querySelector('.photo:last-child'),
+        first = document.querySelector('.photo:first-child');
+    first.parentNode.insertBefore(last, first);
     window.setTimeout(rotate, duration * 1000);
   }
 
@@ -58,7 +67,7 @@
         hours = now.getHours(),
         minutes = now.getMinutes();
 
-    $('.clock').text(hours + ((minutes >= 10)?':':':0') + minutes);
+    document.querySelector('.clock').textContent = hours + ((minutes >= 10)?':':':0') + minutes;
 
     // reschedule
     window.setTimeout(clock, delay);
@@ -83,10 +92,16 @@
     return array;
   }
 
-  $(window).on('load', function() {
-    $('.background').after(shuffle($('.photo')));
+  window.addEventListener('DOMContentLoaded', function() {
+    /* Shuffle the photos */
+    var photos = shuffle(Array.prototype.slice.call(document.querySelectorAll('.photo')));
+    while (photos.length) {
+      var photo = photos.pop();
+      photo.parentNode.appendChild(photo);
+    }
+
     rotate(); // Rotate photos
     clock(); // Display clock
   });
 
-})(window, Zepto);
+})(window);
