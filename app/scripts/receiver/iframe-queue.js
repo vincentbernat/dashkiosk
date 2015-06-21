@@ -1,62 +1,63 @@
-module.exports = (function(window, $, undefined) {
+module.exports = (function(window, undefined) {
   'use strict';
 
   var Viewport = require('./viewport');
 
   function Iframe(dashboard, options) {
-    var self = this,
-        vp = new Viewport(dashboard.viewport);
+    var vp = new Viewport(dashboard.viewport);
     this.dashboard = dashboard;
     this.ready = options.ready;
-    this.el = $('<iframe>')
-      .appendTo('body')
-      .one('load', function() {
-        if (dashboard.delay) {
-          console.info('[Dashkiosk] iframe ready ' +
-                       self.el.attr('src') +
-                       ', but wait ' +
-                       dashboard.delay + 's');
-          window.setTimeout(function() {
-            self.show();
-          }, dashboard.delay * 1000);
-        } else {
-          self.show();
-        }
-      })
-      .attr('scrolling', 'no')
-      .attr('frameborder', '0');
+    this.el = document.createElement('iframe');
+    document.body.appendChild(this.el);
+
+    var load = function() {
+      this.el.removeEventListener('load', load, false);
+      if (dashboard.delay) {
+        console.info('[Dashkiosk] iframe ready ' +
+                     this.el.getAttribute('src') +
+                     ', but wait ' +
+                     dashboard.delay + 's');
+        window.setTimeout(function() {
+          this.show();
+        }.bind(this), dashboard.delay * 1000);
+      } else {
+        this.show();
+      }
+    }.bind(this);
+    this.el.addEventListener('load', load, false);
+
+    this.el.setAttribute('scrolling', 'no');
+    this.el.setAttribute('frameborder', '0');
 
     // Adapt iframe to match desired viewport
     vp.adapt(this.el);
 
     // Load the URL
-    this.el.attr('sandbox', 'allow-scripts allow-same-origin');
-    this.el.attr('src', dashboard.url);
+    this.el.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+    this.el.setAttribute('src', dashboard.url);
   }
 
   Iframe.prototype.displayed = function() {
-    return this.el.hasClass('show');
+    return this.el.classList.contains('show');
   };
 
   Iframe.prototype.remove = function() {
-    var self = this;
-    if (this.el.hasClass('show')) {
-      this.el
-        .removeClass('show');
+    if (this.el.classList.contains('show')) {
+      this.el.classList .remove('show');
       window.setTimeout(function() {
-        self.el.remove();
-      }, 1001);                 // This is more reliable than relying on transitionend
+        this.el.parentNode.removeChild(this.el);
+      }.bind(this), 1001);                 // This is more reliable than relying on transitionend
     } else {
-      this.el.remove();
+      this.el.parentNode.removeChild(this.el);
     }
   };
 
   Iframe.prototype.show = function() {
-    console.info('[Dashkiosk] iframe ready ' + this.el.attr('src'));
+    console.info('[Dashkiosk] iframe ready ' + this.el.getAttribute('src'));
     if (this.ready) {
       this.ready();
     }
-    this.el.addClass('show');
+    this.el.classList.add('show');
   };
 
   function Queue(options) {
@@ -73,8 +74,7 @@ module.exports = (function(window, $, undefined) {
 
   Queue.prototype.push = function(dashboard) {
     // Remove the first iframe if it is not loaded
-    var self = this,
-        iframe = this.queue.shift();
+    var iframe = this.queue.shift();
     if (iframe !== undefined) {
       if (iframe.displayed()) {
         // Oops, it is loaded, put it back.
@@ -89,20 +89,20 @@ module.exports = (function(window, $, undefined) {
     iframe = new Iframe(dashboard, {
       ready: function() {
         // Sanity check: are we the first iframe?
-        if (iframe !== self.queue[0]) {
+        if (iframe !== this.queue[0]) {
           console.warn('[Dashkiosk] BUG: request to display a new iframe which is not in our queue',
-                       iframe, self.queue);
+                       iframe, this.queue);
           iframe.remove();
           return;
         }
 
         // Remove all other frames from the queue
-        while (self.queue.length > 1) {
-          var oldIframe = self.queue.pop();
+        while (this.queue.length > 1) {
+          var oldIframe = this.queue.pop();
           oldIframe.remove();
         }
-        self.ready();
-      }
+        this.ready();
+      }.bind(this)
     });
 
     // Put it in the queue
@@ -111,4 +111,4 @@ module.exports = (function(window, $, undefined) {
 
   return Queue;
 
-})(window, Zepto);
+})(window);
