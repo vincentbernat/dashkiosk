@@ -1,4 +1,4 @@
-define('osd', (function(window, $, undefined) {
+module.exports = (function(window, $, undefined) {
   'use strict';
 
   return {
@@ -28,4 +28,4 @@ define('osd', (function(window, $, undefined) {
     }
   };
 
-})(window, Zepto));
+})(window, Zepto);

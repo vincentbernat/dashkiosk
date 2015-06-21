@@ -5,11 +5,11 @@
 (function(window, $, undefined) {
   'use strict';
 
-  var socketio = require('socketio'),
-      errors = require('errors'),
-      supervisor = require('supervisor'),
-      console = require('console'),
-      benchmark = require('benchmark');
+  var socketio = require('./receiver/socketio'),
+      errors = require('./receiver/errors'),
+      supervisor = require('./receiver/supervisor'),
+      console = require('./receiver/console'),
+      benchmark = require('./receiver/benchmark');
 
   window.console = console;
   errors.enable();

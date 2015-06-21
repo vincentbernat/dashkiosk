@@ -1,4 +1,4 @@
-define('viewport', (function(window, $) {
+module.exports = (function(window, $) {
   'use strict';
   /* Socket.io related functions */
 
@@ -54,4 +54,4 @@ define('viewport', (function(window, $) {
 
   return Viewport;
 
-})(window, Zepto));
+})(window, Zepto);

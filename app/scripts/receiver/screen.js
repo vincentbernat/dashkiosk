@@ -1,7 +1,7 @@
-define('screen', (function($, undefined) {
+module.exports = (function($, undefined) {
   'use strict';
 
-  var IframeQueue = require('iframe-queue'),
+  var IframeQueue = require('./iframe-queue'),
       queue = new IframeQueue({
     ready: function() {
       $('#loading').removeClass('show');
@@ -30,5 +30,4 @@ define('screen', (function($, undefined) {
     dashboard: dashboard
   };
 
-})(Zepto));
-
+})(Zepto);

@@ -25,3 +25,10 @@ angular.module('dashkiosk.directives')
       }
     };
   });
+
+require('./alerts');
+require('./dashboard');
+require('./display');
+require('./dragndrop');
+require('./group');
+require('./loading');

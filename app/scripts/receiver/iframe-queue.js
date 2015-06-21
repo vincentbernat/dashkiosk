@@ -1,7 +1,7 @@
-define('iframe-queue', (function(window, $, undefined) {
+module.exports = (function(window, $, undefined) {
   'use strict';
 
-  var Viewport = require('viewport');
+  var Viewport = require('./viewport');
 
   function Iframe(dashboard, options) {
     var self = this,
@@ -111,4 +111,4 @@ define('iframe-queue', (function(window, $, undefined) {
 
   return Queue;
 
-})(window, Zepto));
+})(window, Zepto);

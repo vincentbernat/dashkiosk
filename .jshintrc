@@ -22,9 +22,7 @@
     "Zepto": false,
     "_": false,
     "angular": false,
-    "define": false,
     "io": false,
-    "require": false,
-    "Apps": false
+    "require": false
   }
 }

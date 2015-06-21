@@ -1,4 +1,4 @@
-(function(window, undefined) {
+module.exports = function(window, undefined) {
   'use strict';
 
   // Chromecast forces us to use an HTTPS URL but we cannot use an
@@ -81,6 +81,6 @@
     supervisor.setup();
   };
 
-  window.dkSupervisor = Supervisor;
+  return Supervisor;
 
-})(window);
+};

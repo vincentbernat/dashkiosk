@@ -1,3 +1,7 @@
+require('./services/admin.js');
+require('./directives/admin.js');
+require('./controllers/admin.js');
+
 angular.module('dashkiosk', ['ngRoute',
                              'ngAnimate',
                              'mgcrea.ngStrap',

@@ -1,4 +1,4 @@
-define('errors', (function(window) {
+module.exports = (function(window) {
   'use strict';
 
   return {
@@ -23,4 +23,4 @@ define('errors', (function(window) {
     }
   };
 
-})(window));
+})(window);

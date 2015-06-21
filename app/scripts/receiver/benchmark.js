@@ -1,8 +1,10 @@
-define('benchmark', (function(window, $) {
+module.exports = (function(window, $) {
   'use strict';
 
   // Most of the code is stolen from here:
   //  https://android.googlesource.com/platform/external/chromium_org/third_party/WebKit/+/refs/heads/master/PerformanceTests/Animation/balls-javascript.html
+
+  require('./polyfills')();
 
   /* 
    Copyright (c) 2012 Cameron Adams. All rights reserved.
@@ -149,4 +151,4 @@ define('benchmark', (function(window, $) {
     done: done
   };
 
-})(window, Zepto));
+})(window, Zepto);

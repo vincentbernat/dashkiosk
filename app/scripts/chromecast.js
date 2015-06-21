@@ -38,4 +38,4 @@
     castReceiverManager.start(appConfig);
   };
 
-})(window.dkSupervisor, window.cast, window);
+})(require('./device-receiver.js')(window), window.cast, window);

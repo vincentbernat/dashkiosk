@@ -1,4 +1,4 @@
-define('localstorage', (function(window, undefined) {
+module.exports = (function(window, undefined) {
   'use strict';
 
   // Using local storage if available
@@ -120,4 +120,4 @@ define('localstorage', (function(window, undefined) {
   };
 
 
-})(window));
+})(window);

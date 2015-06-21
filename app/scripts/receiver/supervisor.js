@@ -1,4 +1,4 @@
-define('supervisor', (function(window) {
+module.exports = (function(window) {
   'use strict';
 
   // Extract timeout from location hash
@@ -47,4 +47,4 @@ define('supervisor', (function(window) {
     ready: ready
   };
 
-})(window));
+})(window);

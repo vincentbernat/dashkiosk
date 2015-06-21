@@ -1,11 +1,11 @@
-define('socketio', (function(window, io, undefined) {
+module.exports = (function(window, io, undefined) {
   'use strict';
   /* Socket.io related functions */
 
-  var screen = require('screen'),
-      osd = require('osd'),
-      localStorage = require('localstorage'),
-      Viewport = require('viewport');
+  var screen = require('./screen'),
+      osd = require('./osd'),
+      localStorage = require('./localstorage'),
+      Viewport = require('./viewport');
 
   function connect() {
     var socket = io.connect(window.location.origin + '/displays', {
@@ -84,4 +84,4 @@ define('socketio', (function(window, io, undefined) {
     connect: connect
   };
 
-})(window, io));
+})(window, io);
