@@ -73,6 +73,24 @@ one), you need to declare a new application (and pay US$ 5). That's a
 bit unfortunate. Maybe we could do an application that will just
 forward to another application.
 
+Troubleshooting
+-----------------
+
+Troubleshooting is quite complex. Due to a recent change, users are
+only allowed to debug their own application. You need to `register
+your Chromecast`_ and register and host a copy of the Chromecast
+receiver. You'll get an ID for the Chromecast application and should
+use ``--chromecast.app`` to specify it.
+
+Once the application is running, you can connect to your Chromecast
+device using its IP on port 9222.
+
+Either way, due to the closedness of the Chromecast platform, its
+support in Dashkiosk may break from time to time. As soon as it
+doesn't work anymore, feel free to signal it in an `issue`_. If
+needed, it is possible to help debugging by registering a Chromecast
+device on the same account hosting the regular Dashkiosk receiver.
+
 .. rubric:: Footnotes
 
 .. [#routing] The mDNS packets are usually using a TTL of 1 and
@@ -82,3 +100,5 @@ forward to another application.
 
 .. _DNS-SD name server: http://www.dns-sd.org/ServerSetup.html
 .. _GitHub URL: https://vincentbernat.github.io/dashkiosk/chromecast.html
+.. _register your Chromecast: https://cast.google.com/publish/#/overview
+.. _issue: https://github.com/vincentbernat/dashkiosk/issues/new

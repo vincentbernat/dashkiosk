@@ -1,4 +1,4 @@
-define('viewport', (function(window, $) {
+module.exports = (function(window) {
   'use strict';
   /* Socket.io related functions */
 
@@ -14,14 +14,16 @@ define('viewport', (function(window, $) {
 
   Viewport.prototype.update = function() {
     if (!this.width && !this.height) {
-      $('meta[name="viewport"]').attr('content',
-                                      'width=device-width,user-scalable=no');
+      document.querySelector('meta[name="viewport"]')
+        .setAttribute('content',
+                      'width=device-width,user-scalable=no');
     } else {
       var vp = [ this.width?('width=' + this.width):'',
                  this.height?('height=' + this.height):'',
                  'user-scalable=no' ];
-      $('meta[name="viewport"]').attr('content',
-                                      vp.join(','));
+      document.querySelector('meta[name="viewport"]')
+        .setAttribute('content',
+                      vp.join(','));
     }
   };
 
@@ -44,14 +46,13 @@ define('viewport', (function(window, $) {
     tw = Math.round(tw);
     th = Math.round(th);
     scale = 'scale(' + scale + ')';
-    el.css({ width: tw + 'px',
-             height: th + 'px',
-             '-moz-transform': scale,
-             '-webkit-transform': scale,
-             'transform': scale
-           });
+    el.style.width = tw + 'px';
+    el.style.height = th + 'px';
+    el.style.mozTransform = scale;
+    el.style.webkitTransform = scale;
+    el.style.transform = scale;
   };
 
   return Viewport;
 
-})(window, Zepto));
+})(window);

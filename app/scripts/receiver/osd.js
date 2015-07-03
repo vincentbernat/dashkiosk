@@ -1,14 +1,13 @@
-define('osd', (function(window, $, undefined) {
+module.exports = (function(window, undefined) {
   'use strict';
 
   return {
     hide: function() {
-      $('.osd')
-        .removeClass('show');
+      document.querySelector('.osd')
+        .classList.remove('show');
     },
     show: function(text) {
-      $('.osd.technical')
-        .html(
+      document.querySelector('.osd.technical').innerHTML = (
           '<p>clientWidth/Height: ' +
             (window.document.documentElement.clientWidth || '???') + '×' +
             (window.document.documentElement.clientHeight || '???') +
@@ -20,12 +19,11 @@ define('osd', (function(window, $, undefined) {
             '<p>screenWidth/Height: ' +
             (window.screen.width || '???') + '×' +
             (window.screen.height || '???') +
-            '</p>');
-      $('.osd.text')
-        .text(text);
-      $('.osd')
-        .addClass('show');
+          '</p>'
+      );
+      document.querySelector('.osd.text').textContent = text;
+      document.querySelector('.osd').classList.add('show');
     }
   };
 
-})(window, Zepto));
+})(window);

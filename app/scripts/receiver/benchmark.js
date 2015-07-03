@@ -1,8 +1,10 @@
-define('benchmark', (function(window, $) {
+module.exports = (function(window) {
   'use strict';
 
   // Most of the code is stolen from here:
   //  https://android.googlesource.com/platform/external/chromium_org/third_party/WebKit/+/refs/heads/master/PerformanceTests/Animation/balls-javascript.html
+
+  require('./polyfills')();
 
   /* 
    Copyright (c) 2012 Cameron Adams. All rights reserved.
@@ -47,7 +49,8 @@ define('benchmark', (function(window, $) {
       prevTime = 0,
       testRunning = true,
       frames = 0,
-      duration = 1000;
+      duration = 1000,
+      document = window.document;
 
   function Particle() {
     var angle = Math.PI * 2 * Math.random();
@@ -57,16 +60,15 @@ define('benchmark', (function(window, $) {
     this.dx = Math.cos(angle) * velocity;
     this.dy = Math.sin(angle) * velocity;
 
-    this.domNode = $('<span>');
-    this.domNode
-      .addClass('particle')
-      .css({ left: this.x + 'px',
-             top: this.y + 'px' });
-    this.domNode.appendTo(benchmark);
+    this.domNode = document.createElement('span');
+    this.domNode.classList.add('particle');
+    this.domNode.style.left = this.x + 'px';
+    this.domNode.style.top = this.y + 'px';
+    benchmark.appendChild(this.domNode);
   }
 
   Particle.prototype.destroy = function() {
-    this.domNode.remove();
+    this.domNode.parentNode.removeChild(this.domNode);
   };
 
   Particle.prototype.draw = function(timeDelta) {
@@ -75,8 +77,8 @@ define('benchmark', (function(window, $) {
     var testY = this.y + (this.dy * timeDeltaSeconds);
     this.x = testX;
     this.y = testY;
-    this.domNode.css({ left: this.x + 'px',
-                       top: this.y + 'px' });
+    this.domNode.style.left = this.x + 'px';
+    this.domNode.style.top = this.y + 'px';
   };
 
   function createParticles() {
@@ -112,9 +114,9 @@ define('benchmark', (function(window, $) {
       window.document.removeEventListener('visibilitychange', run, false);
 
       // Setup some global variables
-      benchmark = $('.benchmark');
-      stageWidth = benchmark.width();
-      stageHeight = benchmark.height();
+      benchmark = document.querySelector('.benchmark');
+      stageWidth = benchmark.clientWidth;
+      stageHeight = benchmark.clientHeight;
 
       // Create and start animate particles
       createParticles();
@@ -128,13 +130,13 @@ define('benchmark', (function(window, $) {
           particles[i].destroy();
         }
         particles = [];
-        benchmark.remove();
+        benchmark.parentNode.removeChild(benchmark);
 
         // Record the number of frames displayed
         var fps = frames / duration * 1000;
         console.log('[Dashkiosk] Benchmark: ' + fps + ' fps');
         if (fps > 10) {
-          $('body').addClass('dk-fast-browser');
+          document.body.classList.add('dk-fast-browser');
         }
 
         // Call callback
@@ -149,4 +151,4 @@ define('benchmark', (function(window, $) {
     done: done
   };
 
-})(window, Zepto));
+})(window);

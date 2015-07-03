@@ -1,17 +1,17 @@
-define('screen', (function($, undefined) {
+module.exports = (function(undefined) {
   'use strict';
 
-  var IframeQueue = require('iframe-queue'),
+  var IframeQueue = require('./iframe-queue'),
       queue = new IframeQueue({
     ready: function() {
-      $('#loading').removeClass('show');
+      document.querySelector('#loading').classList.remove('show');
     }
   });
 
   /* Display loading screen */
   function loading() {
     queue.flush();
-    $('#loading').addClass('show');
+    document.querySelector('#loading').classList.add('show');
   }
 
   /* Display the given dashboard */
@@ -30,5 +30,4 @@ define('screen', (function($, undefined) {
     dashboard: dashboard
   };
 
-})(Zepto));
-
+})();

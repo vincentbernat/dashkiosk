@@ -1,4 +1,4 @@
-define('console', (function(window) {
+module.exports = (function(window) {
   'use strict';
 
   if (window.JSInterface && window.JSInterface.log) {
@@ -15,7 +15,6 @@ define('console', (function(window) {
       debug: log('debug')
     };
   } else {
-    console.log(window.console);
     return window.console;
   }
-})(window));
+})(window);

@@ -19,16 +19,15 @@
   <div class="background">
   </div>
 
+  <div class="photos">
   <% _.each(unassigned, function(n) { %>
-  <div class="photo" data-image="<%= n %>"></div><%
+      <div class="photo" data-image="<%= n %>"></div><%
   }) %>
+  </div>
 
   <div class="logo"></div>
   <div class="clock"></div>
 
-  <!-- build:js scripts/unassigned-vendor.js -->
-  <script src="bower_components/zepto/zepto.js"></script>
-  <!-- endbuild -->
   <!-- build:js scripts/unassigned-final.js -->
   <script src="scripts/unassigned.js"></script>
   <!-- endbuild -->

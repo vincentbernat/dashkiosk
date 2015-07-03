@@ -1,4 +1,4 @@
-(function(window, undefined) {
+module.exports = function(window, undefined) {
   'use strict';
 
   // Chromecast forces us to use an HTTPS URL but we cannot use an
@@ -46,7 +46,7 @@
     }
 
     var shortened = this.url;
-    if (shortened.indexOf('#')) {
+    if (shortened.indexOf('#') >= 0) {
       shortened = shortened.slice(0, shortened.indexOf('#'));
     }
     status.textContent = 'Connecting to ' + shortened;
@@ -81,6 +81,6 @@
     supervisor.setup();
   };
 
-  window.dkSupervisor = Supervisor;
+  return Supervisor;
 
-})(window);
+};

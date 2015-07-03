@@ -265,6 +265,19 @@ module.exports = function(grunt) {
       }
     },
 
+    // browserify
+    browserify: {
+      scripts: {
+        files: {
+          'build/scripts/admin.js': [ 'app/scripts/admin.js' ],
+          'build/scripts/unassigned.js': [ 'app/scripts/unassigned.js' ],
+          'build/scripts/chromecast.js': [ 'app/scripts/chromecast.js' ],
+          'build/scripts/firefox.js': [ 'app/scripts/firefox.js' ],
+          'build/scripts/receiver.js': [ 'app/scripts/receiver.js' ]
+        }
+      }
+    },
+
     concurrent: {
       server: {
         tasks: [
@@ -325,16 +338,6 @@ module.exports = function(grunt) {
 
     // Copy files
     copy: {
-      scripts: {
-        files: [{
-          expand: true,
-          cwd: 'app',
-          dest: 'build',
-          src: [
-            'scripts/{,*/}*.js'
-          ]
-        }]
-      },
       images: {
         files: [{
           expand: true,
@@ -426,7 +429,7 @@ module.exports = function(grunt) {
       grunt.task.run('less:build', 'csslint:build', 'autoprefixer:build');
       break;
     case 'scripts':
-      grunt.task.run('jshint', 'copy:scripts', 'ngAnnotate:build');
+      grunt.task.run('jshint', 'browserify:scripts', 'ngAnnotate:build');
       break;
     case 'images':
       grunt.task.run('copy:images');
