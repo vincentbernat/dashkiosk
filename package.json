@@ -29,7 +29,8 @@
     "postal.diagnostics": "~0.7.3",
     "sequelize": "^1.7.0",
     "socket.io": "^0.9.16",
-    "winston": "^0.7.2"
+    "winston": "^0.7.2",
+    "http-auth": "~2.2.7"
   },
   "optionalDependencies": {
     "memwatch": "^0.2.2",
