@@ -110,7 +110,8 @@ receiver. You'll get an ID for the Chromecast application and should
 use ``--chromecast.app`` to specify it.
 
 Once the application is running, you can connect to your Chromecast
-device using its IP on port 9222.
+device using its IP on port 9222. The Chromecast needs to be running
+the custom receiver.
 
 Either way, due to the closedness of the Chromecast platform, its
 support in Dashkiosk may break from time to time. As soon as it
