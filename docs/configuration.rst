@@ -34,7 +34,9 @@ If you want to be able to use Chromecast devices, you also need to set:
      where to find the receiver. The default value is unlikely to
      work. You should put the URL to access Dashkiosk and ends it with
      ``/receiver``. For example, put something like
-     ``http://dashkiosk.example.com/receiver``.
+     ``http://dashkiosk.example.com/receiver``. This needs to be a
+     fully qualified URL (including the protocol part ``http://`` or
+     ``https://``).
      
      If the reciever is on a server with only internal DNS records
      use the IP address of the server rather than URL. Chromecasts
