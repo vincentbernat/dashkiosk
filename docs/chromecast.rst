@@ -82,12 +82,12 @@ Let me explain how the whole thing works.
     it doesn't see yours, you need to check that multicast is
     correctly working on your network.
 
- 2. *Dashkiosk* then asks to load the custom receiver using its
-    application ID (``5E7A2C2C``). The Chromecast will then ask Google
-    which URL it should load for this application ID. Google will send
-    back the `GitHub URL`_ hosting the custom receiver. The Chromecast
-    will load it. You should get a screen "*This, Jen, is the
-    Internet*".
+ 2. If the Chromecast is in a group with dashboards, *Dashkiosk* then
+    asks to load the custom receiver using its application ID
+    (``5E7A2C2C``). The Chromecast will then ask Google which URL it
+    should load for this application ID. Google will send back the
+    `GitHub URL`_ hosting the custom receiver. The Chromecast will
+    load it. You should get a screen "*This, Jen, is the Internet*".
 
  3. *Dashkiosk* will send the receiver URL, as you configured it in
     the :ref:`options` (or with ``--chromecast.receiver``). Once the
