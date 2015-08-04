@@ -76,6 +76,33 @@ forward to another application.
 Troubleshooting
 -----------------
 
+Let me explain how the whole thing works.
+
+ 1. *Dashkiosk* detects the Chromecast device using multicast DNS. If
+    it doesn't see yours, you need to check that multicast is
+    correctly working on your network.
+
+ 2. *Dashkiosk* then asks to load the custom receiver using its
+    application ID (``5E7A2C2C``). The Chromecast will then ask Google
+    which URL it should load for this application ID. Google will send
+    back the `GitHub URL`_ hosting the custom receiver. The Chromecast
+    will load it. You should get a screen "*This, Jen, is the
+    Internet*".
+
+ 3. *Dashkiosk* will send the receiver URL, as you configured it in
+    the :ref:`options` (or with ``--chromecast.receiver``). Once the
+    custom receiver gets this URL, it displays it in the lower left
+    part of the screen. If it isn't displayed, it is likely to be a
+    bug in *Dashkiosk*. Have a look in the logs and open an `issue`_.
+
+ 4. The custom receiver will then load the regular receiver. If you
+    don't get to this step and are stuck on the "*This, Jen, is the
+    Internet*" screen, it means that your Chromecast is not able to
+    retrieve the receiver you provided. It could be a firewall issue
+    or a DNS issue. Try to connect your laptop on the same network as
+    the Chromecast and load the receiver URL yourself to see what is
+    happening.
+
 Troubleshooting is quite complex. Due to a recent change, users are
 only allowed to debug their own application. You need to `register
 your Chromecast`_ and register and host a copy of the Chromecast
@@ -89,7 +116,7 @@ Either way, due to the closedness of the Chromecast platform, its
 support in Dashkiosk may break from time to time. As soon as it
 doesn't work anymore, feel free to signal it in an `issue`_. If
 needed, it is possible to help debugging by registering a Chromecast
-device on the same account hosting the regular Dashkiosk receiver.
+device on the same account hosting the custom receiver.
 
 .. rubric:: Footnotes
 
