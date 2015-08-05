@@ -1,6 +1,7 @@
 <div data-ui-element="dk-group"
      class="panel panel-default"
-     dk-droppable="{ 'text/vnd.dashkiosk.display': attachDisplay }">
+     dk-droppable="{ 'text/vnd.dashkiosk.display': attachDisplay,
+                     'text/vnd.dashkiosk.dashboard': copyDashboard }">
   <div class="panel-heading">
     <div class="actions">
       <span class="glyphicon glyphicon-trash"
@@ -36,7 +37,9 @@
   <div class="dashboards">
     <dk-dashboard
       ng-repeat="dashboard in group.dashboards track by dashboard.id"
-      dashboard="dashboard">
+      dashboard="dashboard"
+      dk-draggable="{{ dashboard.id }}"
+      data-drag-type="text/vnd.dashkiosk.dashboard">
     </dk-dashboard>
     <div data-ui-element="dk-dashboard" class="add">
       <button class="btn btn-sm"

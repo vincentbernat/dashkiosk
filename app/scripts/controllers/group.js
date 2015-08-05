@@ -2,8 +2,14 @@ angular.module('dashkiosk.controllers')
   .controller('GroupCtrl', function($scope) {
     'use strict';
 
+    // Attach a display to this group
     $scope.attachDisplay = function(name) {
       $scope.group.$attach(name);
+    };
+
+    // Copy a dashboard to this group
+    $scope.copyDashboard = function(id) {
+      $scope.group.$copy(parseInt(id, 10));
     };
 
     // Return true if any display in the group is connected

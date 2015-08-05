@@ -103,7 +103,7 @@ angular.module('dashkiosk.services')
       var self = this;
       diff(self, data,
            function(k) { delete self[k]; },
-           function(k) { self[k] = new Group(data[k]); },
+           function(k) { self[k] = new Group(data[k], self); },
            function(k) { self[k].applyDiff(data[k]); });
     };
     // Add a new group
@@ -117,17 +117,24 @@ angular.module('dashkiosk.services')
           return false;
         });
     };
+    // Find a dashboard with its ID
+    GroupCollection.prototype.$findDashboard = function(id) {
+      return _.find(_.map(this, function(group) {
+        return group.$findDashboard(id);
+      }));
+    };
 
     // One group
-    function Group(data) {
+    function Group(data, groups) {
       _.extend(this, data);
       this.displays = _.mapValues(this.displays, function(d) { return new Display(d); });
       this.dashboards = new DashboardCollection(this.dashboards, this);
+      this.groups = groups;
     }
     Group.prototype.applyDiff = function(data) {
       var self = this;
-      diff(_.omit(self, ['displays', 'dashboards']),
-           _.omit(data, ['displays', 'dashboards']),
+      diff(_.omit(self, ['displays', 'dashboards', 'groups']),
+           _.omit(data, ['displays', 'dashboards', 'groups']),
            function(k) { delete self[k]; },
            function(k) { self[k] = data[k]; },
            function(k) { self[k] = data[k]; });
@@ -169,6 +176,21 @@ angular.module('dashkiosk.services')
                               ((err || {}).data || {}).message);
           return false;
         });
+    };
+    // Copy a dashboard from another group
+    Group.prototype.$copy = function(id) {
+      // We only have the ID, we need to find the
+      var dashboard = this.groups.$findDashboard(id);
+      if (!dashboard) {
+        return;
+      }
+      dashboard = angular.copy(dashboard);
+      delete dashboard.id;
+      this.dashboards.$add(dashboard);
+    };
+    // Find a dashboard with its ID
+    Group.prototype.$findDashboard = function(id) {
+      return this.dashboards.$findDashboard(id);
     };
     // Check if the group is empty (not any display attached)
     Group.prototype.$empty = function() {
@@ -236,8 +258,13 @@ angular.module('dashkiosk.services')
         enumerable: false,
         writable: false
       });
+      self.$findDashboard = DashboardCollection.prototype.$findDashboard;
+      Object.defineProperty(self, '$findDashboard', {
+        enumerable: false,
+        writable: false
+      });
       self.applyDiff = DashboardCollection.prototype.applyDiff;
-      Object.defineProperty(self, 'applydiff', {
+      Object.defineProperty(self, 'applyDiff', {
         enumerable: false,
         writable: false
       });
@@ -275,6 +302,11 @@ angular.module('dashkiosk.services')
                               ((err || {}).data || {}).message);
           return false;
         });
+    };
+    DashboardCollection.prototype.$findDashboard = function(id) {
+      return _.find(this, function(dashboard) {
+        return dashboard.id === id;
+      });
     };
 
     // One dashboard
