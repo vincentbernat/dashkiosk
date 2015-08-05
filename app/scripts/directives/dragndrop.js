@@ -1,8 +1,5 @@
 // Simple drag'n'drop directive.
 
-// The source node is expected to have a `data-drag-type` attribute
-// that should match the `data-drag-accept` on the destination node.
-
 angular.module('dashkiosk.directives')
   .directive('dkDraggable', function() {
     'use strict';
@@ -36,9 +33,8 @@ angular.module('dashkiosk.directives')
       link: function(scope, element, attrs) {
 
         var accept = function(event) {
-          var acceptable = element.attr('data-drag-accept');
-          return (!acceptable ||
-                  _.contains(event.dataTransfer.types, acceptable));
+          var acceptables = _.keys(scope.$eval(attrs.dkDroppable));
+          return !!_.intersection(event.dataTransfer.types, acceptables);
         };
 
         var counter = 0;
@@ -81,11 +77,14 @@ angular.module('dashkiosk.directives')
             }
             counter = 0;
             element.removeClass('droppable');
-            var fn = scope.$eval(attrs.dkDroppable);
-            if ('undefined' !== typeof fn) {
-              var value = event.dataTransfer.getData(element.attr('data-drag-accept'));
-              fn(value || undefined);
-            }
+            var fns = scope.$eval(attrs.dkDroppable);
+            _.each(fns, function(fn, type) {
+              var value = event.dataTransfer.getData(type);
+              if (value !== '') {
+                console.debug('[Dashkiosk] Drag\'n\'drop accepts ' + type + ' from ' + value);
+                fn(value);
+              }
+            });
             return false;
           });
       }
