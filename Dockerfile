@@ -5,9 +5,11 @@ RUN apt-get -qq update && apt-get install -qq gifsicle libjpeg-progs optipng
 
 WORKDIR /dashkiosk
 COPY . /dashkiosk/
-RUN npm install
-RUN grunt --branding=exoscale
-RUN cd dist ; ln -s ../node_modules
+RUN npm install && \
+    grunt --branding=exoscale && \
+    cd dist && \
+    npm install --production && \
+    rm -rf ../node_modules ../build
 
 # We use SQLite by default. If you want to keep the database between
 # runs, don't forget to provide a volume for /database.

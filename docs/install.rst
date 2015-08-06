@@ -35,11 +35,11 @@ To install it, you need to execute the following step:
 
          $ grunt
 
-  7. Upon success, you will get a `dist` directory that you can put on
+  7. Upon success, you will get a ``dist`` directory that you can put on
      some server. It includes both the receiver and the server
-     part. Then, go to `dist`::
+     part. Then::
 
-         $ npm install --production
+         $ cd dist && npm install --production
 
   8. If you want to use the Android application, you still need
      to build it and install it. See :doc:`android`.
