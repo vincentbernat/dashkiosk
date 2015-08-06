@@ -33,6 +33,12 @@ A live installation, reset every hour, is publicly available:
  - `administration panel`_
  - `receiver`_
 
+You can also quickly pull a ready-to-use version with Docker::
+
+    $ docker run -d -p 8080:8080 \
+                 -v /var/lib/dashkiosk/database:/database \
+                 vincentbernat/dashkiosk
+
 Here is a demonstration video:
 
 .. raw:: html
