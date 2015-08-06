@@ -28,7 +28,7 @@ A live installation, reset every hour, is publicly available:
 
 Here is a demonstration video:
 
-[![Dashkiosk demo](http://s2.dmcdn.net/EsM95.jpg)](http://www.dailymotion.com/video/x1sy4x7_dashkiosk-demo_tech)
+[![Dashkiosk demo](http://img.youtube.com/vi/Vb4BvEzoYOU/0.jpg)](http://www.dailymotion.com/video/x1sy4x7_dashkiosk-demo_tech "Dashkiosk demo")
 
 # Development
 
