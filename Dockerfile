@@ -4,7 +4,7 @@ RUN npm install -g bower grunt-cli
 RUN apt-get -qq update && apt-get install -qq gifsicle libjpeg-progs optipng
 
 WORKDIR /dashkiosk
-COPY .  /dashkiosk
+COPY . /dashkiosk/
 RUN npm install
 RUN grunt --branding=exoscale
 RUN cd dist ; ln -s ../node_modules

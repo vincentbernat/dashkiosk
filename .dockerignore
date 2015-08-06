@@ -1,0 +1,7 @@
+# It is expected the current directory is git clean. We should only
+# ignore .git. Just in case, also ignore huge directories.
+.git
+build
+dist
+node_modules
+app/bower_components
