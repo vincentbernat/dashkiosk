@@ -53,3 +53,13 @@ in the `gh-pages` branch of this repository. To update it:
     $ rsync -rv --include '*chromecast*' --include '*/' --exclude '*' ~-dashkiosk/dist/public/* .
     $ git add *
     $ git commit -m "Update"
+
+# Docker
+
+There is a `Dockerfile` to run *Dashkiosk* inside Docker. In this
+case, it is unlikely that Chromecast will work as expected. You can
+run this container like this:
+
+    $ docker run -d -p 8080:8080 \
+                 -v /var/lib/dashkiosk/database:/database \
+                 vincentbernat/dashkiosk
