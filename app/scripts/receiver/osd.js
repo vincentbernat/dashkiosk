@@ -3,8 +3,9 @@ module.exports = (function(window, undefined) {
 
   return {
     hide: function() {
-      document.querySelector('.osd')
-        .classList.remove('show');
+      Array.prototype.forEach.call(
+        document.querySelectorAll('.osd'),
+        function(osd) { osd.classList.remove('show'); });
     },
     show: function(text) {
       document.querySelector('.osd.technical').innerHTML = (
@@ -22,7 +23,9 @@ module.exports = (function(window, undefined) {
           '</p>'
       );
       document.querySelector('.osd.text').textContent = text;
-      document.querySelector('.osd').classList.add('show');
+      Array.prototype.forEach.call(
+        document.querySelectorAll('.osd'),
+        function(osd) { osd.classList.add('show'); });
     }
   };
 
