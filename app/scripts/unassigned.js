@@ -12,12 +12,13 @@
   // Preload the next image and insert it in place of the current one.
   function rotate() {
 
-    if ('hidden' in document &&
-        document.hidden) {
-      // In the background, don't need to load anything
-      window.setTimeout(rotate, duration * 1000);
+    // Don't do anything if the visibility is not right
+    document.removeEventListener('visibilitychange', rotate, false);
+    if (document.hidden === true) {
+      document.addEventListener('visibilitychange', rotate, false);
       return;
     }
+    document.removeEventListener('visibilitychange', rotate, false);
 
     /* Create an img tag to preload the photo */
     var photo = document.querySelector('.photo').dataset.image,
