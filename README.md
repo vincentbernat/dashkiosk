@@ -40,3 +40,16 @@ To run the server for development:
 
 The Android receiver has moved to its
 [own repository](https://github.com/vincentbernat/dashkiosk-android).
+
+# Chromecast receiver
+
+The "official" Chromecast receiver has app ID `5E7A2C2C` and is hosted
+in the `gh-pages` branch of this repository. To update it:
+
+    $ grunt dist
+    $ git worktree add ~/src/dashkiosk-gh-pages gh-pages
+    $ cd ~/src/dashkiosk-gh-pages
+    $ git rm -r *
+    $ rsync -rv --include '*chromecast*' --include '*/' --exclude '*' ~-dashkiosk/dist/public/* .
+    $ git add *
+    $ git commit -m "Update"
