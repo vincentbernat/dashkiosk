@@ -25,7 +25,7 @@
     "lodash": "~3.10.1",
     "method-override": "~2.3.5",
     "nconf": "~0.7.2",
-    "postal": "~0.9.1",
+    "postal": "~1.0.6",
     "postal.diagnostics": "~0.7.3",
     "sequelize": "~1.7.0",
     "socket.io": "~0.9.16",
