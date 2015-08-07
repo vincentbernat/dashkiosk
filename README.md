@@ -62,4 +62,7 @@ run this container like this:
 
     $ docker run -d -p 8080:8080 \
                  -v /var/lib/dashkiosk/database:/database \
-                 vincentbernat/dashkiosk
+                 vincentbernat/dashkiosk:latest
+
+Using `latest` can be broken from time to time. You may prefer a
+stable tag, like `2.6.1`.

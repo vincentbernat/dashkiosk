@@ -33,11 +33,12 @@ A live installation, reset every hour, is publicly available:
  - `administration panel`_
  - `receiver`_
 
-You can also quickly pull a ready-to-use version with Docker::
+You can also quickly pull a ready-to-use version with Docker (you may
+want to replace ``latest`` by a stable tag, like ``2.6.1``)::
 
     $ docker run -d -p 8080:8080 \
                  -v /var/lib/dashkiosk/database:/database \
-                 vincentbernat/dashkiosk
+                 vincentbernat/dashkiosk:latest
 
 Here is a demonstration video:
 
