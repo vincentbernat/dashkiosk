@@ -26,7 +26,7 @@ function serve(file) {
     };
   }
   return function(req, res) {
-    res.send(404, "Not found.");
+    res.status(404).send("Not found.");
   };
 }
 app.get('/', function(req, res) { res.redirect('/receiver'); });
