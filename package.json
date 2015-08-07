@@ -16,28 +16,28 @@
     "url": "https://github.com/vincentbernat/dashkiosk.git"
   },
   "dependencies": {
-    "bluebird": "~1.2.1",
+    "bluebird": "~2.9.34",
     "express": "~3.5.0",
     "express-params": "0.0.3",
-    "express-winston": "~0.2.5",
-    "glob": "~3.2.9",
+    "express-winston": "~0.3.1",
+    "glob": "~5.0.14",
     "later": "~1.1.6",
-    "lodash": "~2.4.1",
-    "method-override": "~2.2.0",
-    "nconf": "~0.6.9",
+    "lodash": "~3.10.1",
+    "method-override": "~2.3.5",
+    "nconf": "~0.7.2",
     "postal": "~0.9.1",
     "postal.diagnostics": "~0.7.3",
     "sequelize": "~1.7.0",
     "socket.io": "~0.9.16",
-    "winston": "~0.7.2",
+    "winston": "~1.0.1",
     "http-auth": "~2.2.7"
   },
   "optionalDependencies": {
     "memwatch": "~0.2.2",
-    "mysql": "~2.5.2",
+    "mysql": "~2.8.0",
     "nodecastor": "~0.1.6",
-    "pg": "~3.6.0",
-    "respawn": "~1.0.1",
+    "pg": "~4.4.1",
+    "respawn": "~2.0.0",
     "sqlite3": "~3.0.10"
   },
   "devDependencies": {
