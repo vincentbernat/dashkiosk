@@ -14,10 +14,10 @@ To install it, you need to execute the following step:
   1. Grab the latest `tarball for Dashkiosk`_ from GitHub.
 
   2. Install `Node.js`_ and optionally `npm`_. Currently, *Dashkiosk*
-     only works with *Node.js* 0.10.x which is the current stable
-     version. If the version available in your distribution is not
-     up-to-date, have a look at `how to install Node.js via the
-     package manager`_ before trying to build from the sources.
+     works with both *Node.js* 0.10.x and 0.12.x. If the version
+     available in your distribution is not up-to-date, have a look at
+     `how to install Node.js via the package manager`_ before trying
+     to build from the sources.
 
   3. Install *bower* and *grunt*, two package managers for Javascript
      with the following command::
