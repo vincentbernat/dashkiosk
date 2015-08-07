@@ -11,6 +11,7 @@ var should = require('should'),
     api = require('../../../lib/api'),
     app = express();
 
+require('should-http');
 api.rest(app);
 
 describe('/api/group', function() {
