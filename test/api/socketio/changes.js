@@ -10,7 +10,7 @@ var should = require('should'),
     _ = require('lodash'),
     models = require('../../../lib/models'),
     api = require('../../../lib/api'),
-    Promise = require('bluebird');
+    BPromise = require('bluebird');
 
 api.socketio(ioserver);
 
@@ -43,12 +43,12 @@ describe('socket.io changes API', function() {
           g2 = new models.Group('test group 2', { description: 'my second new group' }),
           d1 = models.Display.register(),
           d2 = models.Display.register();
-      Promise.all([g1.create(), g2.create(), d1, d2])
+      BPromise.all([g1.create(), g2.create(), d1, d2])
         .spread(function(group1, group2, display1, display2) {
-          return Promise.all([g1.addDashboard('http://www.example1.com'),
+          return BPromise.all([g1.addDashboard('http://www.example1.com'),
                               g2.addDashboard('http://www.example2.com', { timeout: 30 })])
             .then(function() {
-              return Promise.all([g1.addDashboard('http://www.example3.com'),
+              return BPromise.all([g1.addDashboard('http://www.example3.com'),
                                   g2.addDashboard('http://www.example4.com')]);
             }, function(err) { done(err); })
             .then(function() {
@@ -102,7 +102,7 @@ describe('socket.io changes API', function() {
     it('should send a group update when adding a dashboard', function(done) {
       var g = new models.Group('test group'),
           d = models.Display.register(); // Just to ensure that the unassigned group already exists
-      Promise.all([g.create(), d])
+      BPromise.all([g.create(), d])
         .spread(function(group, display) {
           var client = ioclient.connect('http://127.0.0.1:5000/changes', options);
           client.once('snapshot', function(data) {
@@ -134,7 +134,7 @@ describe('socket.io changes API', function() {
     it('should send a group delete when deleting a group', function(done) {
       var g = new models.Group('test group'),
           d = models.Display.register(); // Just to ensure that the unassigned group already exists
-      Promise.all([g.create(), d])
+      BPromise.all([g.create(), d])
         .spread(function(group, display) {
           var client = ioclient.connect('http://127.0.0.1:5000/changes', options);
           client.once('snapshot', function(data) {

@@ -4,7 +4,7 @@ var setup = require('../.');
 
 var should = require('should'),
     models = require('../../lib/models'),
-    Promise = require('bluebird');
+    BPromise = require('bluebird');
 
 describe('Group', function() {
 
@@ -62,7 +62,7 @@ describe('Group', function() {
     });
 
     it('should create unassigned group once', function(done) {
-      Promise.all([models.Group.unassigned(), models.Group.unassigned()])
+      BPromise.all([models.Group.unassigned(), models.Group.unassigned()])
         .spread(function(u1, u2) {
           u1.toJSON().id.should.equal(u2.toJSON().id);
           done();

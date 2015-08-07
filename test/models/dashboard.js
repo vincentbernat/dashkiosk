@@ -3,8 +3,7 @@
 var setup = require('../.');
 
 var should = require('should'),
-    models = require('../../lib/models'),
-    Promise = require('bluebird');
+    models = require('../../lib/models');
 
 describe('Dashboard', function() {
   /*jshint expr: true*/
