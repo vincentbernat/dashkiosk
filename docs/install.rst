@@ -48,36 +48,6 @@ If you get an error while compiling mDNS extension on Linux, ensure
 you have the appropriate development package for Avahi. Specifically,
 on Debian, you need ``libavahi-compat-libdnssd-dev``.
 
-Branding
---------
-
-You can brand a bit *Dashkiosk*. To do this, run ``grunt`` with
-``--branding=BRAND``.  For example, the ``deezer`` branding provides
-the following perks:
-
-  - The spinning vinyl is located in
-    ``app/images/loading-deezer.svg``. You should be able to use
-    anything that will give a cool effect while spinning.
-
-  - The *Deezer* logo appearing both in the administration interface
-    and in the default dashboard is located in
-    ``app/images/stamp-deezer.svg``.
-
-You can create alternate version of those images and drop them at the
-same place with a different suffix. Currently, the available brandings
-are:
-
- - ``default``
- - ``deezer``
- - ``dailymotion``
- - ``exoscale``
-
-If you do your own branding, they can be integrated into *Dashkiosk*
-if the used images can be freely distributed. Submit a `pull
-request`_.
-
-.. _pull request: https://github.com/vincentbernat/dashkiosk/pulls
-
 Database
 --------
 

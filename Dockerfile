@@ -6,7 +6,7 @@ RUN apt-get -qq update && apt-get install -qq gifsicle libjpeg-progs optipng
 WORKDIR /dashkiosk
 COPY . /dashkiosk/
 RUN npm install && \
-    grunt --branding=exoscale && \
+    grunt && \
     cd dist && \
     npm install --production && \
     rm -rf ../node_modules ../build && \

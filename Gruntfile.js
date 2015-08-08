@@ -6,8 +6,7 @@ var glob = require('glob'),
 var PORTS = {
   express: 9400 || process.env.PORT,
   livereload: 31452
-},
-    DEFAULT_BRANDING = 'default';
+};
 
 module.exports = function(grunt) {
 
@@ -316,7 +315,6 @@ module.exports = function(grunt) {
           var options = {
             data: {
               unassigned: glob.sync('images/unassigned/*', { cwd: 'app' }),
-              branding: grunt.option('branding') || DEFAULT_BRANDING,
               version: require('./package.json').version,
               include: function(rel) {
                 return grunt.template.process(fs.readFileSync('app/' + rel + '.html',
