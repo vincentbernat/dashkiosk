@@ -37,6 +37,12 @@
     transform: translate3d(-150%, 0, 0);
     .dk-fast-browser & {
         transition: transform 0.5s;
+        & .branding-default {
+            display: block;
+        }
+    }
+    .branding-default {
+        display: none;
     }
 
     &.show {
