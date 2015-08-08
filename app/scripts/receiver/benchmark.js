@@ -135,7 +135,7 @@ module.exports = (function(window) {
         // Record the number of frames displayed
         var fps = frames / duration * 1000;
         console.log('[Dashkiosk] Benchmark: ' + fps + ' fps');
-        if (fps > 10) {
+        if (fps > 5) {
           document.body.classList.add('dk-fast-browser');
         }
 
