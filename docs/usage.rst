@@ -152,10 +152,10 @@ Each group has a list of dashboards. You can reorder them by using the
 up and down arrow icons on the right of each dashboard. You can add a
 new dashboard by using the "*Add a new dashboard*" button.
 
-You can also copy a dashboard from another group by using
-drag'n'drop. If you drop a dashboard from one group to the same group,
-you will duplicate it. It is expected to be a feature more than a
-nuisance.
+You can also move or copy a dashboard from another group by using
+drag'n'drop. By default, a move operation is issued. However, by using
+a modifier, you will copy the dashboard. Copying a dashboard from one
+group to the same group will result in a duplicate.
 
 Dashboards
 ++++++++++

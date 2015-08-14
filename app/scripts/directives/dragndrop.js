@@ -11,7 +11,8 @@ angular.module('dashkiosk.directives')
           .attr('draggable', 'true')
           .on('dragstart', function(event) {
             element.addClass('dragged');
-            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.effectAllowed =
+              element.attr('data-drag-allowed') || 'move';
             // If we use setData, we cannot read the data in anything
             // else than the drop event. That's quite
             // convenient. Therefore, we encode the value into the
@@ -56,8 +57,8 @@ angular.module('dashkiosk.directives')
               event.dataTransfer.dropEffect = 'none';
               return true;
             }
-            event.dataTransfer.effectAllowed = 'move';
-            event.dataTransfer.dropEffect = 'move';
+            event.dataTransfer.effectAllowed = 'copyMove';
+            event.dataTransfer.dropEffect = 'copyMove';
             element.addClass('droppable');
             return false;
           })
@@ -82,7 +83,7 @@ angular.module('dashkiosk.directives')
               var value = event.dataTransfer.getData(type);
               if (value !== '') {
                 console.debug('[Dashkiosk] Drag\'n\'drop accepts ' + type + ' from ' + value);
-                fn(value);
+                fn(value, event.dataTransfer);
               }
             });
             return false;

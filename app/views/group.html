@@ -39,6 +39,7 @@
       ng-repeat="dashboard in group.dashboards track by dashboard.id"
       dashboard="dashboard"
       dk-draggable="{{ dashboard.id }}"
+      data-drag-allowed="copyMove"
       data-drag-type="text/vnd.dashkiosk.dashboard">
     </dk-dashboard>
     <div data-ui-element="dk-dashboard" class="add">

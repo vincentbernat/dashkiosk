@@ -8,8 +8,12 @@ angular.module('dashkiosk.controllers')
     };
 
     // Copy a dashboard to this group
-    $scope.copyDashboard = function(id) {
-      $scope.group.$copy(parseInt(id, 10));
+    $scope.copyDashboard = function(id, dt) {
+      if (dt.dropEffect === 'copy') {
+        $scope.group.$copy(parseInt(id, 10));
+      } else if (dt.dropEffect === 'move')  {
+        $scope.group.$move(parseInt(id, 10));
+      }
     };
 
     // Return true if any display in the group is connected

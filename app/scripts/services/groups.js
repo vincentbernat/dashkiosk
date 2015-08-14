@@ -188,6 +188,23 @@ angular.module('dashkiosk.services')
       delete dashboard.id;
       this.dashboards.$add(dashboard);
     };
+    // Move a dashboard from another group
+    Group.prototype.$move = function(id) {
+      var dashboard = this.groups.$findDashboard(id);
+      if (!dashboard) {
+        return;
+      }
+      if (dashboard.group === this) {
+        console.debug('[Dashkiosk] Cancel move, target is the same group');
+        return;
+      }
+      // Copy
+      var copy = angular.copy(dashboard);
+      delete copy.id;
+      this.dashboards.$add(copy);
+      // Remove old one
+      dashboard.$delete();
+    };
     // Find a dashboard with its ID
     Group.prototype.$findDashboard = function(id) {
       return this.dashboards.$findDashboard(id);

@@ -1,6 +1,7 @@
 <div data-ui-element="dk-display"
      dk-draggable="{{ display.name }}"
      ng-class="{chromecast: !!display.chromecast}"
+     data-drag-allowed="copy"
      data-drag-type="text/vnd.dashkiosk.display">
   <div class="screen"
        ng-class="{on: display.connected, off: !display.connected, chromecast: !!display.chromecast}"
