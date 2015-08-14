@@ -9,7 +9,10 @@ angular.module('dashkiosk.controllers')
 
     // Copy a dashboard to this group
     $scope.copyDashboard = function(id, dt) {
-      if (dt.dropEffect === 'copy') {
+      console.log(dt.dropEffect, dt.effectAllowed);
+      if (dt.dropEffect === 'copy' ||
+          // See: https://code.google.com/p/chromium/issues/detail?id=501655
+          dt.dropEffect === 'none') {
         $scope.group.$copy(parseInt(id, 10));
       } else if (dt.dropEffect === 'move')  {
         $scope.group.$move(parseInt(id, 10));
