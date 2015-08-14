@@ -54,11 +54,8 @@ angular.module('dashkiosk.directives')
             counter++;
             if (!accept(event)) {
               event.dataTransfer.effectAllowed = 'none';
-              event.dataTransfer.dropEffect = 'none';
               return true;
             }
-            event.dataTransfer.effectAllowed = 'copyMove';
-            event.dataTransfer.dropEffect = 'copyMove';
             element.addClass('droppable');
             return false;
           })
