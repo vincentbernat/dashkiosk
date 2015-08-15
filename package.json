@@ -35,7 +35,6 @@
     "winston": "~1.0.1"
   },
   "optionalDependencies": {
-    "memwatch": "~0.2.2",
     "mysql": "~2.8.0",
     "nodecastor": "~0.1.6",
     "pg": "~4.4.1",
