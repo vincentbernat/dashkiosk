@@ -34,6 +34,14 @@ angular.module('dashkiosk.directives')
       link: function(scope, element, attrs) {
 
         var accept = function(event) {
+          if (event.type !== 'drop' ||
+              event.dataTransfer.dropEffect === 'none') {
+            if (event.altKey || event.ctrlKey) {
+              event.dataTransfer.dropEffect = 'copy';
+            } else {
+              event.dataTransfer.dropEffect = 'move';
+            }
+          }
           var acceptables = _.keys(scope.$eval(attrs.dkDroppable));
           return !!_.intersection(event.dataTransfer.types, acceptables);
         };
@@ -59,10 +67,11 @@ angular.module('dashkiosk.directives')
             element.addClass('droppable');
             return false;
           })
-          .on('dragleave', function() {
+          .on('dragleave', function(event) {
             counter--;
             if (counter === 0) {
               element.removeClass('droppable');
+              event.dataTransfer.dropEffect = 'none';
             }
             return false;
           })
