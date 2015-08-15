@@ -34,8 +34,7 @@ angular.module('dashkiosk.directives')
       link: function(scope, element, attrs) {
 
         var accept = function(event) {
-          if (event.type !== 'drop' ||
-              event.dataTransfer.dropEffect === 'none') {
+          if (event.dataTransfer.dropEffect === 'none') {
             if (event.altKey || event.ctrlKey) {
               event.dataTransfer.dropEffect = 'copy';
             } else {
