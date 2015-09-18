@@ -186,17 +186,25 @@ module.exports = function(grunt) {
       }
     },
 
+    // JS minification
+    uglify: {
+      options: {
+        sourceMap: true,
+        sourceMapIncludeSources: true
+      }
+    },
+
     // Rename files for browser caching purposes
-    rev: {
+    filerev: {
       dist: {
-        files: {
+        files: [{
           src: [
             'dist/public/scripts/{,*/}*.js',
             'dist/public/styles/*.css',
             'dist/public/fonts/*.{ttf,otf,woff,eot,svg}',
             'dist/public/images/{,*/,*/*/}*.*'
           ]
-        }
+        }]
       }
     },
 
@@ -472,7 +480,7 @@ module.exports = function(grunt) {
     'concat',
     'cssmin',
     'uglify',
-    'rev',
+    'filerev',
     'usemin'
   ]);
 
