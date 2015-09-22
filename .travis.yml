@@ -3,12 +3,9 @@ node_js:
   - "0.10"
   - "0.12"
   - "4.1"
-sudo: false
-addons:
-  apt:
-    packages:
-      - libavahi-compat-libdnssd-dev
 before_install:
+  - "sudo apt-get update"
+  - "sudo apt-get install libavahi-compat-libdnssd-dev"    
   - "npm install -g grunt-cli bower"
 script:
   - "npm test"
