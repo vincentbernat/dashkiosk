@@ -21,7 +21,7 @@ function serve(file) {
       matches = glob.sync(f);
   if (matches.length > 0) {
     return function(req, res) {
-      res.sendFile(matches[0]);
+      res.sendFile(path.resolve(matches[0]));
     };
   }
   return function(req, res) {
