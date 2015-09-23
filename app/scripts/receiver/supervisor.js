@@ -39,7 +39,7 @@ module.exports = (function(window) {
           window.clearTimeout(lastTimeout);
         }
         if (timeout) {
-          lastTimeout = window.setTimeout(ready, timeout * 0.8);
+          lastTimeout = window.setTimeout(ready, timeout * 0.3);
         }
       };
 
