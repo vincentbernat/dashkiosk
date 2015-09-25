@@ -22,12 +22,29 @@
         background-repeat: no-repeat;
         background-size: contain;
     }
-    .branding-exoscale, .branding-default {
+    .branding-exoscale {
         width: 50%;
         height: 60%;
         @media all and (orientation: landscape) {
             width: 60%;
             height: 50%;
+        }
+    }
+    .branding-default {
+        margin: 25% auto;
+        width: 10%;
+        height: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: white;
+        background-image: none;
+        border-radius: 100%;
+        &:before{
+	    content: "";
+	    display: block;
+	    padding-top: 100%;
         }
     }
 
@@ -37,12 +54,6 @@
     transform: translate3d(-150%, 0, 0);
     .dk-fast-browser & {
         transition: transform 0.5s;
-        & .branding-default {
-            display: block;
-        }
-    }
-    .branding-default {
-        display: none;
     }
 
     &.show {
@@ -52,7 +63,7 @@
             animation: spinning 10s infinite linear;
         }
         .dk-fast-browser & .branding-default {
-            animation: none 0s;
+            animation: scaleout 1.0s infinite ease-in-out;
         }
         .dk-fast-browser & .branding-exoscale {
             animation: shaking 2s infinite linear;
@@ -86,4 +97,13 @@
     50% { transform: translate(2px, 2px) rotate(0deg); }
     55% { transform: translate(1px, -2px) rotate(-1deg); }
     60% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes scaleout {
+    0% { 
+        transform: scale(0);
+    } 100% {
+        transform: scale(1);
+        opacity: 0;
+    }
 }
