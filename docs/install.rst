@@ -35,6 +35,12 @@ To install it, you need to execute the following step:
 
          $ grunt
 
+     If you get an error about ``jpegtran``, install ``jpegtran``,
+     ``optipng`` and ``gifsicle`` from your distribution. For example,
+     on Debian::
+
+         $ sudo apt-get install jpegtran optipng gifsicle
+
   7. Upon success, you will get a ``dist`` directory that you can put on
      some server. It includes both the receiver and the server
      part. Then::
