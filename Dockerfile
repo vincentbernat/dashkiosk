@@ -1,4 +1,4 @@
-FROM node:4.1
+FROM node:4.2
 
 RUN npm install -g bower grunt-cli
 RUN apt-get -qq update && apt-get install -qq gifsicle libjpeg-progs optipng
