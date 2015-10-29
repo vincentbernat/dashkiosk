@@ -36,7 +36,7 @@
   },
   "optionalDependencies": {
     "mysql": "~2.8.0",
-    "nodecastor": "~0.1.6",
+    "nodecastor": "~0.1.7",
     "pg": "~4.4.1",
     "respawn": "~2.0.0",
     "sqlite3": "~3.1.0"
