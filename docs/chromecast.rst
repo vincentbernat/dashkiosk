@@ -121,6 +121,15 @@ doesn't work anymore, feel free to signal it in an `issue`_. If
 needed, it is possible to help debugging by registering a Chromecast
 device on the same account hosting the custom receiver.
 
+Also, the Chromecast is a low-end device (but quite capable): it may
+have difficulties to display complex dashboards. You may want to try
+to load the dashboard alone using a `simple sender`_. If the dashboard
+is unable to render correctly even with this sender, try to reduce its
+complexity. Moreover, during transitions, the Chromecast has to be
+able to display the current dashboard while the next one is rendered
+in the background. This may use too much resources. Try to not load
+two consecutive complex dashboards.
+
 .. rubric:: Footnotes
 
 .. [#routing] The mDNS packets are usually using a TTL of 1 and
@@ -128,6 +137,7 @@ device on the same account hosting the custom receiver.
               multicast routing on your network. The correct solution
               is to configure a `DNS-SD name server`_.
 
+.. _simple sender: https://boombatower.github.io/chromecast-dashboard/sender/
 .. _DNS-SD name server: http://www.dns-sd.org/ServerSetup.html
 .. _GitHub URL: https://vincentbernat.github.io/dashkiosk/chromecast.html
 .. _register your Chromecast: https://cast.google.com/publish/#/overview
