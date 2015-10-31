@@ -14,6 +14,13 @@ To be able to handle Chromecast devies, you need to enable its support
 (see :ref:`options`). You also need to ensure that mDNS is working
 correctly on your setup.
 
+When starting *Dashkiosk*, you may get this error message::
+
+    *** WARNING *** The program 'nodejs' called 'DNSServiceRegister()' which is not supported (or only supported partially) in the Apple Bonjour compatibility layer of Avahi.
+    *** WARNING *** Please fix your application to use the native API of Avahi!
+
+This is perfectly harmless.
+
 For Linux, use the following command to check that you can see The
 Chromecast devices::
 
