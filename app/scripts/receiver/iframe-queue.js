@@ -43,7 +43,7 @@ module.exports = (function(window, undefined) {
 
   Iframe.prototype.remove = function() {
     if (this.el.classList.contains('show')) {
-      this.el.classList .remove('show');
+      this.el.classList.remove('show');
       window.setTimeout(function() {
         this.el.parentNode.removeChild(this.el);
       }.bind(this), 1001);                 // This is more reliable than relying on transitionend
