@@ -7,6 +7,20 @@ Chromecast devices
 is enabled (see :ref:`options`), *Dashkiosk* will be able to discover
 Chromecast devices on the network.
 
+Warning
+-------
+
+Due to the closedness of the Chromecast platform, its support in
+Dashkiosk may break from time to time. As soon as it doesn't work
+anymore, feel free to signal it in an `issue`_. If needed, it is
+possible to help debugging by registering a Chromecast device on the
+same account hosting the custom receiver.
+
+However, there is no guarantee that the issue is easy to fix and it
+may take some time. Therefore, you must be prepared for the dashboards
+to break at any time without prior warnings (the Chromecast are
+updating themselves without user consent).
+
 Setup
 -----
 
@@ -121,12 +135,6 @@ device using its IP on port 9222. The Chromecast needs to be running
 the custom receiver. With recent versions of Chrome, you are likely to
 get mixed content restrictions. Click on the shield in the URL bar to
 lift this restriction.
-
-Either way, due to the closedness of the Chromecast platform, its
-support in Dashkiosk may break from time to time. As soon as it
-doesn't work anymore, feel free to signal it in an `issue`_. If
-needed, it is possible to help debugging by registering a Chromecast
-device on the same account hosting the custom receiver.
 
 Also, the Chromecast is a low-end device (but quite capable): it may
 have difficulties to display complex dashboards. You may want to try
