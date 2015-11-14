@@ -302,8 +302,7 @@ module.exports = function(grunt) {
     mochaTest: {
       server: {
         options: {
-          reporter: 'spec',
-          require: 'test/blanket'
+          reporter: 'spec'
         },
         src: ['test/**/*.js']
       },
@@ -486,7 +485,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'jshint:test',
-    'mochaTest'
+    'mochaTest:server'
   ]);
 
   grunt.registerTask('heroku', [
