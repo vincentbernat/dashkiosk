@@ -30,9 +30,10 @@ If you want to be able to use Chromecast devices, you also need to set:
      Enable Chromecast support. Disabled by default.
 
   ``chromecast.receiver``
-     The URL to the receiver. This is used to tell Chromecast devices
-     where to find the receiver. The default value is unlikely to
-     work. You should put the URL to access Dashkiosk and ends it with
+     The URL to the receiver. This is used to
+     tell Chromecast devices where to find the receiver. This option
+     is mandatory as there is no reliable way to guess it. You should
+     put the URL to access Dashkiosk and ends it with
      ``/receiver``. For example, put something like
      ``http://dashkiosk.example.com/receiver``. This needs to be a
      fully qualified URL (including the protocol part ``http://`` or
