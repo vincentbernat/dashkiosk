@@ -5,6 +5,7 @@ RUN apt-get -qq update && apt-get install -qq gifsicle libjpeg-progs optipng
 
 WORKDIR /dashkiosk
 COPY . /dashkiosk/
+ENV NPM_CONFIG_LOGLEVEL warn
 RUN npm install && \
     grunt && \
     cd dist && \
