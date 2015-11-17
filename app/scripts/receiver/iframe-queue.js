@@ -85,6 +85,17 @@ module.exports = (function(window, undefined) {
       }
     }
 
+    // Don't do anything if the current dashboard is the same.
+    if (this.queue.length >= 1) {
+      var current = this.queue[this.queue.length - 1];
+      if (current &&
+          current.displayed() &&
+          (JSON.stringify(current.dashboard) === JSON.stringify(dashboard))) {
+        console.info('[Dashkiosk] Same dashboard already displayed, do nothing');
+        return;
+      }
+    }
+
     // Build a new frame
     iframe = new Iframe(dashboard, {
       ready: function() {
