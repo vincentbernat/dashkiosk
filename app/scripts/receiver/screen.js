@@ -8,10 +8,12 @@ module.exports = (function(undefined) {
     }
   });
 
-  /* Display loading screen */
-  function loading() {
-    queue.flush();
-    document.querySelector('#loading').classList.add('show');
+  /* Display connecting symbol */
+  function connecting() {
+    document.querySelector('.connecting').classList.add('show');
+  }
+  function connected() {
+    document.querySelector('.connecting').classList.remove('show');
   }
 
   /* Display the given dashboard */
@@ -26,7 +28,8 @@ module.exports = (function(undefined) {
   }
 
   return {
-    loading: loading,
+    connecting: connecting,
+    connected: connected,
     dashboard: dashboard
   };
 

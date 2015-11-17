@@ -15,6 +15,7 @@ module.exports = (function(window, io, undefined) {
 
     socket.on('connect', function() {
       console.info('[Dashkiosk] connected to socket.io server');
+      screen.connected();
 
       // We register by providing a blob the server handed us to
       // remember us. If we get null, that's fine, the server will see
@@ -31,6 +32,7 @@ module.exports = (function(window, io, undefined) {
     // Log various events
     socket.on('connecting', function() {
       console.info('[Dashkiosk] connect in progress to socket.io server');
+      screen.connecting();
     });
     socket.on('connect_failed', function() {
       console.warn('[Dashkiosk] unable to connect to socket.io server');
@@ -42,7 +44,8 @@ module.exports = (function(window, io, undefined) {
     });
     socket.on('reconnecting', function(delay, attempts) {
       console.info('[Dashkiosk] reconnect in progress to socket.io server (next: ' +
-                   delay + ' attempts:' + attempts + ')');
+                   delay + ' attempts: ' + attempts + ')');
+      screen.connecting();
     });
     socket.on('reconnect_failed', function() {
       console.warn('[Dashkiosk] unable to reconnect to socket.io server');
@@ -51,7 +54,7 @@ module.exports = (function(window, io, undefined) {
 
     socket.on('disconnect', function() {
       console.warn('[Dashkiosk] connection to socket.io lost');
-      screen.loading();
+      screen.connecting();
     });
 
     socket.on('dashboard', function(dashboard) {
