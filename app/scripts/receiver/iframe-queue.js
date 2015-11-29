@@ -33,7 +33,6 @@ module.exports = (function(window, undefined) {
     vp.adapt(this.el);
 
     // Load the URL
-    this.el.setAttribute('sandbox', 'allow-scripts allow-same-origin');
     this.el.setAttribute('src', dashboard.url);
   }
 
