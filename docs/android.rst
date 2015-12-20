@@ -112,15 +112,36 @@ The **timeout** is not really important. Until the application is able
 to make contact with the receiver, it will try to reload the receiver
 if the timeout is reached.
 
+Alternatively, the configuration can be done at compile-time by
+modifying ``res/xml/preferences.xml``.
+
+Certificates
+------------
+
+Server certificates
+~~~~~~~~~~~~~~~~~~~
+
 Another interesting setting is the ability to **ignore SSL
 errors**. This can be useful if you need to access a lot of
 self-signed pages. However, if you have an internal root certificate,
 it is better to add it to the Android system. This can be done in the
 preferences: *Security* → *Credential Storage* → *Install from
-storage*.
+storage*. Unfortunately, this enforces the use of a lock screen which
+is usually not wanted for a kiosk.
 
-Alternatively, the configuration can be done at compile-time by
-modifying ``res/xml/preferences.xml``.
+The other solution is to modify the system store. You need to be root
+on the device for such a manipulation. First, get the hash of your
+certificate::
+
+    $ echo $(openssl x509 -inform PEM -subject_hash_old -in ca-cert.pem | head -1).0
+    a199d90b.0
+
+Then, copy the certificate as this name in `/system/etc/security/cacerts/`::
+
+    $ adb push ca-cert.pem /sdcard/a199d90b.0
+    $  adb shell su -c "cp /sdcard/a199d90b.0 /system/etc/security/cacerts/"
+
+Then, reboot your device.
 
 Usage
 -----
