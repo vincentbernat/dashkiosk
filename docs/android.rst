@@ -136,12 +136,62 @@ certificate::
     $ echo $(openssl x509 -inform PEM -subject_hash_old -in ca-cert.pem | head -1).0
     a199d90b.0
 
-Then, copy the certificate as this name in `/system/etc/security/cacerts/`::
+Then, copy the certificate as this name in ``/system/etc/security/cacerts/``::
 
     $ adb push ca-cert.pem /sdcard/a199d90b.0
     $  adb shell su -c "cp /sdcard/a199d90b.0 /system/etc/security/cacerts/"
 
 Then, reboot your device.
+
+Client certificates
+~~~~~~~~~~~~~~~~~~~
+
+It is also possible to use client certificates. The support is still
+quite new and may be troublesome to implement. Be sure to use ``adb
+logcat -s DashKiosk AndroidRuntime`` while running to spot any error.
+
+Creating a keystore
++++++++++++++++++++
+
+Currently, you can only provide one client certificate and it will be
+used with any site requesting a client certificate. The certificate
+needs to be provided as a BKS (BouncyCastle KeyStore). You can either
+use ``keytool`` or `Portecle`_, a graphical tool to manage such a
+store. You can find a `cheatsheet`_ to use ``keytool``. If you already
+have your client certificate as a PKCS#12 file, you only need to use
+``keytool -importkeystore``::
+
+    keytool -importkeystore \
+            -destkeystore clientstore.bks \
+            -deststoretype BKS \
+            -provider org.bouncycastle.jce.provider.BouncyCastleProvider \
+            -providerpath /usr/share/java/bcprov.jar \
+            -srckeystore client.p12 \
+            -srcstoretype PKCS12
+
+You will be prompted the password to protect the newly created
+keystore and the password protecting the PKCS#12 file. Ensure you use
+the same password for both: ``keytool`` seems to protect the private
+key with the password from the PKCS#12 file while *Dashkiosk* will use
+the same password for the private key and for the keystore.
+
+On Debian, ``bcprov.jar`` is from the ``libbcprov-java`` package. Be
+sure to only put one keypair in the store. *Dashkiosk* wil always use
+the first one.
+
+Providing the keystore to the application
++++++++++++++++++++++++++++++++++++++++++
+
+There are two ways to provide a client certificate to the
+application. The first one is to put the certificate on the
+filesystem. For example, in ``/sdcard/dashkiosk.bks``. Then, in the
+preferences, ensure to untick *Embedded keystore* and tick *External
+keystore*, then specify the path to the keystore in *Keystore
+path*. The second one is to embed the client certificate directly into
+the application. Replace the file ``res/raw/clientstore.bks`` by your
+own and recompile the application. In the preferences, ensure you tick
+*Embedded keystore*. In both cases, you also need to provide the
+password protecting the keystore.
 
 Usage
 -----
@@ -166,6 +216,8 @@ dashboards. Javascript errors from the receiver are prefixed with
 .. _Gradle: http://www.gradle.org/
 .. _git repository: https://github.com/vincentbernat/dashkiosk-android
 .. _Crosswalk project: https://crosswalk-project.org/
+.. _Portecle: http://portecle.sourceforge.net/
+.. _cheatsheet: https://github.com/vincentbernat/dashkiosk-android/blob/master/certificates/generate
 
 .. rubric:: Footnotes
 
