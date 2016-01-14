@@ -195,7 +195,7 @@ module.exports = function(grunt) {
     },
 
     // Rename files for browser caching purposes
-    file1rev: {
+    filerev: {
       dist: {
         files: [{
           src: [
