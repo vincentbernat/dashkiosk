@@ -6,7 +6,7 @@ node_js:
   - "4.2"
 before_install:
   - "sudo apt-get update"
-  - "sudo apt-get install libavahi-compat-libdnssd-dev jpegtran optipng gifsicle"
+  - "sudo apt-get install libavahi-compat-libdnssd-dev libjpeg-turbo-progs optipng gifsicle"
   - "npm install -g grunt-cli bower"
 script:
   - "npm test"
