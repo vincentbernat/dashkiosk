@@ -195,7 +195,7 @@ module.exports = function(grunt) {
     },
 
     // Rename files for browser caching purposes
-    filerev: {
+    file1rev: {
       dist: {
         files: [{
           src: [
@@ -232,7 +232,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'build/images',
-          src: '{,*/,*/*/}*.{png,jpg,gif}',
+          src: '[{,*/,*/*/}*.{png,jpg,gif}]',
           dest: 'dist/public/images'
         }]
       }
