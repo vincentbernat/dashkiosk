@@ -20,7 +20,7 @@ comes as four components:
 
 The full documentation is available on [ReadTheDocs][].
 
-[ReadTheDocs]: http://dashkiosk.readthedocs.org
+[ReadTheDocs]: http://dashkiosk.readthedocs.io
 
 A live installation, reset every hour, is publicly available:
  - [administration panel](http://dashkiosk.app.exo.io/admin)
