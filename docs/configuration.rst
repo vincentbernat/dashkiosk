@@ -52,6 +52,23 @@ provided application ID as ``chromecast.app``.
 .. _GitHub: https://vincentbernat.github.io/dashkiosk/chromecast.html
 .. _Google Cast SDK Developer Console: https://cast.google.com/publish/#/overview
 
+You can protect *Dashkiosk* with a login and a password. For more
+advanced options, you should put it behind a reverse proxy.
+
+  ``auth.enabled`` 
+     Require a login/password. This will enforce the use
+     of HTTP basic authentication to access to *Dashkiosk* (both the
+     receiver and the admin panel).
+
+  ``auth.realm``
+     Realm to use for HTTP basic authentication.
+
+  ``auth.user``
+     Valid username for authentication.
+
+  ``auth.password``
+     Valid password for authentication.
+
 The remaining options can usually be left untouched unless you decided
 to not use the integrated SQLite database.
 
