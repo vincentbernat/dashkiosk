@@ -14,7 +14,7 @@ To install it, you need to execute the following step:
   1. Grab the latest `tarball for Dashkiosk`_ from GitHub.
 
   2. Install `Node.js`_ and optionally `npm`_. Currently, *Dashkiosk*
-     works with *Node.js* 0.10.x, 0.12.x and 4.x. If the version
+     works with *Node.js* 0.12.x or more recent. If the version
      available in your distribution is not up-to-date, have a look at
      `how to install Node.js via the package manager`_ before trying
      to build from the sources.
