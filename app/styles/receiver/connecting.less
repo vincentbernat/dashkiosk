@@ -36,21 +36,16 @@
 
     &:before {
         height: 19.2px;
+        animation: timer-loader 1250ms infinite linear;
     }
 
     &:after {
         height: 16px;
+        animation: timer-loader 15000ms infinite linear;
     }
 
     &.show {
         display: inline-block;
-    }
-
-    .dk-fast-browser &:before {
-        animation: timer-loader 1250ms infinite linear;
-    }
-    .dk-fast-browser &:after {
-        animation: timer-loader 15000ms infinite linear;
     }
 
 }
