@@ -298,6 +298,11 @@ some limitations to an IFrame:
    special ``X-Frame-Options`` in the headers forbidding the use of an
    IFrame.
 
+ - The content embedded inside the IFrame can be confused because it
+   uses IFrame too and expects to be at the top of the structure. Some
+   Javascript code therefore tries to access to *Dashkiosk* window and
+   gets an unexpected error. This is the case with `JIRA`_.
+
  - If you are serving *Dashkiosk* from an HTTPS URL, you cannot
    display dashboards using HTTP. The other way is authorized. Hence,
    it seems just easier to serve Dashkiosk receiver on HTTP.
@@ -317,6 +322,7 @@ The second limitation can be quite annoying. Here are some workarounds:
     such a service with headless browsers like Phantom.JS. For example
     `this one`_.
 
+.. _JIRA: https://jira.atlassian.com/browse/JRA-20988
 .. _Node Unblocker: http://nodeunblocker.com/proxy
 .. _this one: https://github.com/fzaninotto/screenshot-as-a-service
 
