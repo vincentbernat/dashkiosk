@@ -63,7 +63,7 @@ advanced options, you should put it behind a reverse proxy.
   ``auth.realm``
      Realm to use for HTTP basic authentication.
 
-  ``auth.user``
+  ``auth.username``
      Valid username for authentication.
 
   ``auth.password``
