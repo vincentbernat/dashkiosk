@@ -179,6 +179,14 @@ On Debian, ``bcprov.jar`` is from the ``libbcprov-java`` package. Be
 sure to only put one keypair in the store. *Dashkiosk* wil always use
 the first one.
 
+If you have your certificates in PEM format, you can convert them in
+PKCS#12 with the following command::
+
+    openssl pkcs12 -export -out client.p12 \
+                   -in cert.pem \
+                   -inkey key.pem \
+                   -certfile ca.pem
+
 Providing the keystore to the application
 +++++++++++++++++++++++++++++++++++++++++
 
