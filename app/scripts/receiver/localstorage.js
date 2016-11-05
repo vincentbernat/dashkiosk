@@ -4,9 +4,13 @@ module.exports = (function(window, undefined) {
   // Using local storage if available
   function LocalStorage() {
   }
-  var hasLocalStorage;
+  var hasLocalStorage = true;
   try {
-    hasLocalStorage = 'localStorage' in window && window.localStorage !== null;
+    window.localStorage.setItem('testing', 'testing');
+    if (window.localStorage.getItem('testing') !== 'testing') {
+      hasLocalStorage = false;
+    }
+    window.localStorage.removeItem('testing');
   } catch (e) {
     hasLocalStorage = false;
   }
@@ -16,10 +20,11 @@ module.exports = (function(window, undefined) {
     };
     LocalStorage.prototype.setItem = function(key, value) {
       window.localStorage.setItem(key, value);
+      return true;
     };
   } else {
     LocalStorage.prototype.getItem = function() { return undefined; };
-    LocalStorage.prototype.setItem = function() { };
+    LocalStorage.prototype.setItem = function() { return false; };
   }
 
   // Cookie storage
@@ -63,6 +68,7 @@ module.exports = (function(window, undefined) {
     var data = JSON.parse(this._read() || '{}');
     data[key] = value;
     this._write(JSON.stringify(data));
+    return false;               // We are unsure if cookie will stay.
   };
 
   function HashStorage() {
@@ -100,8 +106,9 @@ module.exports = (function(window, undefined) {
             return !regex.exec(item);
           })
           .join('#')
-          .concat(['#' + ekey + '=' + value]);
+        .concat(['#' + ekey + '=' + value]);
     window.location.hash = hash;
+    return true;
   };
 
   var cookies = new CookieStorage('dashkiosk'),
@@ -113,9 +120,7 @@ module.exports = (function(window, undefined) {
       return hash.getItem(key) || local.getItem(key) || cookies.getItem(key);
     },
     setItem: function(key, value) {
-      hash.setItem(key, value);
-      local.setItem(key, value);
-      cookies.setItem(key, value);
+      return cookies.setItem(key, value) || local.setItem(key, value) || hash.setItem(key, value);
     }
   };
 
