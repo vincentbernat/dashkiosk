@@ -2,9 +2,9 @@ module.exports = (function(window) {
   'use strict';
 
   if (window.JSInterface && window.JSInterface.log) {
-    var log = function() {
-      return function() {
-        window.JSInterface.log.apply(window.JSInterface, arguments);
+    var log = function(level) {
+      return function(message) {
+        window.JSInterface.log(level + ': ' + message);
       };
     };
     return {

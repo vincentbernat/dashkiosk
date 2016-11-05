@@ -100,8 +100,8 @@ module.exports = (function(window, undefined) {
       ready: function() {
         // Sanity check: are we the first iframe?
         if (iframe !== this.queue[0]) {
-          console.warn('[Dashkiosk] BUG: request to display a new iframe which is not in our queue',
-                       iframe, this.queue);
+          console.warn('[Dashkiosk] BUG: request to display a new iframe which is not in our queue (' +
+                       iframe + ', ' + this.queue);
           iframe.remove();
           return;
         }
