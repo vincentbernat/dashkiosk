@@ -9,10 +9,9 @@ application to display dashboards.
 Supported devices
 -----------------
 
-Currently, the minimal version of Android is 4.0 (Icecream Sandwich)
-but to be able to get rid of the status bar, you need at least 4.1
-(Jelly Bean). *Dashkiosk* is using the `Crosswalk project`_ to provide
-an up-to-date webview with support of recent technologies.
+Currently, the minimal version of Android is 4.1 (Jelly
+Bean. *Dashkiosk* is using the `Crosswalk project`_ to provide an
+up-to-date webview with support of recent technologies.
 
 There are a lot of Android devices that you can choose to run
 Dashkiosk on. When choosing one, prefer the ones which can be upgraded
