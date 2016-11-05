@@ -13,17 +13,28 @@ module.exports = (function(window) {
   }
 
   Viewport.prototype.update = function() {
+    // Support of viewport is highly dependant of the client. Browsers
+    // do that, but other clients don't.
+    var de = window.document.documentElement;
     if (!this.width && !this.height) {
-      document.querySelector('meta[name="viewport"]')
-        .setAttribute('content',
-                      'width=device-width,user-scalable=no');
+      de.style.transform = '';
+      de.style.width = '';
+      de.style.height = '';
     } else {
-      var vp = [ this.width?('width=' + this.width):'',
-                 this.height?('height=' + this.height):'',
-                 'user-scalable=no' ];
-      document.querySelector('meta[name="viewport"]')
-        .setAttribute('content',
-                      vp.join(','));
+      var cw = de.clientWidth,
+          ch = de.clientHeight,
+          tw = this.width || this.height * cw / ch,
+          th = this.height || this.width * ch / cw,
+          scale = Math.min(cw / tw, ch / th),
+          transform = '';
+      if (scale - 1 > 0.02 || scale - 1 < -0.02) {
+        transform = 'scaleX(' + scale + ') scaleY(' + scale +')';
+      }
+      console.debug('[Dashkiosk] Apply following transform: ' + transform);
+      de.style.transformOrigin = 'top left';
+      de.style.transform = transform;
+      de.style.width = cw / scale + 'px';
+      de.style.height = ch / scale + 'px';
     }
   };
 
@@ -31,8 +42,9 @@ module.exports = (function(window) {
     if (!this.width && !this.height) {
       return;                   // Nothing to do
     }
-    var cw = window.document.documentElement.clientWidth,
-        ch = window.document.documentElement.clientHeight,
+    var de = window.document.documentElement,
+        cw = parseInt(de.style.width) || de.clientWidth,
+        ch = parseInt(de.style.height) || de.clientHeight,
         tw = this.width || this.height * cw / ch,
         th = this.height || this.width * ch / cw,
         scale = Math.min(cw / tw, ch / th);
