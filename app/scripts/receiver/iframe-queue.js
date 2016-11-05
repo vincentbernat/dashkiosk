@@ -4,13 +4,13 @@ module.exports = (function(window, undefined) {
   var Viewport = require('./viewport');
 
   function Iframe(dashboard, options) {
-    var vp = new Viewport(dashboard.viewport);
     this.dashboard = dashboard;
     this.ready = options.ready;
     this.el = document.createElement('iframe');
     document.body.appendChild(this.el);
 
-    var load = function() {
+    var vp = new Viewport(dashboard.viewport, this.el),
+        load = function() {
       this.el.removeEventListener('load', load, false);
       if (dashboard.delay) {
         console.info('[Dashkiosk] iframe ready ' +
@@ -30,7 +30,7 @@ module.exports = (function(window, undefined) {
     this.el.setAttribute('frameborder', '0');
 
     // Adapt iframe to match desired viewport
-    vp.adapt(this.el);
+    vp.update();
 
     // Load the URL
     this.el.setAttribute('src', dashboard.url);
