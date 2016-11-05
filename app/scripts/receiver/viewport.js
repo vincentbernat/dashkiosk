@@ -1,6 +1,20 @@
 module.exports = (function(window) {
   'use strict';
 
+  window.addEventListener('resize', function() {
+    // On resize, find any element with a simulatedViewport attribute
+    // and update it. We ensure we start with the root one.
+    var de = window.document.documentElement;
+    var vps = de.querySelectorAll('[data-simulated-viewport]');
+    var root = new Viewport(de.dataset.simulatedViewport);
+
+    root.update();
+    for (var i = 0; i < vps.length; ++i) {
+      var vp = new Viewport(vps[i].dataset.simulatedViewport, vps[i]);
+      vp.update();
+    }
+  });
+
   // Create a new viewport for the provide `el' element.
   function Viewport(spec, el) {
     this.el = el || window.document.documentElement;
@@ -9,6 +23,9 @@ module.exports = (function(window) {
       var dimensions = spec.split('x');
       this.width = dimensions[0] || null;
       this.height = dimensions[1] || null;
+      this.el.dataset.simulatedViewport = spec;
+    } else {
+      delete this.el.dataset.simulatedViewport;
     }
   }
 
