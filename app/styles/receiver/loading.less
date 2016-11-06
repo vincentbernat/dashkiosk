@@ -59,14 +59,19 @@
     &.show {
         transform: translateX(0);
         transform: translate3d(0, 0, 0);
-        .dk-fast-browser & .branding {
+        .branding {
             animation: spinning 10s infinite linear;
         }
-        .dk-fast-browser & .branding-default {
+        .branding-default {
             animation: scaleout 1.0s infinite ease-in-out;
         }
-        .dk-fast-browser & .branding-exoscale {
+        .branding-exoscale {
             animation: shaking 2s infinite linear;
+        }
+        .dk-slow-browser & {
+            .branding, .branding-default, .branding-exoscale {
+                animation: initial;
+            }
         }
     }
 }
@@ -100,7 +105,7 @@
 }
 
 @keyframes scaleout {
-    0% { 
+    0% {
         transform: scale(0);
     } 100% {
         transform: scale(1);

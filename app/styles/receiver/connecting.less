@@ -37,11 +37,17 @@
     &:before {
         height: 19.2px;
         animation: timer-loader 1250ms infinite linear;
+        .dk-slow-browser & {
+            animation: initial;
+        }
     }
 
     &:after {
         height: 16px;
         animation: timer-loader 15000ms infinite linear;
+        .dk-slow-browser & {
+            animation: initial;
+        }
     }
 
     &.show {

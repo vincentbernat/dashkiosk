@@ -223,6 +223,17 @@ timeout is not elapsed, no change will happen.
 
 .. _documentation of Later.js: http://bunkat.github.io/later/parsers.html#text
 
+Display configuration
+---------------------
+
+For Android displays, see :ref:`android`. For Chromecast devices, see
+:ref:`chromecast`. For all other displays, you need to point a web
+browser to the receiver URL (the one ending with ``/receiver``).
+
+If you want additional animations, you can use ``/receiver-fast``
+instead. However, if your device is quite slow (for example, a
+Raspberry Pi without hardware acceleration), you can disable most
+animations by using ``/receiver-slow``.
 
 About the dashboards
 --------------------
