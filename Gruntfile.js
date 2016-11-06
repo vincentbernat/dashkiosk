@@ -1,7 +1,6 @@
 'use strict';
 
-var glob = require('glob'),
-    fs   = require('fs');
+var fs   = require('fs');
 
 var PORTS = {
   express: 9400 || process.env.PORT,
@@ -46,7 +45,7 @@ module.exports = function(grunt) {
     watch: {
       html: {
         files: [ 'app/*.html' ],
-        tasks: [ 'build:html' ]
+        tasks: [ 'copy:html' ]
       },
       templates: {
         files: [ 'app/views/*.html' ],
@@ -142,7 +141,6 @@ module.exports = function(grunt) {
         src: [ 'test/**/*.js' ]
       },
       all: [
-        'Gruntfile.js',
         'app/scripts/{,*/}*.js'
       ]
     },
@@ -207,6 +205,14 @@ module.exports = function(grunt) {
         }]
       }
     },
+    filerev_assets: {
+      dist: {
+        options: {
+          dest: 'dist/assets.json',
+          cwd: 'dist/public/'
+        }
+      }
+    },
 
     // Perform rewrites based on rev
     useminPrepare: {
@@ -232,7 +238,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'build/images',
-          src: '[{,*/,*/*/}*.{png,jpg,gif}]',
+          src: '{,*/,*/*/}*.{png,jpg,gif}',
           dest: 'dist/public/images'
         }]
       }
@@ -316,31 +322,6 @@ module.exports = function(grunt) {
       }
     },
 
-    template: {
-      html: {
-        options: (function() {
-          var options = {
-            data: {
-              unassigned: glob.sync('images/unassigned/*', { cwd: 'app' }),
-              version: require('./package.json').version,
-              include: function(rel) {
-                return grunt.template.process(fs.readFileSync('app/' + rel + '.html',
-                                                              'utf8'),
-                                              options);
-              }
-            }
-          };
-          return options;
-        })(),
-        files: [{
-          expand: true,
-          cwd: 'app',
-          dest: 'build',
-          src: [ '*.html' ]
-        }]
-      }
-    },
-
     // Copy files
     copy: {
       images: {
@@ -390,6 +371,14 @@ module.exports = function(grunt) {
           ]
         }]
       },
+      html: {
+        files: [{
+          expand: true,
+          cwd: 'app',
+          dest: 'build',
+          src: [ '*.html' ]
+        }]
+      },
       dist: {
         files: [{
           expand: true,
@@ -424,9 +413,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', function(target) {
     switch (target) {
-    case 'html':
-      grunt.task.run('template:html');
-      break;
     case 'templates':
       grunt.task.run('ngtemplates:build');
       break;
@@ -452,7 +438,7 @@ module.exports = function(grunt) {
       grunt.task.run(
         'clean:build',
         'copy:bower',
-        'build:html',
+        'copy:html',
         'build:templates',
         'build:styles',
         'build:scripts',
@@ -480,6 +466,7 @@ module.exports = function(grunt) {
     'cssmin',
     'uglify',
     'filerev',
+    'filerev_assets',
     'usemin'
   ]);
 

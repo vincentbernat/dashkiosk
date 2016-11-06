@@ -10,7 +10,7 @@
   <!-- endbuild -->
   <style>
    .loading .branding {
-     background-image: url("images/loading-..BRANDING...svg"                                    );
+     background-image: url("{{#asset}}images/loading-{{ branding }}.svg{{/asset}}");
    }
   </style>
 </head>
@@ -22,7 +22,7 @@
   <div class="connecting"></div>
   <div class="benchmark"></div>
   <div class="show" id="loading">
-    <div class="branding branding-..BRANDING.."                                    ></div>
+    <div class="branding branding-{{ branding }}"></div>
   </div>
 
   <!-- build:js scripts/receiver-vendor.js -->

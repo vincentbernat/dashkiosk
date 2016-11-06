@@ -18,9 +18,9 @@
 
     <header>
       <img class="logo" src="images/dashkiosk.svg">Dashkiosk
-      <img class="branding" src="images/stamp-..BRANDING...svg"                                    >
+      <img class="branding" src="{{#asset}}images/stamp-{{ branding }}.svg{{/asset}}">
       <dk-loading-indicator>
-        <%= include('spinner') %>
+        {{> spinner }}
       </dk-loading-indicator>
     </header>
 
@@ -28,7 +28,7 @@
     </div>
 
     <div class="footer">
-      <a href="http://dashkiosk.readthedocs.io/en/v<%= version %>/usage.html#administration">
+      <a href="http://dashkiosk.readthedocs.io/en/v{{ version }}/usage.html#administration">
         <span class="glyphicon glyphicon-book"></span>
         Dashkiosk documentation
       </a>

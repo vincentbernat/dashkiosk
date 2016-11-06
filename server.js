@@ -16,21 +16,7 @@ var app = require('./lib/express'),
     });
 
 // Static files
-function serve(file) {
-  var f = path.join(config.get('path:static'), file),
-      matches = glob.sync(f);
-  if (matches.length > 0) {
-    return function(req, res) {
-      res.sendFile(path.resolve(matches[0]));
-    };
-  }
-  return function(req, res) {
-    res.status(404).send("Not found.");
-  };
-}
 app.get('/', function(req, res) { res.redirect('/receiver'); });
-app.get('/favicon.ico', serve('images/*favicon.ico'));
-app.get('/favicon.png', serve('images/*favicon.png'));
 
 // API
 var api = require('./lib/api');

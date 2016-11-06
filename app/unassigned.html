@@ -10,7 +10,7 @@
   <!-- endbuild -->
   <style>
    .logo {
-     background-image: url("images/stamp-..BRANDING...svg"                                    );
+     background-image: url("{{#asset}}images/stamp-{{ branding }}.svg{{/asset}}");
    }
   </style>
 </head>
@@ -20,9 +20,9 @@
   </div>
 
   <div class="photos">
-  <% _.each(unassigned, function(n) { %>
-      <div class="photo" data-image="<%= n %>"></div><%
-  }) %>
+  {{#unassigned}}
+      <div class="photo" data-image="images/unassigned/{{.}}"></div>
+  {{/unassigned}}
   </div>
 
   <div class="logo"></div>
