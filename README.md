@@ -23,8 +23,8 @@ The full documentation is available on [ReadTheDocs][].
 [ReadTheDocs]: http://dashkiosk.readthedocs.io
 
 A live installation, reset every hour, is publicly available:
- - [administration panel](http://dashkiosk.app.exo.io/admin)
- - [receiver](http://dashkiosk.app.exo.io/receiver)
+ - [administration panel](http://dashkiosk-demo.herokuapp.com/admin)
+ - [receiver](http://dashkiosk-demo.herokuapp.com/receiver)
 
 Here is a demonstration video:
 

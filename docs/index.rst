@@ -49,8 +49,8 @@ Here is a demonstration video:
 To contribute, use `GitHub`_.
 
 .. _GitHub: https://github.com/vincentbernat/dashkiosk/
-.. _administration panel: http://dashkiosk.app.exo.io/admin
-.. _receiver: http://dashkiosk.app.exo.io/receiver
+.. _administration panel: http://dashkiosk-demo.herokuapp.com/admin
+.. _receiver: http://dashkiosk-demo.herokuapp.com/receiver
 
 .. toctree::
    :maxdepth: 2

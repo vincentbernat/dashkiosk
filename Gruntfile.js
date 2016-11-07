@@ -457,7 +457,6 @@ module.exports = function(grunt) {
     'clean:dist',
     'bower:install',
     'build',
-    'test',
     'useminPrepare',
     'imagemin',
     'svgmin',

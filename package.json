@@ -9,6 +9,8 @@
     "dashkiosk": "./server.js"
   },
   "scripts": {
+    "postinstall": "grunt dist",
+    "start": "node dist/forever.js dist/server.js --port $PORT",
     "test": "grunt test"
   },
   "repository": {
@@ -47,6 +49,7 @@
     "blanket": "~1.2.0",
     "connect-livereload": "~0.5.3",
     "grunt": "~0.4.2",
+    "grunt-cli": "~0.1.13",
     "grunt-angular-templates": "~0.5.3",
     "grunt-autoprefixer": "~3.0.3",
     "grunt-bower-task": "~0.4.0",
@@ -84,6 +87,6 @@
     "time-grunt": "~1.2.1"
   },
   "engines": {
-    "node": "4.2.x || 4.1.x || 0.12.x"
+    "node": "6.9.x || 4.2.x || 4.1.x || 0.12.x"
   }
 }
