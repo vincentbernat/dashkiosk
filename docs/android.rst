@@ -123,8 +123,10 @@ Server certificates
 ~~~~~~~~~~~~~~~~~~~
 
 Another interesting setting is the ability to **ignore SSL
-errors**. This can be useful if you need to access a lot of
-self-signed pages. However, if you have an internal root certificate,
+errors**. Most of the time, it just won't work. You'll get "*Request
+was denied*" error message instaed.
+
+However, if you have an internal root certificate,
 it is better to add it to the Android system. This can be done in the
 preferences: *Security* → *Credential Storage* → *Install from
 storage*. Unfortunately, this enforces the use of a lock screen which
@@ -140,7 +142,7 @@ certificate::
 Then, copy the certificate as this name in ``/system/etc/security/cacerts/``::
 
     $ adb push ca-cert.pem /sdcard/a199d90b.0
-    $  adb shell su -c "cp /sdcard/a199d90b.0 /system/etc/security/cacerts/"
+    $ adb shell su -c "cp /sdcard/a199d90b.0 /system/etc/security/cacerts/ ; chmod 644 /system/etc/security/cacerts/a199d90b.0"
 
 Then, reboot your device.
 
