@@ -122,43 +122,17 @@ Certificates
 Server certificates
 ~~~~~~~~~~~~~~~~~~~
 
-Another interesting setting is the ability to **ignore SSL
-errors**. Most of the time, it just won't work. You'll get "*Request
-was denied*" error message instaed.
+Unfortunately, it is currently not possible to trust third-party
+certificates. Trusted certificates are built into the app and cannot
+be modified.
 
-However, if you have an internal root certificate,
-it is better to add it to the Android system. This can be done in the
-preferences: *Security* → *Credential Storage* → *Install from
-storage*. Unfortunately, this enforces the use of a lock screen which
-is usually not wanted for a kiosk.
-
-The other solution is to modify the system store. You need to be root
-on the device for such a manipulation. First, get the hash of your
-certificate::
-
-    $ echo $(openssl x509 -inform PEM -subject_hash_old -in ca-cert.pem | head -1).0
-    a199d90b.0
-
-Then, copy the certificate as this name in ``/system/etc/security/cacerts/``::
-
-    $ adb push ca-cert.pem /sdcard/a199d90b.0
-    $ adb shell
-    # mount -o remount,rw /system
-    # cp /sdcard/a199d90b.0 /system/etc/security/cacerts/
-    # chmod 644 /system/etc/security/cacerts/a199d90b.0"
-    # mount -o remount,ro /system
-
-Then, reboot your device::
-
-    # reboot
-
-The complete procedure is available from `Sebastiaan Giebels`_.
+Ignoring trust issues is not possible either.
 
 Client certificates
 ~~~~~~~~~~~~~~~~~~~
 
-It is also possible to use client certificates. The support is still
-quite new and may be troublesome to implement. Be sure to use ``adb
+It is possible to use client certificates. The support is still quite
+new and may be troublesome to implement. Be sure to use ``adb
 logcat -s DashKiosk AndroidRuntime`` while running to spot any error.
 
 Creating a keystore
@@ -237,7 +211,6 @@ dashboards. Javascript errors from the receiver are prefixed with
 .. _Crosswalk project: https://crosswalk-project.org/
 .. _Portecle: http://portecle.sourceforge.net/
 .. _cheatsheet: https://github.com/vincentbernat/dashkiosk-android/blob/master/certificates/generate
-.. _Sebastiaan Giebels: http://wiki.pcprobleemloos.nl/android/cacert
 
 .. rubric:: Footnotes
 
