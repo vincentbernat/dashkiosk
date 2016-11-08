@@ -142,9 +142,17 @@ certificate::
 Then, copy the certificate as this name in ``/system/etc/security/cacerts/``::
 
     $ adb push ca-cert.pem /sdcard/a199d90b.0
-    $ adb shell su -c "cp /sdcard/a199d90b.0 /system/etc/security/cacerts/ ; chmod 644 /system/etc/security/cacerts/a199d90b.0"
+    $ adb shell
+    # mount -o remount,rw /system
+    # cp /sdcard/a199d90b.0 /system/etc/security/cacerts/
+    # chmod 644 /system/etc/security/cacerts/a199d90b.0"
+    # mount -o remount,ro /system
 
-Then, reboot your device.
+Then, reboot your device::
+
+    # reboot
+
+The complete procedure is available from `Sebastiaan Giebels`_.
 
 Client certificates
 ~~~~~~~~~~~~~~~~~~~
@@ -229,6 +237,7 @@ dashboards. Javascript errors from the receiver are prefixed with
 .. _Crosswalk project: https://crosswalk-project.org/
 .. _Portecle: http://portecle.sourceforge.net/
 .. _cheatsheet: https://github.com/vincentbernat/dashkiosk-android/blob/master/certificates/generate
+.. _Sebastiaan Giebels: http://wiki.pcprobleemloos.nl/android/cacert
 
 .. rubric:: Footnotes
 
