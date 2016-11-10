@@ -11,10 +11,10 @@ module.exports = (function(window) {
           }
           console.error('[Dashkiosk] ' +
                         '(' + url + ':' + line + ':' + column + '): ' + message);
-          console.error('[Dashkiosk] Stack:\n' + errorObj.stack);
+          console.error('[Dashkiosk] stack:\n' + errorObj.stack);
           return true;
         } finally {
-          console.error('[Dashkiosk] Fatal unexpected error, let\'s reload');
+          console.error('[Dashkiosk] fatal unexpected error, let\'s reload');
           window.setTimeout(function() {
             window.location.reload();
           }, 1000);

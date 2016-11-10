@@ -21,7 +21,7 @@ module.exports = (function(window) {
   var lastTimeout = null,
       ready = function() {
         // Tell through a message
-        console.debug('[Dashkiosk] Send heartbeat to supervisor');
+        console.debug('[Dashkiosk] send heartbeat to supervisor');
         if (window.parent && window.parent.postMessage) {
           window.parent.postMessage('ready', '*');
         }

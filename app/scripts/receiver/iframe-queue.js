@@ -90,7 +90,7 @@ module.exports = (function(window, undefined) {
       if (current &&
           current.displayed() &&
           (JSON.stringify(current.dashboard) === JSON.stringify(dashboard))) {
-        console.info('[Dashkiosk] Same dashboard already displayed, do nothing');
+        console.info('[Dashkiosk] same dashboard already displayed, do nothing');
         return;
       }
     }

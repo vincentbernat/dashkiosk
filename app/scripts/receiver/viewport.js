@@ -52,12 +52,12 @@ module.exports = (function(window) {
         transform = '',
         tag = el.tagName;
     if (scale - 1 < 0.02 && scale - 1 > -0.02) {
-      console.debug('[Dashkiosk] No need to rescale ' + tag);
+      console.debug('[Dashkiosk] no need to rescale ' + tag);
       reset();
       return;
     }
     transform = 'scaleX(' + scale + ') scaleY(' + scale +')';
-    console.debug('[Dashkiosk] Apply following transform for ' + tag + ': ' + transform);
+    console.debug('[Dashkiosk] apply following transform for ' + tag + ': ' + transform);
     style.transformOrigin =  style.mozTransformOrigin = style.webkitTransformOrigin = 'top left';
     style.transform = style.mozTransform = style.webkitTransform = transform;
     style.width = Math.round(cw / scale) + 'px';
