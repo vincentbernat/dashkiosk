@@ -126,7 +126,8 @@ Unfortunately, it is currently not possible to trust third-party
 certificates. Trusted certificates are built into the app and cannot
 be modified.
 
-Ignoring trust issues is not possible either.
+The only possibility is to accept untrusted certificates in the
+preferences.
 
 Client certificates
 ~~~~~~~~~~~~~~~~~~~
@@ -171,6 +172,8 @@ PKCS#12 with the following command::
                    -in cert.pem \
                    -inkey key.pem \
                    -certfile ca.pem
+
+You can import several certificates in the keystore.
 
 Providing the keystore to the application
 +++++++++++++++++++++++++++++++++++++++++
