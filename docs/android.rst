@@ -127,7 +127,12 @@ certificates. Trusted certificates are built into the app and cannot
 be modified.
 
 The only possibility is to accept untrusted certificates in the
-preferences.
+preferences. This makes TLS useless and you could just use HTTP,
+except if you are interested in client certificates. In this case,
+blindly trusting the server certificate doesn't allow an attacker to
+use your client certificate for its own requests (client has to
+demonstrate its ability to sign a the whole handshake with its
+certificate, including the "server certificate" message).
 
 Client certificates
 ~~~~~~~~~~~~~~~~~~~
