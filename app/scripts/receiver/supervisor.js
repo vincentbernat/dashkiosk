@@ -1,6 +1,8 @@
 module.exports = (function(window) {
   'use strict';
 
+  var maxDelay = 5000;          // maximum delay between two probes
+
   // Extract timeout from location hash
   function timeoutFromLocationHash() {
     var timeouts = window.location.hash.slice(1).split(/[,#]/)
@@ -39,7 +41,8 @@ module.exports = (function(window) {
           window.clearTimeout(lastTimeout);
         }
         if (timeout) {
-          lastTimeout = window.setTimeout(ready, timeout * 0.3);
+          var delay = Math.min(timeout * 0.3, maxDelay);
+          lastTimeout = window.setTimeout(ready, delay);
         }
       };
 
