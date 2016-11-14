@@ -44,10 +44,14 @@ module.exports = (function(window, undefined) {
     if (this.el.classList.contains('show')) {
       this.el.classList.remove('show');
       window.setTimeout(function() {
-        this.el.parentNode.removeChild(this.el);
-      }.bind(this), 1001);                 // This is more reliable than relying on transitionend
+        if (this.el.parentNode) {
+          this.el.parentNode.removeChild(this.el);
+        }
+      }.bind(this), 1001); // This is more reliable than relying on transitionend
     } else {
-      this.el.parentNode.removeChild(this.el);
+      if (this.el.parentNode) {
+        this.el.parentNode.removeChild(this.el);
+      }
     }
   };
 
