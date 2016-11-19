@@ -97,12 +97,12 @@ By default, displays are put in a group with a dashboard with cycling
 images. You can add more images in ``app/images/unassigned`` if you
 want. Then, rebuild with ``grunt``.
 
-.. _Node.js: http://nodejs.org/
+.. _Node.js: https://nodejs.org/
 .. _npm: https://www.npmjs.org
 .. _how to install Node.js via the package manager: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
 .. _tarball for Dashkiosk: https://github.com/vincentbernat/dashkiosk/releases
-.. _Deezer: http://www.deezer.com
-.. _PostgreSQL: http://www.postgresql.org
+.. _Deezer: https://www.deezer.com
+.. _PostgreSQL: https://www.postgresql.org
 .. _Sequelize.js: http://sequelizejs.com
 
 Upgrade

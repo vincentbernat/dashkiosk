@@ -221,7 +221,7 @@ The availability of a dashboard is only assessed when moving from one
 dashboard to another. If a dashboard becomes unavailable while the
 timeout is not elapsed, no change will happen.
 
-.. _documentation of Later.js: http://bunkat.github.io/later/parsers.html#text
+.. _documentation of Later.js: https://bunkat.github.io/later/parsers.html#text
 
 Display configuration
 ---------------------
@@ -334,7 +334,7 @@ The second limitation can be quite annoying. Here are some workarounds:
     `this one`_.
 
 .. _JIRA: https://jira.atlassian.com/browse/JRA-20988
-.. _Node Unblocker: http://nodeunblocker.com/proxy
+.. _Node Unblocker: https://github.com/nfriedly/node-unblocker
 .. _this one: https://github.com/fzaninotto/screenshot-as-a-service
 
 .. rubric:: Footnotes

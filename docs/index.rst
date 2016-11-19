@@ -49,7 +49,7 @@ Here is a demonstration video:
 To contribute, use `GitHub`_.
 
 .. _GitHub: https://github.com/vincentbernat/dashkiosk/
-.. _administration panel: http://dashkiosk-demo.herokuapp.com/admin
+.. _administration panel: https://dashkiosk-demo.herokuapp.com/admin
 .. _receiver: http://dashkiosk-demo.herokuapp.com/receiver
 
 .. toctree::

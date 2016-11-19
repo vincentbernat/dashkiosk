@@ -1,6 +1,6 @@
 # Dashkiosk
 
-[![Build Status](https://secure.travis-ci.org/vincentbernat/dashkiosk.png?branch=master)](http://travis-ci.org/vincentbernat/dashkiosk)
+[![Build Status](https://secure.travis-ci.org/vincentbernat/dashkiosk.png?branch=master)](https://travis-ci.org/vincentbernat/dashkiosk)
 
 Dashkiosk is a solution to manage dashboards on multiple screens. It
 comes as four components:
@@ -22,10 +22,10 @@ comes as four components:
 
 The full documentation is available on [ReadTheDocs][].
 
-[ReadTheDocs]: http://dashkiosk.readthedocs.io
+[ReadTheDocs]: https://dashkiosk.readthedocs.io
 
 A live installation, reset every hour, is publicly available:
- - [administration panel](http://dashkiosk-demo.herokuapp.com/admin)
+ - [administration panel](https://dashkiosk-demo.herokuapp.com/admin)
  - [receiver](http://dashkiosk-demo.herokuapp.com/receiver)
 
 Here is a demonstration video:
