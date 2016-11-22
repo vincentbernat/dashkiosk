@@ -24,7 +24,7 @@ updating themselves without user consent).
 Setup
 -----
 
-To be able to handle Chromecast devies, you need to enable its support
+To be able to handle Chromecast devices, you need to enable its support
 (see :ref:`options`). You also need to ensure that mDNS is working
 correctly on your setup.
 
