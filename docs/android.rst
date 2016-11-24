@@ -27,6 +27,7 @@ display dashboards.
 The following devices [#devices]_ are known to work reasonably well:
 
  - `MK809III Mini PC (RK3188 SoC) <https://www.amazon.com/MK809III-Android-Mali-400-OpenGLES2-0-OpenVG1-1/dp/B00CZ7RBIU>`_
+ - `T95N-Mini M8SPro (Amlogic s905X) <https://www.fasttech.com/products/1110/10023228/5021800>`_
 
 .. _issue: https://github.com/vincentbernat/dashkiosk/issues/new
 
