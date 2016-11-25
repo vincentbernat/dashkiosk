@@ -9,9 +9,9 @@ module.exports = (function(window, undefined) {
     this.el = document.createElement('iframe');
     document.body.appendChild(this.el);
 
-    var vp = new Viewport(dashboard.viewport, this.el),
-        load = function() {
-      this.el.removeEventListener('load', load, false);
+    var vp = new Viewport(dashboard.viewport, this.el);
+    this.load = function() {
+      this.el.removeEventListener('load', this.load, false);
       if (dashboard.delay) {
         console.info('[Dashkiosk] iframe ready ' +
                      this.el.getAttribute('src') +
@@ -24,7 +24,7 @@ module.exports = (function(window, undefined) {
         this.show();
       }
     }.bind(this);
-    this.el.addEventListener('load', load, false);
+    this.el.addEventListener('load', this.load, false);
 
     this.el.setAttribute('scrolling', 'no');
     this.el.setAttribute('frameborder', '0');
@@ -41,6 +41,7 @@ module.exports = (function(window, undefined) {
   };
 
   Iframe.prototype.remove = function() {
+    this.el.removeEventListener('load', this.load, false);
     if (this.el.classList.contains('show')) {
       this.el.classList.remove('show');
       window.setTimeout(function() {
