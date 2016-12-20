@@ -25,7 +25,9 @@ module.exports = (function(window) {
       this.height = dimensions[1] || null;
       this.el.dataset.simulatedViewport = spec;
     } else {
-      delete this.el.dataset.simulatedViewport;
+      if (this.el.dataset.simulatedViewport !== undefined) {
+        delete this.el.dataset.simulatedViewport;
+      }
     }
   }
 
