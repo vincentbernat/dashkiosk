@@ -83,7 +83,7 @@ Here are the steps:
   2. Create an empty database. For *PostgreSQL*, this is also done as
      the ``postgres`` user::
 
-           $ createuser -O dashkiosk dashkiosk
+           $ createdb -O dashkiosk dashkiosk
 
 The database will be populated automatically when running *Dashkiosk*
 for the first time.
