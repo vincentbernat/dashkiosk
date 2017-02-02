@@ -285,7 +285,6 @@ module.exports = function(grunt) {
           'build/scripts/admin.js': [ 'app/scripts/admin.js' ],
           'build/scripts/unassigned.js': [ 'app/scripts/unassigned.js' ],
           'build/scripts/chromecast.js': [ 'app/scripts/chromecast.js' ],
-          'build/scripts/firefox.js': [ 'app/scripts/firefox.js' ],
           'build/scripts/receiver.js': [ 'app/scripts/receiver.js' ]
         }
       }
