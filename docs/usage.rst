@@ -326,7 +326,11 @@ The second limitation can be quite annoying. Here are some workarounds:
 
  2. Use a web proxy that will strip out the offending header. A good
     base for such a proxy is `Node Unblocker`_. It should be easy to
-    modify it to remove the ``X-Frame-Options`` header.
+    modify it to remove the ``X-Frame-Options`` header. If you use
+    *nginx* to reverse proxy a service, you can use
+    ``proxy_hide_header X-Frame-Options``. If the application is using
+    Ruby on Rails, add ``set :protection, :except => :frame_options``
+    in ``config.ru``.
 
  3. Use a screenshot service. Instead of displaying the real website,
     just display a screenshot. There are many solutions to implement
