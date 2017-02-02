@@ -17,6 +17,7 @@ var app = require('./lib/express'),
 
 // Static files
 app.get('/', function(req, res) { res.redirect('/receiver'); });
+app.get('/firefox', function(req, res) { res.redirect('/receiver'); });
 
 // API
 var api = require('./lib/api');
