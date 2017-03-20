@@ -341,6 +341,16 @@ The second limitation can be quite annoying. Here are some workarounds:
 .. _Node Unblocker: https://github.com/nfriedly/node-unblocker
 .. _this one: https://github.com/fzaninotto/screenshot-as-a-service
 
+Writing dashboards
+++++++++++++++++++
+
+*Dashkiosk* can only displays existing dashboards. Here is a list of
+ services you can use to create them:
+
+ - `Grafana <https://grafana.com/>`, dashboards for time series
+ - `hoplaJS <https://hoplajs.golflima.net/>`, a web application running JS code stored in URLs
+ - `Dashing <http://dashing.io/>`, a dashboard framework (discontinued, see `Smashing <https://github.com/Smashing/smashing>`)
+
 .. rubric:: Footnotes
 
 .. [#iframe] If the iframe is in the same domain, it can communicate
