@@ -195,6 +195,15 @@ own and recompile the application. In the preferences, ensure you tick
 *Embedded keystore*. In both cases, you also need to provide the
 password protecting the keystore.
 
+Grant permissions to read the keystore
+++++++++++++++++++++++++++++++++++++++
+
+Starting from Android 6, you also have to grant *Dashkiosk* the
+permission to access the keystore if you use the external one. This
+can be done in *Android Settings*. Go to *Applications*, click on
+*Dashkiosk*. You should see a *Permissions* tab. The only item in this
+tab should be *Storage*. Enable it.
+
 Usage
 -----
 
