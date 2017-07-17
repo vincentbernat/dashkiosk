@@ -12,7 +12,8 @@ Here is a demonstration video:
 
 There is a `Dockerfile` to run *Dashkiosk* inside Docker with Chromecast support. You can
 run this container like this:
-
-    docker run -d --net=host -e "chromecast__enabled=1" -e "chromecast__receiver=http://10.30.21.20:8337/receiver" -e "port=8337" --restart=always --name=dashkiosk dashkiosk
+	
+	docker build -t dashkiosk:dev1 .
+    docker run -d --net=host -e "chromecast__enabled=1" -e "chromecast__receiver=http://10.30.21.20:8337/receiver" -e "port=8337" --restart=always --name=dashkiosk dashkiosk:dev1
 
 It's important to use `--net=host`, otherwise Chromecast devices can't be discovered. This option does not work with "Docker for Mac" and probably also not with "Docker for Windows" (see [#68](https://github.com/docker/for-mac/issues/68)). 
