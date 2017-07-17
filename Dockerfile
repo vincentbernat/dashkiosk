@@ -13,7 +13,7 @@ RUN npm install && \
     rm -rf ../node_modules ../build && \
     npm cache clean
 
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /dashkiosk/entrypoint.sh
 
 # We use SQLite by default. If you want to keep the database between
 # runs, don't forget to provide a volume for /database.
