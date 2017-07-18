@@ -2,5 +2,5 @@
 
 service dbus start > dbus.log &&
 avahi-daemon --no-drop-root --daemonize && 
-exec "$@"
+exec node /dashkiosk/dist/server.js "$@"
 exit $?  # Make sure we really exit

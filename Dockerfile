@@ -24,5 +24,4 @@ ENV port 8080
 ENV db__options__storage /database/dashkiosk.sqlite
 
 ENTRYPOINT [ "/dashkiosk/entrypoint.sh" ]
-CMD [ "node", "/dashkiosk/dist/server.js" ]
 EXPOSE 8080
