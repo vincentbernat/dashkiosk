@@ -1,6 +1,5 @@
-#!/bin/bash
+#!/bin/sh
 
-service dbus start > dbus.log &&
-avahi-daemon --no-drop-root --daemonize && 
-exec node /dashkiosk/dist/server.js "$@"
-exit $?  # Make sure we really exit
+service dbus start \
+    && avahi-daemon --no-drop-root --daemonize \
+    && exec node /dashkiosk/dist/server.js "$@"
