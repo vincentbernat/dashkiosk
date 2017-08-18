@@ -1,7 +1,7 @@
 package dk
 
 import (
-	"code.google.com/p/gcfg"
+	"gopkg.in/gcfg.v1"
 	"fmt"
 	"regexp"
 	"sort"

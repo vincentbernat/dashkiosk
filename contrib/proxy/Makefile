@@ -26,7 +26,7 @@ DEPS += $(shell $(GO) list -f '{{join .TestImports "\n"}}' ./src/... | grep '^[a
 # Build proxy
 all: $(PWD)/build~/proxy
 $(PWD)/build~/proxy: deps fmt vet check
-	$(V_gobuild) -ldflags "-X main.version $(VERSION)" -o $@ ./src
+	$(V_gobuild) -ldflags "-X=main.version $(VERSION)" -o $@ ./src
 
 # Grab dependencies
 deps: $(DEPS)
