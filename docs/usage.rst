@@ -228,7 +228,11 @@ Display configuration
 
 For Android displays, see :ref:`android`. For Chromecast devices, see
 :ref:`chromecast`. For all other displays, you need to point a web
-browser to the receiver URL (the one ending with ``/receiver``).
+browser to the receiver URL (the one ending with ``/receiver``). For
+Raspberry Pi, look at `FullPageOS`_ for a possible distribution for
+this usage.
+
+.. _FullPageOS: https://github.com/guysoft/FullPageOS
 
 If you want additional animations, you can use ``/receiver-fast``
 instead. However, if your device is quite slow (for example, a
