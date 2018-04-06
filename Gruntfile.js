@@ -23,7 +23,7 @@ module.exports = function(grunt) {
           watch: [
             'server.js', 'lib/*', 'migration/*.js'
           ],
-          nodeArgs: ['--debug'],
+          nodeArgs: ['--inspect'],
           env: {
             LIVERELOAD_PORT: PORTS.livereload
           },
