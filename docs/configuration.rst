@@ -127,6 +127,7 @@ are:
  - ``deezer``
  - ``dailymotion``
  - ``exoscale``
+ - ``vente-privee``
 
 If you do your own branding, they can be integrated into *Dashkiosk*
 if the used images can be freely distributed. Submit a `pull
