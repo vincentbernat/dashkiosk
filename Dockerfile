@@ -1,4 +1,4 @@
-FROM node:6
+FROM node:10
 
 RUN npm install -g bower grunt-cli
 RUN apt-get -qq update && apt-get install -qq gifsicle libjpeg-progs optipng libavahi-compat-libdnssd-dev
