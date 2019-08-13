@@ -41,7 +41,7 @@
   "optionalDependencies": {
     "mysql": "~2.8.0",
     "nodecastor": "~0.1.7",
-    "pg": "~4.4.1",
+    "pg": "~6.2.0",
     "respawn": "~2.0.0",
     "sqlite3": "~4.0.9",
     "fsevents": "*"
