@@ -6,7 +6,8 @@ RUN apt-get -qq update && apt-get install -qq gifsicle libjpeg-progs optipng lib
 WORKDIR /dashkiosk
 COPY . /dashkiosk/
 ENV NPM_CONFIG_LOGLEVEL warn
-RUN npm install && \
+RUN rm -rf node_modules build && \
+    npm install && \
     grunt && \
     cd dist && \
     npm install --production && \
