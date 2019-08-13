@@ -12,7 +12,7 @@ RUN rm -rf node_modules build && \
     cd dist && \
     npm install --production && \
     rm -rf ../node_modules ../build && \
-    npm cache clean
+    npm cache clean --force
 
 RUN chmod +x /dashkiosk/entrypoint.sh
 
