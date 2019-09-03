@@ -83,7 +83,7 @@
     "should": "~7.0.2",
     "should-http": "0.0.4",
     "socket.io-client": "~1.4.0",
-    "sqlite3": "~3.1.0",
+    "sqlite3": "~4.0.9",
     "supertest": "~1.0.1",
     "time-grunt": "~1.2.1"
   },
