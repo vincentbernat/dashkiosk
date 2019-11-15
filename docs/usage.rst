@@ -239,6 +239,19 @@ instead. However, if your device is quite slow (for example, a
 Raspberry Pi without hardware acceleration), you can disable most
 animations by using ``/receiver-slow``.
 
+When connecting for the first time, a receiver is attributed a secure
+token which is then stored as cookie or in local storage. This secure
+cookie allows the device to have a stable identifier when reconnecting
+to Dashkiosk, notably to stay on its assigned group. If you happen to
+have a device unable to keep cookies and without local storage, you
+can generate a unique secure token from your workstation with Chromium
+(or Google Chrome):
+
+1. start Chromium with ``chromium --disable-local-storage --incognito``,
+2. go to the receiver URL,
+3. use the URL you are redirected to (containing ``#register=...``) as
+   the receiver URL.
+
 About the dashboards
 --------------------
 
