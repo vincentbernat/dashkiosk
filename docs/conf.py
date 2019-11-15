@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import sys
-import os
 import json
 
 extensions = ['sphinxcontrib.httpdomain']
@@ -12,7 +10,7 @@ master_doc = 'index'
 # General information about the project.
 project = u'Dashkiosk'
 copyright = u'2014, Vincent Bernat'
-version = json.load(file('../package.json'))['version']
+version = json.load(open('../package.json'))['version']
 release = version
 
 exclude_patterns = ['_build']
