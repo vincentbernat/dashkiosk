@@ -8,6 +8,11 @@ fullscreen non-interactive dashboards on Android devices. Its main use
 is to be run from an Android stick plug on some TV to run the web
 application to display dashboards.
 
+.. warning::
+   The web engine embedded inside the application is based on Chromium
+   but is not up-to-date. Until this is resolved, it is therefore
+   safer to only display trusted data.
+
 Supported devices
 -----------------
 
