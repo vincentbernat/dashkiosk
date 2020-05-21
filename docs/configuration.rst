@@ -105,6 +105,9 @@ to not use the integrated SQLite database.
      Location of a log file where to write logs in JSON format. By
      default, no such file is generated.
 
+ ``default_unassigned_url``
+    Change the default url for the unassigned displays. Default is **/unassigned**
+
 Branding
 --------
 
