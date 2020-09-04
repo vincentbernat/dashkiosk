@@ -33,7 +33,7 @@
     "nconf": "~0.7.2",
     "postal": "~1.0.6",
     "postal.diagnostics": "~0.7.3",
-    "sequelize": "~1.7.0",
+    "sequelize": "~6.3.5",
     "serve-static": "~1.10.0",
     "socket.io": "~1.4.0",
     "winston": "~1.0.1"
