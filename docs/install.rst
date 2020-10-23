@@ -39,7 +39,7 @@ To install it, you need to execute the following step:
      ``optipng`` and ``gifsicle`` from your distribution. For example,
      on Debian::
 
-         $ sudo apt-get install jpegtran optipng gifsicle
+         $ sudo apt-get install libjpeg-progs optipng gifsicle
 
   7. Upon success, you will get a ``dist`` directory that you can put on
      some server. It includes both the receiver and the server
