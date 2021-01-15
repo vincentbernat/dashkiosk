@@ -1,19 +1,23 @@
-FROM node:10
+FROM node:10-stretch AS builder
 
 RUN npm install -g bower grunt-cli
-RUN apt-get -qq update && apt-get install -qq gifsicle libjpeg-progs optipng libavahi-compat-libdnssd-dev
+RUN apt-get -qq update && apt-get install -qqy gifsicle libjpeg-progs optipng libavahi-compat-libdnssd-dev
 
 WORKDIR /dashkiosk
 COPY . /dashkiosk/
 ENV NPM_CONFIG_LOGLEVEL warn
-RUN rm -rf node_modules build && \
-    npm install && \
-    grunt && \
-    cd dist && \
-    npm install --production && \
-    rm -rf ../node_modules ../build && \
-    npm cache clean --force
+RUN npm install
+RUN grunt
+RUN cd dist && \
+    npm install --production
 
+FROM node:10-stretch-slim
+
+RUN apt-get -qq update && apt-get install -qqy libavahi-compat-libdnssd1
+
+WORKDIR /dashkiosk
+COPY --from=builder /dashkiosk/entrypoint.sh /dashkiosk/
+COPY --from=builder /dashkiosk/dist/ /dashkiosk/dist/
 RUN chmod +x /dashkiosk/entrypoint.sh
 
 # We use SQLite by default. If you want to keep the database between
