@@ -1,6 +1,6 @@
 # Dashkiosk
 
-[![Build Status](https://secure.travis-ci.org/vincentbernat/dashkiosk.png?branch=master)](https://travis-ci.org/vincentbernat/dashkiosk)
+![Build Status](https://github.com/vincentbernat/dashkiosk/workflows/Build/badge.svg)
 
 Dashkiosk is a solution to manage dashboards on multiple screens. It
 comes as four components:
