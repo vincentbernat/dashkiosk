@@ -24,7 +24,7 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - run: >
           sudo apt -qy update;
-          sudo apt -qy install libavahi-compat-libdnssd-dev libjpeg-turbo-progs optipng gifsicle
+          sudo apt -qy install libavahi-compat-libdnssd-dev
         if: matrix.os == 'ubuntu-latest'
       - run: npm install -g grunt-cli bower
       - run: npm install        # this also includes "grunt dist"

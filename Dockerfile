@@ -1,7 +1,7 @@
 FROM node:10-stretch AS builder
 
 RUN npm install -g bower grunt-cli
-RUN apt-get -qq update && apt-get install -qqy gifsicle libjpeg-progs optipng libavahi-compat-libdnssd-dev
+RUN apt-get -qq update && apt-get install -qqy libavahi-compat-libdnssd-dev
 
 WORKDIR /dashkiosk
 COPY . /dashkiosk/

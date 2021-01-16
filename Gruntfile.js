@@ -229,31 +229,6 @@ module.exports = function(grunt) {
       }
     },
 
-    // Image minification
-    imagemin: {
-      options: {
-        cache: false
-      },
-      dist: {
-        files: [{
-          expand: true,
-          cwd: 'build/images',
-          src: '{,*/,*/*/}*.{png,jpg,gif}',
-          dest: 'dist/public/images'
-        }]
-      }
-    },
-    svgmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: 'build/images',
-          src: '{,*/,*/*/}*.svg',
-          dest: 'dist/public/images'
-        }]
-      }
-    },
-
     // Prepare Angular files to be minified
     ngAnnotate: {
       build: {
@@ -329,7 +304,7 @@ module.exports = function(grunt) {
           cwd: 'app',
           dest: 'build',
           src: [
-            'images/{,*/}*.*'
+            'images/{,*/,*/*/}*'
           ]
         }]
       },
@@ -386,7 +361,7 @@ module.exports = function(grunt) {
           src: [
             '*.html',
             '*.webapp',
-            'images/*.ico',
+            'images/{,*/,*/*/}*.{ico,svg,png,gif,jpg}',
             'fonts/*.{ttf,otf,woff,eot,svg}'
           ]
         }, {
@@ -457,8 +432,6 @@ module.exports = function(grunt) {
     'bower:install',
     'build',
     'useminPrepare',
-    'imagemin',
-    'svgmin',
     'copy:dist',
     'concat',
     'cssmin',
