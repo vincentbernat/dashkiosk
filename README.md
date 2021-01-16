@@ -58,20 +58,22 @@ in the `gh-pages` branch of this repository. To update it:
 
 # Docker
 
-There is a `Dockerfile` to run *Dashkiosk* inside Docker. As of [06438d6](https://github.com/dersimn/dashkiosk/commit/06438d6613107de5f6069266a51098ece3c62e45) this will also work with Chromecast devices if your Docker host supports the `--net=host` option:
+There is a `Dockerfile` to run *Dashkiosk* inside Docker. This will
+also work with Chromecast devices if your Docker host supports the
+`--net=host` option:
 
     $ docker run --net=host \
                  -v /var/lib/dashkiosk/database:/database \
                  -e "chromecast__enabled=1" \
                  -e "chromecast__receiver=http://<DOCKER_HOST_IP>:8081/receiver" \
                  -e "port=8081" \
-                 vincentbernat/dashkiosk:latest
+                 ghcr.io/vincentbernat/dashkiosk:latest
 
 To start without Chromecast support, simply run:
 
     $ docker run -d -p 8080:8080 \
                  -v /var/lib/dashkiosk/database:/database \
-                 vincentbernat/dashkiosk:latest
+                 ghcr.io/vincentbernat/dashkiosk:latest
 
 Using `latest` can be broken from time to time. You may prefer a
-stable tag, like `2.6.1`.
+stable tag, like `2.7.9`.

@@ -9,7 +9,22 @@ which URL to display.
 Server and receiver
 -------------------
 
-To install it, you need to execute the following step:
+The simpler way to get *Dashkiosk* is to use the Docker image::
+
+    $ docker run -d -p 8080:8080 \
+                 -v /var/lib/dashkiosk/database:/database \
+                 ghcr.io/vincentbernat/dashkiosk:latest
+
+If you need Chromecast support, you need to use ``--net=host``::
+
+    $ docker run --net=host \
+                 -v /var/lib/dashkiosk/database:/database \
+                 -e "chromecast__enabled=1" \
+                 -e "chromecast__receiver=http://<DOCKER_HOST_IP>:8081/receiver" \
+                 -e "port=8081" \
+                 ghcr.io/vincentbernat/dashkiosk:latest
+
+Alternatively, you need to execute the following step:
 
   1. Grab the latest `tarball for Dashkiosk`_ from GitHub.
 
