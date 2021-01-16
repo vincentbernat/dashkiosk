@@ -33,11 +33,11 @@ A live installation, reset every hour, is publicly available:
  - `receiver`_
 
 You can also quickly pull a ready-to-use version with Docker (you may
-want to replace ``latest`` by a stable tag, like ``2.6.1``)::
+want to replace ``latest`` by a stable tag, like ``2.7.9``)::
 
     $ docker run -d -p 8080:8080 \
                  -v /var/lib/dashkiosk/database:/database \
-                 vincentbernat/dashkiosk:latest
+                 ghcr.io/vincentbernat/dashkiosk:latest
 
 Here is a demonstration video:
 
