@@ -76,4 +76,4 @@ To start without Chromecast support, simply run:
                  ghcr.io/vincentbernat/dashkiosk:latest
 
 Using `latest` can be broken from time to time. You may prefer a
-stable tag, like `2.7.9`.
+stable tag, like `2.7.9` or `2.7`.
