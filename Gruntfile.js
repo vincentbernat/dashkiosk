@@ -117,7 +117,8 @@ module.exports = function(grunt) {
     bower: {
       install: {
         options: {
-          copy: false
+          copy: false,
+          verbose: true
         }
       }
     },
