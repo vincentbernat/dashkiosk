@@ -7,19 +7,14 @@ Chromecast devices
 is enabled (see :ref:`options`), *Dashkiosk* will be able to discover
 Chromecast devices on the network.
 
-Warning
--------
-
-Due to the closedness of the Chromecast platform, its support in
-Dashkiosk may break from time to time. As soon as it doesn't work
-anymore, feel free to signal it in an `issue`_. If needed, it is
-possible to help debugging by registering a Chromecast device on the
-same account hosting the custom receiver.
-
-However, there is no guarantee that the issue is easy to fix and it
-may take some time. Therefore, you must be prepared for the dashboards
-to break at any time without prior warnings (the Chromecast are
-updating themselves without user consent).
+.. warning::
+   Due to the closedness of the Chromecast platform, its support in
+   Dashkiosk may break from time to time. The Chromecast devices are
+   updating themselves without user consent. Moreover, the resources
+   allocated to the web browsers are limited and it may be difficult
+   for them to display complex dashboards. Therefore, it is better to
+   rely on alternative solutions, like the Android app (which also has
+   some drawbacks) or the web receiver.
 
 Setup
 -----

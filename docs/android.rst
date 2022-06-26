@@ -11,13 +11,17 @@ application to display dashboards.
 .. warning::
    The web engine embedded inside the application is based on Chromium
    but is not up-to-date. Until this is resolved, it is therefore
-   safer to only display trusted data.
+   safer to only display trusted data. One of the main selling point
+   of this application is to have a decent web browser with hardware
+   acceleration. An obvious replacement would be to use a regular
+   browser.
+   
 
 Supported devices
 -----------------
 
 Currently, the minimal version of Android is 4.1 (Jelly
-Bean. *Dashkiosk* is using the `Crosswalk project`_ to provide an
+Bean). *Dashkiosk* is using the `Crosswalk project`_ to provide an
 up-to-date webview with support of recent technologies.
 
 There are a lot of Android devices that you can choose to run
