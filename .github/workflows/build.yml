@@ -9,13 +9,15 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
           - macos-latest
         node_version:
-          - 8
-          - 10
+          - 14
+          - 16
+          - 18
     name: Node ${{ matrix.node_version }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2

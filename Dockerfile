@@ -1,4 +1,4 @@
-FROM node:10-stretch AS builder
+FROM node:16-bullseye AS builder
 
 RUN npm install -g bower grunt-cli
 RUN apt-get -qq update && apt-get install -qqy libavahi-compat-libdnssd-dev
@@ -12,7 +12,7 @@ RUN grunt
 RUN cd dist && \
     npm install --production
 
-FROM node:10-stretch-slim
+FROM node:16-bullseye-slim
 
 RUN apt-get -qq update && apt-get install -qqy libavahi-compat-libdnssd1
 
