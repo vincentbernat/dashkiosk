@@ -35,6 +35,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     name: Build Docker images
+    if: false
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v2
