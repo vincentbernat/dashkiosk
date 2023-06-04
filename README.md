@@ -1,3 +1,8 @@
+⚠ **This project is unmaintained**. Due to the rapid decay of the JavaScript
+ecosystem, this project was too difficult for me to maintain. As of today,
+*Dashkiosk* relies mostly on unmaintained library versions that may not build on
+modern systems.
+
 # Dashkiosk
 
 ![Build Status](https://github.com/vincentbernat/dashkiosk/workflows/Build/badge.svg)
